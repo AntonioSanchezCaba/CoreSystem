@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | CoreSystem</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+    <div class="layout-dashboard">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h3 class="text-white fw-bold m-0">Core<span class="text-primary">Admin</span></h3>
+            </div>
+            <nav class="sidebar-content">
+                <small class="text-secondary uppercase text-xs fw-bold px-4 mb-2 mt-4 block">Principal</small>
+                <a href="#" class="sidebar-link active"><i class="ri-dashboard-line"></i> Dashboard</a>
+                <a href="#" class="sidebar-link"><i class="ri-user-line"></i> Usuarios</a>
+                <a href="#" class="sidebar-link"><i class="ri-shopping-bag-3-line"></i> Productos</a>
+                
+                <small class="text-secondary uppercase text-xs fw-bold px-4 mb-2 mt-4 block">Sistema</small>
+                <a href="#" class="sidebar-link"><i class="ri-settings-4-line"></i> Configuración</a>
+                <a href="#" class="sidebar-link"><i class="ri-shield-key-line"></i> Seguridad</a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="bg-white border-bottom flex justify-between items-center" style="height: var(--header-height); padding: 0 var(--space-6);">
+                <button class="btn btn-outline" data-toggle-sidebar><i class="ri-menu-fold-line"></i></button>
+                <div class="flex items-center gap-4">
+                    <button class="btn" onclick="window.CoreToast.show('Notificaciones actualizadas')"><i class="ri-notification-3-line"></i></button>
+                    <div class="flex items-center gap-2">
+                        <div style="width:32px; height:32px; background:var(--primary); border-radius:50%; color:white; display:flex; align-items:center; justify-content:center;">AD</div>
+                        <span class="text-sm fw-bold">Admin User</span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="container py-12">
+                <nav class="breadcrumb">
+                    <span class="breadcrumb-item">Admin</span>
+                    <span class="breadcrumb-item active">Dashboard</span>
+                </nav>
+
+                <div class="flex justify-between items-center mb-4">
+                    <h1 class="heading-2">Resumen General</h1>
+                    <button class="btn btn-primary"><i class="ri-download-cloud-line"></i> Exportar Reporte</button>
+                </div>
+
+                <div class="grid grid-4 gap-4 mb-4">
+                    <div class="card flex items-center gap-4">
+                        <div class="card-icon mb-0 bg-blue-100 text-primary"><i class="ri-wallet-3-line"></i></div>
+                        <div>
+                            <p class="text-sm text-secondary">Ingresos Totales</p>
+                            <h3 class="heading-3 m-0">$54,230</h3>
+                        </div>
+                    </div>
+                    <div class="card flex items-center gap-4">
+                        <div class="card-icon mb-0 bg-green-100 text-success"><i class="ri-user-add-line"></i></div>
+                        <div>
+                            <p class="text-sm text-secondary">Nuevos Usuarios</p>
+                            <h3 class="heading-3 m-0">1,240</h3>
+                        </div>
+                    </div>
+                    <div class="card flex items-center gap-4">
+                        <div class="card-icon mb-0 bg-yellow-100 text-warning"><i class="ri-shopping-cart-line"></i></div>
+                        <div>
+                            <p class="text-sm text-secondary">Ventas Hoy</p>
+                            <h3 class="heading-3 m-0">345</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3 class="heading-3 mb-4">Órdenes Recientes</h3>
+                    <div class="table-container">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>ID Orden</th>
+                                    <th>Cliente</th>
+                                    <th>Fecha</th>
+                                    <th>Estado</th>
+                                    <th>Total</th>
+                                    <th>Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>#ORD-001</td>
+                                    <td>Antonio Sánchez</td>
+                                    <td>17 Feb 2026</td>
+                                    <td><span class="badge" style="background:#d1fae5; color:#065f46;">Completado</span></td>
+                                    <td>$120.00</td>
+                                    <td><button class="btn btn-sm btn-outline">Ver</button></td>
+                                </tr>
+                                <tr>
+                                    <td>#ORD-002</td>
+                                    <td>Maria Garcia</td>
+                                    <td>16 Feb 2026</td>
+                                    <td><span class="badge" style="background:#fef3c7; color:#92400e;">Pendiente</span></td>
+                                    <td>$85.50</td>
+                                    <td><button class="btn btn-sm btn-outline">Ver</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
