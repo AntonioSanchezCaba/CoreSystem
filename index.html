@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Sistema Web Modular y Escalable - v1.0">
-    <title>CoreSystem | Arquitectura Frontend Escalable</title>
+    <meta name="description" content="CoreSystem - Framework y Arquitectura Web Modular">
+    <title>CoreSystem | Ecosistema de Desarrollo</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
 </head>
@@ -12,19 +12,19 @@
 
     <nav class="navbar">
         <div class="container flex justify-between">
-            <a href="#" class="heading-3 fw-bold text-primary">Core<span style="color:var(--accent)">System</span></a>
+            <a href="index.html" class="heading-3 fw-bold text-primary">Core<span style="color:var(--accent)">System</span></a>
             
             <div class="nav-toggle">
                 <i class="ri-menu-line"></i>
             </div>
 
             <ul class="nav-menu items-center">
-                <li><a href="#features" class="text-sm fw-bold">Características</a></li>
-                <li><a href="#components" class="text-sm fw-bold">Componentes</a></li>
-                <li><a href="#dashboard" class="text-sm fw-bold">Dashboard</a></li>
+                <li><a href="#demos" class="text-sm fw-bold">Plantillas</a></li>
+                <li><a href="#ui-kit" class="text-sm fw-bold">UI Kit</a></li>
+                <li><a href="#docs" class="text-sm fw-bold">Documentación</a></li>
                 <li>
-                    <button class="btn btn-primary" data-modal-open="modal-contact">
-                        Empezar Proyecto
+                    <button class="btn btn-primary btn-sm" onclick="window.CoreToast.show('Descarga iniciada (demo)')">
+                        <i class="ri-download-line"></i> Descargar v1.0
                     </button>
                 </li>
             </ul>
@@ -33,180 +33,204 @@
 
     <main style="padding-top: var(--header-height);">
         
-        <section class="py-12 bg-light">
-            <div class="container grid grid-2 items-center gap-4">
-                <div class="hero-content reveal">
-                    <span class="badge mb-4">v1.0 Production Ready</span>
-                    <h1 class="display-1">Construye Webs <br><span class="text-primary">Escalables</span></h1>
-                    <p class="text-lead mb-4">
-                        Un sistema de arquitectura frontend modular, sin dependencias pesadas. 
-                        Diseñado para ingenieros y arquitectos web.
-                    </p>
-                    <div class="flex gap-2">
-                        <button class="btn btn-primary" data-modal-open="modal-contact">Descargar Core</button>
-                        <button class="btn btn-outline">Ver Documentación</button>
-                    </div>
-                </div>
-                <div class="hero-visual reveal">
-                    <div style="background: var(--surface); height: 400px; border-radius: var(--radius-lg); border: 1px solid var(--border); position: relative; overflow: hidden; box-shadow: var(--shadow-lg);">
-                        <div style="padding: 20px; border-bottom: 1px solid var(--border); display:flex; gap: 8px;">
-                            <div style="width:12px; height:12px; border-radius:50%; background:#ef4444;"></div>
-                            <div style="width:12px; height:12px; border-radius:50%; background:#f59e0b;"></div>
-                            <div style="width:12px; height:12px; border-radius:50%; background:#10b981;"></div>
-                        </div>
-                        <div style="padding: 40px; text-align:center; color: var(--border);">
-                            <i class="ri-code-s-slash-line" style="font-size: 5rem;"></i>
-                            <p>Clean Architecture Visualizer</p>
-                        </div>
-                    </div>
+        <section class="py-12 bg-light border-bottom">
+            <div class="container text-center reveal">
+                <span class="badge mb-4">Arquitectura Frontend Vanilla</span>
+                <h1 class="display-1 mb-4">Tu Ecosistema Web <br><span class="text-primary">Listo para Producción</span></h1>
+                <p class="text-lead mb-8" style="max-width: 700px; margin-left: auto; margin-right: auto;">
+                    Un conjunto de layouts profesionales, componentes atómicos y utilidades CSS. 
+                    Sin dependencias, sin build steps complejos. Copia, pega y escala.
+                </p>
+                <div class="flex gap-2 justify-center">
+                    <a href="#demos" class="btn btn-primary">Ver Plantillas</a>
+                    <button class="btn btn-outline" data-modal-open="modal-info">¿Cómo funciona?</button>
                 </div>
             </div>
         </section>
 
-        <section id="features" class="py-12 bg-white">
+        <section id="demos" class="py-12 bg-white">
             <div class="container">
-                <div class="text-center mb-4 reveal">
-                    <h2 class="heading-2">Módulos del Sistema</h2>
-                    <p class="text-lead">Todo lo que necesitas para escalar tu aplicación.</p>
+                <div class="text-center mb-8 reveal">
+                    <h2 class="heading-2">Estructuras Incluidas</h2>
+                    <p class="text-secondary">Páginas completas listas para usar. Haz clic para ver la demo en vivo.</p>
                 </div>
-                
-                <div class="grid grid-3 gap-4">
-                    <article class="card reveal">
-                        <div class="card-icon"><i class="ri-layout-masonry-line" style="font-size: 1.5rem;"></i></div>
-                        <h3 class="heading-3">Grid Inteligente</h3>
-                        <p class="text-secondary text-sm">Sistema de grillas CSS nativas que se adaptan automáticamente sin necesidad de media queries complejas.</p>
-                    </article>
-                    <article class="card reveal">
-                        <div class="card-icon"><i class="ri-palette-line" style="font-size: 1.5rem;"></i></div>
-                        <h3 class="heading-3">Diseño Atómico</h3>
-                        <p class="text-secondary text-sm">Componentes separados en átomos, moléculas y organismos para máxima reutilización.</p>
-                    </article>
-                    <article class="card reveal">
-                        <div class="card-icon"><i class="ri-speed-line" style="font-size: 1.5rem;"></i></div>
-                        <h3 class="heading-3">Performance Pura</h3>
-                        <p class="text-secondary text-sm">Sin jQuery, sin Bootstrap. Solo Vanilla JS y CSS optimizado para cargar en milisegundos.</p>
-                    </article>
-                </div>
-            </div>
-        </section>
 
-        <section id="components" class="py-12 bg-light">
-            <div class="container">
-                <div class="grid grid-2 gap-4 items-center">
-                    <div class="reveal">
-                        <h2 class="heading-2">Gestión de Contenido</h2>
-                        <p class="mb-4">Ejemplo de sistema de pestañas reutilizable sin librerías externas.</p>
-                        
-                        <div class="tabs-container">
-                            <div class="tabs-header">
-                                <button class="tab-btn active" data-tab-target="#tab-html">HTML5</button>
-                                <button class="tab-btn" data-tab-target="#tab-css">CSS3</button>
-                                <button class="tab-btn" data-tab-target="#tab-js">JavaScript</button>
+                <div class="grid grid-2 gap-4">
+                    
+                    <article class="card reveal hover-up">
+                        <div style="height: 200px; background: var(--accent); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; margin-bottom: var(--space-4); position: relative; overflow: hidden;">
+                            <div style="position: absolute; left: 0; top: 0; bottom: 0; width: 60px; background: rgba(255,255,255,0.1);"></div>
+                            <div style="position: absolute; left: 70px; top: 20px; right: 20px; height: 40px; background: rgba(255,255,255,0.05); border-radius: 4px;"></div>
+                            <div style="position: absolute; left: 70px; top: 70px; width: 100px; height: 80px; background: var(--primary); border-radius: 4px; opacity: 0.8;"></div>
+                            <i class="ri-dashboard-3-line" style="font-size: 3rem; color: rgba(255,255,255,0.2); position: relative; z-index: 2;"></i>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <h3 class="heading-3 mb-1">Admin Dashboard</h3>
+                                <p class="text-sm text-secondary">Sidebar colapsable, tablas y gráficas.</p>
                             </div>
-                            <div class="tabs-body">
-                                <div id="tab-html" class="tab-content active">
-                                    <div class="card">
-                                        <h4 class="text-primary">Estructura Semántica</h4>
-                                        <p class="text-sm mt-2">Utilizamos etiquetas semánticas modernas para asegurar SEO y Accesibilidad (A11Y) desde el primer día.</p>
-                                    </div>
-                                </div>
-                                <div id="tab-css" class="tab-content">
-                                    <div class="card">
-                                        <h4 class="text-primary">Variables CSS</h4>
-                                        <p class="text-sm mt-2">Un sistema centralizado en :root permite cambiar el tema de toda la aplicación modificando solo 5 líneas de código.</p>
-                                    </div>
-                                </div>
-                                <div id="tab-js" class="tab-content">
-                                    <div class="card">
-                                        <h4 class="text-primary">ES6 Modules</h4>
-                                        <p class="text-sm mt-2">Lógica encapsulada para evitar colisiones de variables globales. Escalable y fácil de mantener.</p>
-                                    </div>
-                                </div>
+                            <a href="dashboard.html" class="btn btn-outline btn-sm">Ver Demo <i class="ri-arrow-right-line"></i></a>
+                        </div>
+                    </article>
+
+                    <article class="card reveal hover-up">
+                        <div style="height: 200px; background: var(--background); border: 1px solid var(--border); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; margin-bottom: var(--space-4);">
+                            <i class="ri-article-line" style="font-size: 3rem; color: var(--secondary); opacity: 0.3;"></i>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <h3 class="heading-3 mb-1">Blog Standard</h3>
+                                <p class="text-sm text-secondary">Layout de lectura con Sidebar y Grid.</p>
+                            </div>
+                            <a href="blog-standard.html" class="btn btn-outline btn-sm">Ver Demo <i class="ri-arrow-right-line"></i></a>
+                        </div>
+                    </article>
+
+                    <article class="card reveal hover-up">
+                        <div style="height: 200px; background: linear-gradient(135deg, var(--primary-light) 0%, var(--background) 100%); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; margin-bottom: var(--space-4);">
+                            <div class="flex gap-2">
+                                <div style="width: 40px; height: 60px; background: white; border-radius: 4px; opacity: 0.5;"></div>
+                                <div style="width: 40px; height: 80px; background: var(--primary); border-radius: 4px; box-shadow: var(--shadow-lg);"></div>
+                                <div style="width: 40px; height: 60px; background: white; border-radius: 4px; opacity: 0.5;"></div>
                             </div>
                         </div>
-                    </div>
-                    <div class="reveal">
-                        <img src="https://placehold.co/600x400/e2e8f0/475569?text=Interactive+Demo" alt="Demo" style="border-radius: var(--radius-lg);">
-                    </div>
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <h3 class="heading-3 mb-1">Precios & FAQ</h3>
+                                <p class="text-sm text-secondary">Tablas de precios y acordeones.</p>
+                            </div>
+                            <a href="pricing-faq.html" class="btn btn-outline btn-sm">Ver Demo <i class="ri-arrow-right-line"></i></a>
+                        </div>
+                    </article>
+
+                    <article class="card reveal hover-up">
+                        <div style="height: 200px; background: var(--accent); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; margin-bottom: var(--space-4);">
+                            <div style="width: 120px; height: 140px; background: white; border-radius: 8px; display: flex; flex-direction: column; gap: 10px; padding: 15px; justify-content: center;">
+                                <div style="height: 8px; background: var(--border); border-radius: 2px;"></div>
+                                <div style="height: 8px; background: var(--border); border-radius: 2px;"></div>
+                                <div style="height: 20px; background: var(--primary); border-radius: 4px; margin-top: 10px;"></div>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <h3 class="heading-3 mb-1">Autenticación</h3>
+                                <p class="text-sm text-secondary">Pantalla de Login / Registro centrada.</p>
+                            </div>
+                            <a href="login.html" class="btn btn-outline btn-sm">Ver Demo <i class="ri-arrow-right-line"></i></a>
+                        </div>
+                    </article>
+
                 </div>
             </div>
         </section>
 
-        <section id="dashboard" class="py-12" style="background: #0f172a; color: white;">
-            <div class="container reveal">
-                <div class="flex justify-between items-center mb-4">
+        <section id="ui-kit" class="py-12 bg-light border-top">
+            <div class="container">
+                <div class="flex justify-between items-end mb-8 reveal">
                     <div>
-                        <h2 style="color:white;">Panel Administrativo</h2>
-                        <p style="color: #94a3b8;">Ejemplo de layout complejo anidado.</p>
+                        <h2 class="heading-2">UI Kit & Componentes</h2>
+                        <p class="text-secondary">Bloques de construcción atómicos listos para copiar.</p>
                     </div>
-                    <button class="btn btn-primary">Ver Demo Live</button>
                 </div>
 
-                <div style="display: grid; grid-template-columns: 250px 1fr; gap: 20px; height: 400px; border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius-lg); overflow: hidden;">
-                    <div style="background: rgba(255,255,255,0.05); padding: 20px;">
-                        <div style="height: 10px; width: 60%; background: rgba(255,255,255,0.2); margin-bottom: 30px; border-radius: 4px;"></div>
-                        <div style="height: 10px; width: 80%; background: rgba(255,255,255,0.1); margin-bottom: 15px; border-radius: 4px;"></div>
-                        <div style="height: 10px; width: 80%; background: rgba(255,255,255,0.1); margin-bottom: 15px; border-radius: 4px;"></div>
-                        <div style="height: 10px; width: 80%; background: rgba(255,255,255,0.1); margin-bottom: 15px; border-radius: 4px;"></div>
-                    </div>
-                    <div style="padding: 20px; overflow: hidden;">
-                        <div class="grid grid-3 gap-4">
-                            <div style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 8px;">
-                                <small style="color: #94a3b8;">Usuarios</small>
-                                <div style="font-size: 1.5rem; font-weight: bold;">12.5K</div>
-                            </div>
-                            <div style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 8px;">
-                                <small style="color: #94a3b8;">Ingresos</small>
-                                <div style="font-size: 1.5rem; font-weight: bold;">$45K</div>
-                            </div>
-                            <div style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 8px;">
-                                <small style="color: #94a3b8;">Bounce Rate</small>
-                                <div style="font-size: 1.5rem; font-weight: bold;">2.4%</div>
+                <div class="grid grid-3 gap-6">
+                    
+                    <div class="card reveal">
+                        <h4 class="text-sm uppercase fw-bold text-secondary mb-4">Botones</h4>
+                        <div class="flex flex-col gap-2">
+                            <button class="btn btn-primary">Primary Button</button>
+                            <button class="btn btn-outline">Outline Button</button>
+                            <button class="btn btn-primary btn-full">Full Width</button>
+                            <div class="flex gap-2 mt-2">
+                                <button class="btn btn-primary" style="padding: 0.5rem;"><i class="ri-add-line"></i></button>
+                                <button class="btn btn-outline" style="padding: 0.5rem;"><i class="ri-settings-line"></i></button>
                             </div>
                         </div>
-                        <div style="margin-top: 20px; background: rgba(255,255,255,0.05); height: 200px; border-radius: 8px;"></div>
                     </div>
+
+                    <div class="card reveal">
+                        <h4 class="text-sm uppercase fw-bold text-secondary mb-4">Feedback</h4>
+                        <div class="alert alert-success mb-2">
+                            <i class="ri-check-line"></i> Operación exitosa
+                        </div>
+                        <div class="alert alert-warning mb-2">
+                            <i class="ri-alert-line"></i> Atención requerida
+                        </div>
+                        <div class="alert alert-info mb-4">
+                            <i class="ri-information-line"></i> Nueva versión disponible
+                        </div>
+                        <div class="flex gap-2">
+                            <span class="badge" style="background:var(--primary-light); color:var(--primary);">Nuevo</span>
+                            <span class="badge" style="background:#d1fae5; color:#065f46;">Activo</span>
+                            <span class="badge" style="background:#fef3c7; color:#92400e;">Beta</span>
+                        </div>
+                    </div>
+
+                    <div class="card reveal">
+                        <h4 class="text-sm uppercase fw-bold text-secondary mb-4">Inputs</h4>
+                        <form onsubmit="event.preventDefault(); window.CoreToast.show('Formulario de prueba enviado');">
+                            <div class="form-group">
+                                <label class="form-label">Nombre</label>
+                                <input type="text" class="form-input" placeholder="Tu nombre...">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Opción</label>
+                                <select class="form-input">
+                                    <option>Seleccionar opción...</option>
+                                    <option>Opción A</option>
+                                    <option>Opción B</option>
+                                </select>
+                            </div>
+                            <button class="btn btn-outline btn-full btn-sm">Probar Submit</button>
+                        </form>
+                    </div>
+
                 </div>
+            </div>
+        </section>
+
+        <section id="docs" class="py-12 bg-accent text-white">
+            <div class="container text-center reveal">
+                <h2 class="heading-2" style="color:white;">¿Listo para construir?</h2>
+                <p class="text-lead mb-8" style="color: rgba(255,255,255,0.7);">
+                    Utiliza este sistema como base para tus proyectos freelance o corporativos.
+                </p>
+                <button class="btn btn-primary btn-lg" onclick="window.scrollTo(0,0)">Volver arriba</button>
             </div>
         </section>
 
     </main>
 
-    <footer class="py-12 bg-white border-top" style="border-top: 1px solid var(--border);">
+    <footer class="py-12 bg-white border-top">
         <div class="container text-center">
             <h4 class="heading-3">CoreSystem</h4>
-            <p class="text-sm text-secondary mt-2">&copy; 2024 Arquitectura Frontend Modular. Todos los derechos reservados.</p>
+            <p class="text-sm text-secondary mt-2">&copy; 2026 Arquitectura Frontend Modular.</p>
+            <div class="flex justify-center gap-4 mt-4">
+                <a href="#" class="text-secondary hover:text-primary"><i class="ri-github-fill" style="font-size: 1.5rem;"></i></a>
+                <a href="#" class="text-secondary hover:text-primary"><i class="ri-twitter-fill" style="font-size: 1.5rem;"></i></a>
+            </div>
         </div>
     </footer>
 
-    <div class="modal-overlay" id="modal-contact">
+    <div class="modal-overlay" id="modal-info">
         <div class="modal-window">
             <div class="flex justify-between items-center mb-4">
-                <h3 class="heading-3">Contactar Soporte</h3>
+                <h3 class="heading-3">Sobre CoreSystem</h3>
                 <button class="btn btn-outline" style="padding: 5px 10px;" data-modal-close>&times;</button>
             </div>
-            <form>
-                <div class="form-group">
-                    <label class="form-label">Email Corporativo</label>
-                    <input type="email" class="form-input" placeholder="nombre@empresa.com">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Tipo de Proyecto</label>
-                    <div style="position: relative;">
-                        <select class="form-input">
-                            <option>E-commerce Scalable</option>
-                            <option>Dashboard Admin</option>
-                            <option>Landing Page</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="flex gap-2 justify-between mt-8">
-                    <button type="button" class="btn btn-outline" data-modal-close>Cancelar</button>
-                    <button type="submit" class="btn btn-primary">Enviar Solicitud</button>
-                </div>
-            </form>
+            <p class="text-secondary mb-4">
+                Este sistema utiliza una arquitectura <strong>ITCSS</strong> para los estilos y el patrón de <strong>Módulos ES6</strong> para JavaScript.
+            </p>
+            <ul class="list-disc pl-4 text-sm text-secondary mb-6 space-y-2">
+                <li>Sin dependencias (No Node_modules)</li>
+                <li>100% Responsive</li>
+                <li>Accesible y Semántico</li>
+            </ul>
+            <button class="btn btn-primary btn-full" data-modal-close>Entendido</button>
         </div>
     </div>
+
+    <div id="toast-container" class="toast-container"></div>
 
     <script src="script.js"></script>
 </body>
