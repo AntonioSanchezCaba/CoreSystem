@@ -247,3 +247,75 @@ h1, h2, h3, h4 { color: var(--accent); font-weight: 700; line-height: 1.2; margi
 @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
 .reveal.active { opacity: 1; transform: translateY(0); }
+
+/* =========================================
+   8. COMPONENTS II (Expansion Pack)
+   ========================================= */
+
+/* Sidebar System (Para Dashboards) */
+.layout-dashboard { display: flex; min-height: 100vh; }
+.sidebar {
+    width: 260px; background: var(--accent); color: var(--surface);
+    position: fixed; top: 0; bottom: 0; left: 0; z-index: 900;
+    transition: transform 0.3s ease; display: flex; flex-direction: column;
+}
+.sidebar-header { height: var(--header-height); display: flex; align-items: center; padding: 0 var(--space-6); border-bottom: 1px solid rgba(255,255,255,0.1); }
+.sidebar-content { flex: 1; padding: var(--space-4); overflow-y: auto; }
+.sidebar-link {
+    display: flex; align-items: center; gap: var(--space-3);
+    padding: var(--space-3) var(--space-4); color: var(--secondary);
+    border-radius: var(--radius-md); transition: var(--transition);
+    color: rgba(255,255,255,0.7); margin-bottom: var(--space-1);
+}
+.sidebar-link:hover, .sidebar-link.active { background: var(--primary); color: var(--surface); }
+.main-content { flex: 1; margin-left: 260px; width: calc(100% - 260px); transition: margin 0.3s ease, width 0.3s ease; }
+
+/* Responsive Sidebar */
+@media (max-width: 992px) {
+    .sidebar { transform: translateX(-100%); }
+    .sidebar.open { transform: translateX(0); }
+    .main-content { margin-left: 0; width: 100%; }
+}
+
+/* Data Tables */
+.table-container { overflow-x: auto; border: 1px solid var(--border); border-radius: var(--radius-md); }
+.table { width: 100%; border-collapse: collapse; text-align: left; }
+.table th, .table td { padding: var(--space-4); border-bottom: 1px solid var(--border); }
+.table th { background: var(--background); font-weight: 600; color: var(--secondary); font-size: var(--text-xs); text-transform: uppercase; letter-spacing: 0.05em; }
+.table tr:last-child td { border-bottom: none; }
+.table tr:hover { background: var(--background); }
+
+/* Alerts */
+.alert { padding: var(--space-4); border-radius: var(--radius-md); border-left: 4px solid; margin-bottom: var(--space-4); display: flex; gap: var(--space-3); }
+.alert-info { background: var(--primary-light); color: var(--primary-dark); border-color: var(--primary); }
+.alert-success { background: #d1fae5; color: #065f46; border-color: var(--success); }
+.alert-warning { background: #fef3c7; color: #92400e; border-color: var(--warning); }
+
+/* Accordions */
+.accordion { border: 1px solid var(--border); border-radius: var(--radius-md); overflow: hidden; }
+.accordion-item { border-bottom: 1px solid var(--border); }
+.accordion-item:last-child { border-bottom: none; }
+.accordion-header {
+    width: 100%; padding: var(--space-4); text-align: left; background: var(--surface);
+    font-weight: 600; display: flex; justify-content: space-between; align-items: center; cursor: pointer;
+}
+.accordion-body {
+    max-height: 0; overflow: hidden; transition: max-height 0.3s ease; background: var(--background); padding: 0 var(--space-4);
+}
+.accordion-item.active .accordion-body { padding: var(--space-4); max-height: 500px; /* Valor arbitrario alto */ }
+.accordion-item.active .icon { transform: rotate(180deg); }
+
+/* Breadcrumbs */
+.breadcrumb { display: flex; gap: var(--space-2); font-size: var(--text-sm); color: var(--secondary); margin-bottom: var(--space-6); }
+.breadcrumb-item::after { content: '/'; margin-left: var(--space-2); opacity: 0.5; }
+.breadcrumb-item:last-child::after { content: ''; }
+.breadcrumb-item.active { color: var(--primary); font-weight: 600; }
+
+/* Toast Notifications */
+.toast-container { position: fixed; bottom: var(--space-4); right: var(--space-4); z-index: 2000; display: flex; flex-direction: column; gap: var(--space-2); }
+.toast {
+    background: var(--accent); color: var(--surface); padding: var(--space-3) var(--space-6);
+    border-radius: var(--radius-md); box-shadow: var(--shadow-lg);
+    animation: slideIn 0.3s ease forwards; display: flex; align-items: center; gap: var(--space-3);
+}
+@keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
