@@ -140,6 +140,95 @@ const CoreSystem = (() => {
             reveals.forEach(el => observer.observe(el));
         }
     };
+    
+    /**
+     * Módulo 5: Accordion Manager
+     */
+    const Accordion = {
+        init() {
+            const headers = document.querySelectorAll('.accordion-header');
+            headers.forEach(header => {
+                header.addEventListener('click', () => {
+                    const item = header.parentElement;
+                    const isActive = item.classList.contains(Config.activeClass);
+                    
+                    // Opcional: Cerrar otros (Accordion behavior)
+                    // header.closest('.accordion').querySelectorAll('.accordion-item').forEach(i => i.classList.remove(Config.activeClass));
+                    
+                    if (!isActive) {
+                        item.classList.add(Config.activeClass);
+                    } else {
+                        item.classList.remove(Config.activeClass);
+                    }
+                });
+            });
+        }
+    };
+
+    /**
+     * Módulo 6: Sidebar Manager
+     */
+    const Sidebar = {
+        init() {
+            const triggers = document.querySelectorAll('[data-toggle-sidebar]');
+            const sidebar = document.querySelector('.sidebar');
+            
+            if(!sidebar) return;
+
+            triggers.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    sidebar.classList.toggle(Config.openClass);
+                });
+            });
+        }
+    };
+
+    /**
+     * Módulo 7: Toast Notifications
+     */
+    const Toast = {
+        show(message, type = 'info') {
+            let container = document.getElementById('toast-container');
+            if (!container) {
+                container = document.createElement('div');
+                container.id = 'toast-container';
+                container.className = 'toast-container';
+                document.body.appendChild(container);
+            }
+
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            toast.innerHTML = `<span>${message}</span>`;
+            
+            container.appendChild(toast);
+
+            // Remover después de 3s
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+    };
+
+    // --- ACTUALIZA EL INITIALIZER ---
+    // En el return { init: ... } asegúrate de agregar las nuevas llamadas:
+    /*
+    return {
+        init: () => {
+            Navigation.init();
+            Tabs.init();
+            Modal.init();
+            ScrollReveal.init();
+            Accordion.init(); // NUEVO
+            Sidebar.init();   // NUEVO
+            
+            // Exponer Toast globalmente para uso en botones
+            window.CoreToast = Toast; 
+            
+            console.log('✅ CoreSystem: Full Loaded.');
+        }
+    };
+    */
 
     // Inicializador Público
     return {
