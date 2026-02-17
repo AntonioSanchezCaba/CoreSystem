@@ -276,6 +276,17 @@ h1, h2, h3, h4 { color: var(--accent); font-weight: 700; line-height: 1.2; margi
     .sidebar.open { transform: translateX(0); }
     .main-content { margin-left: 0; width: 100%; }
 }
+/* Overlay para el Sidebar en Móvil */
+.sidebar-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(2px);
+    z-index: 899; /* Justo debajo del sidebar (z-900) */
+    opacity: 0; visibility: hidden; transition: all 0.3s;
+}
+
+.sidebar.open + .sidebar-overlay { /* Lógica: Si sidebar tiene clase open, activar overlay hermano */
+    opacity: 1; visibility: visible;
+}
 
 /* Data Tables */
 .table-container { overflow-x: auto; border: 1px solid var(--border); border-radius: var(--radius-md); }
