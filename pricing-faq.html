@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Precios | CoreSystem</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    
+    <nav class="navbar">
+        <div class="container flex justify-center">
+            <a href="index.html" class="heading-3 fw-bold text-primary">CoreSystem</a>
+        </div>
+    </nav>
+
+    <main class="py-12 mt-8">
+        <div class="container text-center mb-12">
+            <h1 class="display-1">Planes Simples</h1>
+            <p class="text-lead">Elige la estructura que mejor se adapte a ti.</p>
+        </div>
+
+        <div class="container">
+            <div class="grid grid-3 gap-4 mb-12">
+                <div class="card text-center" style="border-top: 4px solid var(--secondary);">
+                    <h3 class="heading-3 mt-4">Starter</h3>
+                    <div class="text-3xl fw-bold my-4">$0</div>
+                    <ul class="mb-8 text-secondary text-sm space-y-2">
+                        <li class="mb-2">5 Proyectos</li>
+                        <li class="mb-2">Componentes Básicos</li>
+                        <li class="mb-2 text-disabled" style="opacity:0.5;">Sin Soporte</li>
+                    </ul>
+                    <button class="btn btn-outline btn-full">Comenzar Gratis</button>
+                </div>
+
+                <div class="card text-center relative" style="border: 2px solid var(--primary); transform: scale(1.05); z-index: 10;">
+                    <span class="badge absolute top-0" style="top:-12px; left:50%; transform:translateX(-50%); background:var(--primary); color:white;">Recomendado</span>
+                    <h3 class="heading-3 mt-4 text-primary">Professional</h3>
+                    <div class="text-3xl fw-bold my-4">$29</div>
+                    <ul class="mb-8 text-secondary text-sm">
+                        <li class="mb-2 fw-bold">Proyectos Ilimitados</li>
+                        <li class="mb-2">Todos los Componentes</li>
+                        <li class="mb-2">Acceso al Repo Privado</li>
+                        <li class="mb-2">Soporte Prioritario</li>
+                    </ul>
+                    <button class="btn btn-primary btn-full shadow-lg">Obtener Licencia</button>
+                </div>
+
+                <div class="card text-center" style="border-top: 4px solid var(--accent);">
+                    <h3 class="heading-3 mt-4">Enterprise</h3>
+                    <div class="text-3xl fw-bold my-4">Custom</div>
+                    <ul class="mb-8 text-secondary text-sm">
+                        <li class="mb-2">Infraestructura Dedicada</li>
+                        <li class="mb-2">Auditoría de Código</li>
+                        <li class="mb-2">SLA 99.9%</li>
+                    </ul>
+                    <button class="btn btn-outline btn-full">Contactar Ventas</button>
+                </div>
+            </div>
+
+            <div class="container" style="max-width: 800px;">
+                <h2 class="heading-2 text-center mb-8">Preguntas Frecuentes</h2>
+                <div class="accordion">
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            ¿Puedo usar esto en proyectos comerciales?
+                            <i class="ri-arrow-down-s-line icon"></i>
+                        </div>
+                        <div class="accordion-body">
+                            <p class="py-4">Sí, CoreSystem es 100% libre de regalías para proyectos personales y comerciales.</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            ¿Incluye archivos de diseño Figma?
+                            <i class="ri-arrow-down-s-line icon"></i>
+                        </div>
+                        <div class="accordion-body">
+                            <p class="py-4">Actualmente estamos trabajando en el kit UI oficial para Figma.</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            ¿Necesito saber React o Vue?
+                            <i class="ri-arrow-down-s-line icon"></i>
+                        </div>
+                        <div class="accordion-body">
+                            <p class="py-4">No. CoreSystem es Vanilla JS puro. Sin embargo, su estructura modular facilita la migración a cualquier framework.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
