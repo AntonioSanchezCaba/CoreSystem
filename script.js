@@ -230,14 +230,23 @@ const CoreSystem = (() => {
     };
     */
 
-    // Inicializador Público
+    // --- CORRECCIÓN EN EL INITIALIZER ---
     return {
         init: () => {
+            // Inicializar módulos base
             Navigation.init();
             Tabs.init();
             Modal.init();
             ScrollReveal.init();
-            console.log('✅ CoreSystem: Inicializado para producción.');
+            
+            // Inicializar módulos de la expansión (ESTO FALTABA)
+            Accordion.init();
+            Sidebar.init();
+            
+            // Exponer Toast globalmente para usarlo en el HTML (onclick="...")
+            window.CoreToast = Toast; 
+            
+            console.log('✅ CoreSystem: Sistema Completo Inicializado.');
         }
     };
 })();
