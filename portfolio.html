@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portfolio — Diseñador & Desarrollador Fullstack">
+    <title>Portfolio | CoreSystem</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="container flex justify-between items-center">
+        <a href="index.html" class="nav-brand">Alex<span class="text-primary">.</span>dev</a>
+        <button class="nav-toggle" aria-label="Abrir menú" aria-expanded="false"><i class="ri-menu-line"></i></button>
+        <ul class="nav-menu">
+            <li><a href="#about"    class="nav-link">Sobre mí</a></li>
+            <li><a href="#work"     class="nav-link">Trabajos</a></li>
+            <li><a href="#skills"   class="nav-link">Skills</a></li>
+            <li><a href="#contact"  class="nav-link">Contacto</a></li>
+            <li><a href="#" class="btn btn-primary btn-sm" onclick="CoreSystem.toast('CV descargado ✓', 'success')"><i class="ri-download-line"></i> Descargar CV</a></li>
+        </ul>
+    </div>
+</nav>
+
+<main style="padding-top:var(--header-height);">
+
+    <!-- HERO -->
+    <section id="about" class="hero hero-split">
+        <div class="container hero-split">
+            <!-- Text -->
+            <div class="reveal-left">
+                <p class="text-primary fw-semibold text-lg mb-3">Hola, soy</p>
+                <h1 class="display-1 mb-4">Alex García</h1>
+                <h2 class="heading-3 fw-normal text-secondary mb-6">
+                    Diseñador & Desarrollador <br><span class="text-primary fw-bold">Frontend Senior</span>
+                </h2>
+                <p class="text-lead mb-8">
+                    Creo productos digitales con un balance perfecto entre estética, rendimiento y experiencia de usuario. 5+ años construyendo para startups e innovación.
+                </p>
+                <div class="hero-actions">
+                    <a href="#work"    class="btn btn-primary btn-lg">Ver mi trabajo</a>
+                    <a href="#contact" class="btn btn-outline btn-lg">Contratarme</a>
+                </div>
+                <!-- Social links -->
+                <div class="flex gap-4 mt-8">
+                    <a href="#" class="btn btn-ghost btn-icon" data-tooltip="GitHub" aria-label="GitHub"><i class="ri-github-fill" style="font-size:1.25rem;"></i></a>
+                    <a href="#" class="btn btn-ghost btn-icon" data-tooltip="LinkedIn" aria-label="LinkedIn"><i class="ri-linkedin-fill" style="font-size:1.25rem;"></i></a>
+                    <a href="#" class="btn btn-ghost btn-icon" data-tooltip="Dribbble" aria-label="Dribbble"><i class="ri-dribbble-line" style="font-size:1.25rem;"></i></a>
+                    <a href="#" class="btn btn-ghost btn-icon" data-tooltip="Twitter" aria-label="Twitter"><i class="ri-twitter-fill" style="font-size:1.25rem;"></i></a>
+                </div>
+            </div>
+
+            <!-- Avatar -->
+            <div class="reveal-right text-center">
+                <div class="avatar-xl mx-auto mb-6 animate-float" style="width:220px;height:220px;font-size:5rem;border-radius:var(--radius-2xl);background:var(--primary-light);">
+                    <i class="ri-user-smile-line" style="color:var(--primary);font-size:6rem;"></i>
+                </div>
+                <!-- Status badge -->
+                <div class="card-elevated inline-flex items-center gap-2 py-2 px-4 rounded-full">
+                    <span class="animate-pulse" style="width:8px;height:8px;border-radius:50%;background:var(--success);display:inline-block;"></span>
+                    <span class="text-sm fw-semibold text-success">Disponible para proyectos</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STATS -->
+    <section class="section-sm bg-light border-top border-bottom">
+        <div class="container">
+            <div class="grid grid-4 gap-4">
+                <div class="text-center reveal delay-100">
+                    <p class="stat-value" data-count="5" data-suffix="+">0+</p>
+                    <p class="stat-label">Años de experiencia</p>
+                </div>
+                <div class="text-center reveal delay-200">
+                    <p class="stat-value" data-count="48" data-suffix="+">0+</p>
+                    <p class="stat-label">Proyectos entregados</p>
+                </div>
+                <div class="text-center reveal delay-300">
+                    <p class="stat-value" data-count="32">0</p>
+                    <p class="stat-label">Clientes satisfechos</p>
+                </div>
+                <div class="text-center reveal delay-400">
+                    <p class="stat-value" data-count="100" data-suffix="%">0%</p>
+                    <p class="stat-label">Tasa de satisfacción</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PORTFOLIO WORK -->
+    <section id="work" class="section">
+        <div class="container">
+            <div class="text-center mb-12 reveal">
+                <span class="badge badge-primary mb-4">Portfolio</span>
+                <h2 class="heading-2 mb-4">Proyectos seleccionados</h2>
+                <p class="text-lead">Una muestra de mi trabajo reciente</p>
+            </div>
+
+            <!-- Filter tabs -->
+            <div class="flex justify-center mb-8 reveal">
+                <div class="tabs-pills">
+                    <div class="tabs-header">
+                        <button class="tab-btn active" data-tab-target="#tab-all">Todos</button>
+                        <button class="tab-btn" data-tab-target="#tab-web">Web</button>
+                        <button class="tab-btn" data-tab-target="#tab-app">App</button>
+                        <button class="tab-btn" data-tab-target="#tab-design">Diseño</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- All projects -->
+            <div id="tab-all" class="tab-content active">
+                <div class="grid grid-3 gap-6">
+                    <!-- Project card 1 -->
+                    <article class="card hover-up reveal delay-100" style="padding:0;overflow:hidden;">
+                        <div style="height:220px;background:linear-gradient(135deg,#2563eb,#7c3aed);display:flex;align-items:center;justify-content:center;">
+                            <i class="ri-shopping-cart-line" style="font-size:4rem;color:rgba(255,255,255,0.3);"></i>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex gap-2 mb-3">
+                                <span class="badge badge-primary">React</span>
+                                <span class="badge badge-secondary">Node.js</span>
+                            </div>
+                            <h3 class="heading-4 mb-2">E-Commerce Platform</h3>
+                            <p class="text-sm text-secondary mb-4">Plataforma de comercio electrónico con panel admin, gestión de inventario y checkout integrado.</p>
+                            <div class="flex gap-2">
+                                <a href="#" class="btn btn-primary btn-sm"><i class="ri-external-link-line"></i> Live</a>
+                                <a href="#" class="btn btn-outline btn-sm"><i class="ri-github-line"></i> Código</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Project card 2 -->
+                    <article class="card hover-up reveal delay-200" style="padding:0;overflow:hidden;">
+                        <div style="height:220px;background:linear-gradient(135deg,#10b981,#0ea5e9);display:flex;align-items:center;justify-content:center;">
+                            <i class="ri-dashboard-3-line" style="font-size:4rem;color:rgba(255,255,255,0.3);"></i>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex gap-2 mb-3">
+                                <span class="badge badge-success">Vue.js</span>
+                                <span class="badge badge-secondary">Firebase</span>
+                            </div>
+                            <h3 class="heading-4 mb-2">Analytics Dashboard</h3>
+                            <p class="text-sm text-secondary mb-4">Dashboard de analytics en tiempo real con gráficas interactivas, filtros avanzados y exportación de datos.</p>
+                            <div class="flex gap-2">
+                                <a href="#" class="btn btn-primary btn-sm"><i class="ri-external-link-line"></i> Live</a>
+                                <a href="#" class="btn btn-outline btn-sm"><i class="ri-github-line"></i> Código</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Project card 3 -->
+                    <article class="card hover-up reveal delay-300" style="padding:0;overflow:hidden;">
+                        <div style="height:220px;background:linear-gradient(135deg,#f59e0b,#ef4444);display:flex;align-items:center;justify-content:center;">
+                            <i class="ri-smartphone-line" style="font-size:4rem;color:rgba(255,255,255,0.3);"></i>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex gap-2 mb-3">
+                                <span class="badge badge-warning">React Native</span>
+                                <span class="badge badge-secondary">TypeScript</span>
+                            </div>
+                            <h3 class="heading-4 mb-2">Fitness Tracker App</h3>
+                            <p class="text-sm text-secondary mb-4">Aplicación móvil de fitness con seguimiento de rutinas, nutrición y progreso semanal.</p>
+                            <div class="flex gap-2">
+                                <a href="#" class="btn btn-primary btn-sm"><i class="ri-external-link-line"></i> Live</a>
+                                <a href="#" class="btn btn-outline btn-sm"><i class="ri-github-line"></i> Código</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+
+            <div id="tab-web" class="tab-content">
+                <div class="card text-center py-12">
+                    <i class="ri-global-line" style="font-size:3rem;color:var(--text-muted);margin-bottom:1rem;display:block;"></i>
+                    <p class="text-secondary">Proyectos Web seleccionados — reutiliza las cards de arriba</p>
+                </div>
+            </div>
+            <div id="tab-app" class="tab-content">
+                <div class="card text-center py-12">
+                    <i class="ri-smartphone-line" style="font-size:3rem;color:var(--text-muted);margin-bottom:1rem;display:block;"></i>
+                    <p class="text-secondary">Proyectos App — reutiliza las cards de arriba</p>
+                </div>
+            </div>
+            <div id="tab-design" class="tab-content">
+                <div class="card text-center py-12">
+                    <i class="ri-palette-line" style="font-size:3rem;color:var(--text-muted);margin-bottom:1rem;display:block;"></i>
+                    <p class="text-secondary">Proyectos de Diseño — reutiliza las cards de arriba</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" class="section bg-light">
+        <div class="container">
+            <div class="text-center mb-12 reveal">
+                <span class="badge badge-secondary mb-4">Habilidades</span>
+                <h2 class="heading-2">Stack tecnológico</h2>
+            </div>
+            <div class="grid grid-2 gap-8">
+                <!-- Skills left -->
+                <div class="reveal-left space-y-4">
+                    <h3 class="heading-4 mb-4">Frontend</h3>
+                    <div>
+                        <div class="flex justify-between text-sm mb-2"><span class="fw-semibold">HTML / CSS / JS</span><span class="text-primary fw-bold">95%</span></div>
+                        <div class="progress"><div class="progress-bar" style="width:95%"></div></div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-sm mb-2"><span class="fw-semibold">React / Vue</span><span class="text-primary fw-bold">88%</span></div>
+                        <div class="progress"><div class="progress-bar" style="width:88%"></div></div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-sm mb-2"><span class="fw-semibold">TypeScript</span><span class="text-primary fw-bold">82%</span></div>
+                        <div class="progress"><div class="progress-bar" style="width:82%"></div></div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-sm mb-2"><span class="fw-semibold">Figma / UI Design</span><span class="text-primary fw-bold">90%</span></div>
+                        <div class="progress"><div class="progress-bar" style="width:90%"></div></div>
+                    </div>
+                </div>
+                <!-- Skills right -->
+                <div class="reveal-right space-y-4">
+                    <h3 class="heading-4 mb-4">Backend & Otros</h3>
+                    <div>
+                        <div class="flex justify-between text-sm mb-2"><span class="fw-semibold">Node.js / Express</span><span class="text-success fw-bold">78%</span></div>
+                        <div class="progress"><div class="progress-bar success" style="width:78%"></div></div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-sm mb-2"><span class="fw-semibold">PostgreSQL / MongoDB</span><span class="text-success fw-bold">72%</span></div>
+                        <div class="progress"><div class="progress-bar success" style="width:72%"></div></div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-sm mb-2"><span class="fw-semibold">Git / DevOps</span><span class="text-success fw-bold">85%</span></div>
+                        <div class="progress"><div class="progress-bar success" style="width:85%"></div></div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-sm mb-2"><span class="fw-semibold">Testing (Jest, Cypress)</span><span class="text-success fw-bold">70%</span></div>
+                        <div class="progress"><div class="progress-bar success" style="width:70%"></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT CTA -->
+    <section id="contact" class="section text-center bg-gradient-primary text-white">
+        <div class="container reveal">
+            <h2 class="display-2 text-white mb-4">¿Tienes un proyecto en mente?</h2>
+            <p class="text-lead mb-8" style="color:rgba(255,255,255,0.8);">Estoy disponible para freelance y posiciones full-time. Hablemos.</p>
+            <div class="hero-actions" style="justify-content:center;">
+                <a href="contact.html" class="btn btn-light btn-xl"><i class="ri-mail-send-line"></i> Escríbeme</a>
+                <a href="#" class="btn btn-xl" style="color:white;border-color:rgba(255,255,255,0.4);" onclick="CoreSystem.toast('CV descargando...', 'info')"><i class="ri-download-line"></i> Descargar CV</a>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<!-- FOOTER simple -->
+<footer class="py-8 bg-white border-top text-center">
+    <div class="container">
+        <p class="text-sm text-muted">
+            Diseñado y desarrollado con ♥ por <strong>Alex García</strong> usando CoreSystem Framework
+        </p>
+        <div class="flex justify-center gap-4 mt-4">
+            <a href="#" class="btn btn-ghost btn-icon btn-sm" aria-label="GitHub"><i class="ri-github-fill"></i></a>
+            <a href="#" class="btn btn-ghost btn-icon btn-sm" aria-label="LinkedIn"><i class="ri-linkedin-fill"></i></a>
+            <a href="#" class="btn btn-ghost btn-icon btn-sm" aria-label="Twitter"><i class="ri-twitter-fill"></i></a>
+        </div>
+    </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

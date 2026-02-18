@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CoreSystem Landing — Template de landing page con múltiples secciones">
+    <title>Landing Page | CoreSystem</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- =============================================
+     NAVBAR — Transparent que se vuelve sólida al scroll
+     ============================================= -->
+<nav class="navbar transparent" role="navigation" aria-label="Navegación principal">
+    <div class="container flex justify-between items-center">
+        <a href="index.html" class="nav-brand text-white">Core<span class="text-primary">System</span></a>
+
+        <button class="nav-toggle" aria-label="Abrir menú" aria-expanded="false">
+            <i class="ri-menu-line"></i>
+        </button>
+
+        <ul class="nav-menu" role="menubar">
+            <li role="none"><a href="#features" class="nav-link" role="menuitem">Características</a></li>
+            <li role="none"><a href="#how" class="nav-link" role="menuitem">Cómo funciona</a></li>
+            <li role="none"><a href="#pricing" class="nav-link" role="menuitem">Precios</a></li>
+            <li role="none"><a href="#contact" class="nav-link" role="menuitem">Contacto</a></li>
+            <li role="none"><a href="login.html" class="btn btn-primary btn-sm">Empezar gratis</a></li>
+        </ul>
+    </div>
+</nav>
+
+<main>
+
+    <!-- =============================================
+         HERO — Split con gradient background
+         ============================================= -->
+    <section class="bg-gradient-primary text-white" style="padding-top:calc(var(--header-height) + var(--space-20)); padding-bottom:var(--space-20);">
+        <div class="container hero-split">
+            <!-- Texto -->
+            <div class="reveal-left">
+                <div class="hero-badge" style="background:rgba(255,255,255,0.15);color:white;border-color:rgba(255,255,255,0.3);">
+                    <i class="ri-rocket-line"></i> Nuevo — v2.0 ya disponible
+                </div>
+                <h1 class="display-1 text-white mb-6">
+                    Lanza tu producto <br>más rápido que nunca
+                </h1>
+                <p class="text-lead mb-8" style="color:rgba(255,255,255,0.8);">
+                    La plataforma todo-en-uno que necesitas para escalar tu startup desde cero hasta miles de usuarios sin fricción técnica.
+                </p>
+                <div class="hero-actions">
+                    <a href="#" class="btn btn-light btn-lg">
+                        <i class="ri-rocket-line"></i> Comenzar gratis
+                    </a>
+                    <button class="btn btn-lg" style="color:white;border-color:rgba(255,255,255,0.4);" data-modal-open="modal-demo">
+                        <i class="ri-play-circle-line"></i> Ver demo
+                    </button>
+                </div>
+                <p class="text-sm mt-6" style="color:rgba(255,255,255,0.6);">
+                    Sin tarjeta de crédito · Cancela cuando quieras
+                </p>
+            </div>
+
+            <!-- Visual -->
+            <div class="reveal-right">
+                <div class="hero-visual animate-float" style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);min-height:400px;display:flex;align-items:center;justify-content:center;">
+                    <div style="text-align:center;color:rgba(255,255,255,0.4);">
+                        <i class="ri-computer-line" style="font-size:5rem;display:block;margin-bottom:1rem;"></i>
+                        <p class="text-sm">Reemplaza con tu screenshot de producto</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =============================================
+         LOGOS — Social proof
+         ============================================= -->
+    <section class="py-8 bg-white border-bottom">
+        <div class="container text-center">
+            <p class="text-xs uppercase tracking-wide text-muted fw-bold mb-6">Empresas que confían en nosotros</p>
+            <div class="flex items-center justify-center flex-wrap gap-8">
+                <div style="opacity:0.3;font-size:var(--text-xl);font-weight:800;color:var(--gray-700)">ACME Corp</div>
+                <div style="opacity:0.3;font-size:var(--text-xl);font-weight:800;color:var(--gray-700)">TechStart</div>
+                <div style="opacity:0.3;font-size:var(--text-xl);font-weight:800;color:var(--gray-700)">GrowthLab</div>
+                <div style="opacity:0.3;font-size:var(--text-xl);font-weight:800;color:var(--gray-700)">Scalify</div>
+                <div style="opacity:0.3;font-size:var(--text-xl);font-weight:800;color:var(--gray-700)">DataFlow</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =============================================
+         FEATURES — Grid de características
+         ============================================= -->
+    <section id="features" class="section bg-light">
+        <div class="container">
+            <div class="text-center mb-12 reveal">
+                <span class="badge badge-primary mb-4">Características</span>
+                <h2 class="heading-2 mb-4">Todo lo que necesitas en un solo lugar</h2>
+                <p class="text-lead mx-auto" style="max-width:560px;">
+                    Construido por ingenieros para ingenieros. Sin configuraciones complicadas.
+                </p>
+            </div>
+
+            <div class="grid grid-3 gap-6">
+                <div class="card reveal delay-100 hover-up">
+                    <div class="card-icon"><i class="ri-shield-check-line"></i></div>
+                    <h3 class="heading-4 mb-2">Seguridad Enterprise</h3>
+                    <p class="text-sm text-secondary">Encriptación end-to-end, autenticación 2FA y auditorías de seguridad incluidas.</p>
+                </div>
+                <div class="card reveal delay-200 hover-up">
+                    <div class="card-icon"><i class="ri-speed-line"></i></div>
+                    <h3 class="heading-4 mb-2">Ultra Rendimiento</h3>
+                    <p class="text-sm text-secondary">99.9% uptime garantizado y tiempos de respuesta menores a 50ms globalmente.</p>
+                </div>
+                <div class="card reveal delay-300 hover-up">
+                    <div class="card-icon"><i class="ri-bar-chart-box-line"></i></div>
+                    <h3 class="heading-4 mb-2">Analytics Avanzados</h3>
+                    <p class="text-sm text-secondary">Dashboards en tiempo real con reportes automáticos y exportación a CSV/PDF.</p>
+                </div>
+                <div class="card reveal delay-100 hover-up">
+                    <div class="card-icon" style="background:var(--success-light);color:var(--success);"><i class="ri-team-line"></i></div>
+                    <h3 class="heading-4 mb-2">Colaboración en Equipo</h3>
+                    <p class="text-sm text-secondary">Roles y permisos granulares, comentarios en tiempo real y asignación de tareas.</p>
+                </div>
+                <div class="card reveal delay-200 hover-up">
+                    <div class="card-icon" style="background:var(--warning-light);color:var(--warning);"><i class="ri-plug-line"></i></div>
+                    <h3 class="heading-4 mb-2">200+ Integraciones</h3>
+                    <p class="text-sm text-secondary">Conecta con Slack, Stripe, Notion, GitHub, Zapier y cientos de herramientas más.</p>
+                </div>
+                <div class="card reveal delay-300 hover-up">
+                    <div class="card-icon" style="background:var(--error-light);color:var(--error);"><i class="ri-customer-service-2-line"></i></div>
+                    <h3 class="heading-4 mb-2">Soporte 24/7</h3>
+                    <p class="text-sm text-secondary">Equipo dedicado disponible por chat, email y videollamada en menos de 2 horas.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =============================================
+         HOW IT WORKS — Steps con números
+         ============================================= -->
+    <section id="how" class="section bg-white">
+        <div class="container">
+            <div class="text-center mb-12 reveal">
+                <span class="badge badge-secondary mb-4">Proceso</span>
+                <h2 class="heading-2 mb-4">En 3 pasos estás listo</h2>
+            </div>
+            <div class="grid grid-3 gap-8 text-center">
+                <div class="reveal delay-100">
+                    <div class="mx-auto mb-6" style="width:64px;height:64px;background:var(--primary-light);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:var(--text-2xl);font-weight:800;color:var(--primary);">1</div>
+                    <h3 class="heading-4 mb-2">Crea tu cuenta</h3>
+                    <p class="text-sm text-secondary">Regístrate gratis en menos de 60 segundos. Sin tarjeta de crédito requerida.</p>
+                </div>
+                <div class="reveal delay-200">
+                    <div class="mx-auto mb-6" style="width:64px;height:64px;background:var(--primary);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:var(--text-2xl);font-weight:800;color:white;">2</div>
+                    <h3 class="heading-4 mb-2">Configura tu espacio</h3>
+                    <p class="text-sm text-secondary">Invita a tu equipo, conecta tus herramientas y personaliza tu workspace en minutos.</p>
+                </div>
+                <div class="reveal delay-300">
+                    <div class="mx-auto mb-6" style="width:64px;height:64px;background:var(--success);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:var(--text-2xl);font-weight:800;color:white;">3</div>
+                    <h3 class="heading-4 mb-2">¡Empieza a escalar!</h3>
+                    <p class="text-sm text-secondary">Lanza tu primer proyecto y mira cómo tu negocio crece con datos en tiempo real.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =============================================
+         STATS — Métricas con animación
+         ============================================= -->
+    <section class="section bg-gradient-dark text-white">
+        <div class="container">
+            <div class="grid grid-4 gap-6 text-center">
+                <div class="reveal delay-100">
+                    <div class="stat-value text-white" data-count="12500" data-suffix="+">0</div>
+                    <p class="stat-label" style="color:rgba(255,255,255,0.6);">Clientes activos</p>
+                </div>
+                <div class="reveal delay-200">
+                    <div class="stat-value text-white" data-count="99" data-suffix=".9%">0</div>
+                    <p class="stat-label" style="color:rgba(255,255,255,0.6);">Uptime garantizado</p>
+                </div>
+                <div class="reveal delay-300">
+                    <div class="stat-value text-white" data-count="250" data-suffix="M+">0</div>
+                    <p class="stat-label" style="color:rgba(255,255,255,0.6);">Transacciones procesadas</p>
+                </div>
+                <div class="reveal delay-400">
+                    <div class="stat-value text-white" data-count="48" data-suffix="h">0</div>
+                    <p class="stat-label" style="color:rgba(255,255,255,0.6);">Soporte de respuesta</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =============================================
+         PRICING — 3 planes
+         ============================================= -->
+    <section id="pricing" class="section bg-light">
+        <div class="container">
+            <div class="text-center mb-12 reveal">
+                <span class="badge badge-primary mb-4">Precios</span>
+                <h2 class="heading-2 mb-4">Planes transparentes, sin sorpresas</h2>
+                <p class="text-lead">Escala conforme creces. Cancela cuando quieras.</p>
+            </div>
+
+            <div class="grid grid-3 gap-6 items-start">
+                <div class="pricing-card reveal delay-100">
+                    <h3 class="heading-4 mb-2">Starter</h3>
+                    <p class="text-sm text-secondary mb-4">Perfecto para empezar</p>
+                    <div class="pricing-price"><sup>$</sup>0<span>/mes</span></div>
+                    <div class="pricing-features">
+                        <div class="pricing-feature"><i class="ri-check-line"></i> 1 proyecto</div>
+                        <div class="pricing-feature"><i class="ri-check-line"></i> 3 miembros</div>
+                        <div class="pricing-feature"><i class="ri-check-line"></i> 5 GB almacenamiento</div>
+                        <div class="pricing-feature" style="color:var(--text-muted);"><i class="ri-close-line" style="color:var(--text-muted);"></i> Analytics avanzados</div>
+                        <div class="pricing-feature" style="color:var(--text-muted);"><i class="ri-close-line" style="color:var(--text-muted);"></i> Soporte prioritario</div>
+                    </div>
+                    <a href="login.html" class="btn btn-outline btn-full">Comenzar gratis</a>
+                </div>
+
+                <div class="pricing-card featured reveal delay-200">
+                    <span class="pricing-popular">Más popular</span>
+                    <h3 class="heading-4 mb-2">Pro</h3>
+                    <p class="text-sm text-secondary mb-4">Para equipos en crecimiento</p>
+                    <div class="pricing-price"><sup>$</sup>49<span>/mes</span></div>
+                    <div class="pricing-features">
+                        <div class="pricing-feature"><i class="ri-check-line"></i> Proyectos ilimitados</div>
+                        <div class="pricing-feature"><i class="ri-check-line"></i> 20 miembros</div>
+                        <div class="pricing-feature"><i class="ri-check-line"></i> 100 GB almacenamiento</div>
+                        <div class="pricing-feature"><i class="ri-check-line"></i> Analytics avanzados</div>
+                        <div class="pricing-feature"><i class="ri-check-line"></i> Soporte prioritario 24h</div>
+                    </div>
+                    <a href="login.html" class="btn btn-primary btn-full">Empezar Pro</a>
+                </div>
+
+                <div class="pricing-card reveal delay-300">
+                    <h3 class="heading-4 mb-2">Enterprise</h3>
+                    <p class="text-sm text-secondary mb-4">Para grandes organizaciones</p>
+                    <div class="pricing-price" style="font-size:var(--text-3xl);">Custom</div>
+                    <div class="pricing-features">
+                        <div class="pricing-feature"><i class="ri-check-line"></i> Todo en Pro</div>
+                        <div class="pricing-feature"><i class="ri-check-line"></i> Miembros ilimitados</div>
+                        <div class="pricing-feature"><i class="ri-check-line"></i> Almacenamiento ilimitado</div>
+                        <div class="pricing-feature"><i class="ri-check-line"></i> SLA personalizado</div>
+                        <div class="pricing-feature"><i class="ri-check-line"></i> Manager dedicado</div>
+                    </div>
+                    <a href="#contact" class="btn btn-secondary btn-full">Contactar ventas</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =============================================
+         TESTIMONIALS — Cards de reseñas
+         ============================================= -->
+    <section class="section bg-white">
+        <div class="container">
+            <div class="text-center mb-12 reveal">
+                <span class="badge badge-success mb-4">Testimonios</span>
+                <h2 class="heading-2">Lo que dicen nuestros clientes</h2>
+            </div>
+            <div class="grid grid-3 gap-6">
+                <div class="card-elevated reveal delay-100">
+                    <div class="flex gap-1 mb-4" style="color:var(--warning);">
+                        <i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i>
+                    </div>
+                    <p class="text-sm text-secondary mb-6">"Reducimos nuestro tiempo de desarrollo en un 60% desde que adoptamos CoreSystem. El equipo estaba productivo en el primer día."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="avatar" style="background:var(--primary);">MR</div>
+                        <div>
+                            <p class="fw-semibold text-sm" style="color:var(--text-primary);">María Rodríguez</p>
+                            <p class="text-xs text-muted">CTO en StartupXYZ</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-elevated reveal delay-200">
+                    <div class="flex gap-1 mb-4" style="color:var(--warning);">
+                        <i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i>
+                    </div>
+                    <p class="text-sm text-secondary mb-6">"El soporte es increíble. Respondieron en 15 minutos y resolvieron nuestro problema de producción de inmediato. Muy recomendado."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="avatar" style="background:var(--success);">JL</div>
+                        <div>
+                            <p class="fw-semibold text-sm" style="color:var(--text-primary);">Juan López</p>
+                            <p class="text-xs text-muted">Fundador en TechFlow</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-elevated reveal delay-300">
+                    <div class="flex gap-1 mb-4" style="color:var(--warning);">
+                        <i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-half-fill"></i>
+                    </div>
+                    <p class="text-sm text-secondary mb-6">"Migramos desde nuestra solución legacy en solo 2 semanas. La documentación es excelente y el equipo de onboarding fue clave."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="avatar" style="background:var(--warning);color:white;">AP</div>
+                        <div>
+                            <p class="fw-semibold text-sm" style="color:var(--text-primary);">Ana Pérez</p>
+                            <p class="text-xs text-muted">VP Engineering en Fintech</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =============================================
+         CTA — Call to action final
+         ============================================= -->
+    <section id="contact" class="section bg-gradient-primary text-white">
+        <div class="container text-center reveal">
+            <h2 class="display-2 text-white mb-6">¿Listo para escalar?</h2>
+            <p class="text-lead mb-8" style="color:rgba(255,255,255,0.8);max-width:500px;margin-left:auto;margin-right:auto;">
+                Únete a más de 12,500 equipos que ya están construyendo el futuro con CoreSystem.
+            </p>
+            <div class="hero-actions" style="justify-content:center;">
+                <a href="login.html" class="btn btn-light btn-xl">Empezar gratis ahora</a>
+                <button class="btn btn-xl" style="color:white;border-color:rgba(255,255,255,0.4);" data-modal-open="modal-demo">
+                    Ver una demo en vivo
+                </button>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<!-- =============================================
+     FOOTER
+     ============================================= -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-top">
+            <div class="footer-brand">
+                <h3>CoreSystem</h3>
+                <p class="text-sm mb-4">La plataforma que escala contigo desde el día uno.</p>
+                <div class="footer-social">
+                    <a href="#" aria-label="Twitter"><i class="ri-twitter-fill"></i></a>
+                    <a href="#" aria-label="GitHub"><i class="ri-github-fill"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="ri-linkedin-fill"></i></a>
+                </div>
+            </div>
+            <div>
+                <p class="footer-col-title">Producto</p>
+                <a href="#" class="footer-link">Características</a>
+                <a href="#" class="footer-link">Precios</a>
+                <a href="#" class="footer-link">Changelog</a>
+                <a href="#" class="footer-link">Roadmap</a>
+            </div>
+            <div>
+                <p class="footer-col-title">Empresa</p>
+                <a href="#" class="footer-link">Acerca de</a>
+                <a href="#" class="footer-link">Blog</a>
+                <a href="#" class="footer-link">Carreras</a>
+                <a href="#" class="footer-link">Prensa</a>
+            </div>
+            <div>
+                <p class="footer-col-title">Legal</p>
+                <a href="#" class="footer-link">Privacidad</a>
+                <a href="#" class="footer-link">Términos</a>
+                <a href="#" class="footer-link">Cookies</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p class="text-xs">&copy; 2026 CoreSystem. Todos los derechos reservados.</p>
+            <p class="text-xs text-muted">Hecho con ♥ sin frameworks</p>
+        </div>
+    </div>
+</footer>
+
+<!-- =============================================
+     MODAL — Demo video
+     ============================================= -->
+<div class="modal-overlay modal-lg" id="modal-demo" role="dialog" aria-modal="true" aria-labelledby="modal-demo-title">
+    <div class="modal-window">
+        <div class="modal-header">
+            <h3 class="heading-4" id="modal-demo-title">Demo en vivo</h3>
+            <button class="modal-close" data-modal-close aria-label="Cerrar"><i class="ri-close-line"></i></button>
+        </div>
+        <div class="aspect-video bg-light rounded-xl flex items-center justify-center">
+            <div class="text-center text-muted">
+                <i class="ri-play-circle-line" style="font-size:4rem;display:block;margin-bottom:1rem;"></i>
+                <p class="text-sm">Reemplaza con un <code>&lt;iframe&gt;</code> de YouTube o Vimeo</p>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a href="login.html" class="btn btn-primary">Empezar gratis <i class="ri-arrow-right-line"></i></a>
+        </div>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

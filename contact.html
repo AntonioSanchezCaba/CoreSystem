@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Contacto — CoreSystem">
+    <title>Contacto | CoreSystem</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="container flex justify-between items-center">
+        <a href="index.html" class="nav-brand">Core<span class="text-primary">System</span></a>
+        <button class="nav-toggle" aria-label="Abrir menú" aria-expanded="false"><i class="ri-menu-line"></i></button>
+        <ul class="nav-menu">
+            <li><a href="index.html" class="nav-link">Inicio</a></li>
+            <li><a href="landing.html" class="nav-link">Landing</a></li>
+            <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+            <li><a href="contact.html" class="nav-link active">Contacto</a></li>
+        </ul>
+    </div>
+</nav>
+
+<main style="padding-top:var(--header-height);">
+
+    <!-- PAGE HEADER -->
+    <section class="hero-sm bg-light border-bottom text-center">
+        <div class="container reveal">
+            <nav class="breadcrumb justify-center mb-4">
+                <span class="breadcrumb-item"><a href="index.html">Inicio</a></span>
+                <span class="breadcrumb-separator">/</span>
+                <span class="breadcrumb-item">Contacto</span>
+            </nav>
+            <h1 class="heading-2 mb-2">Hablemos</h1>
+            <p class="text-lead">Estamos aquí para ayudarte. Respuesta garantizada en menos de 24h.</p>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section class="section">
+        <div class="container">
+            <div class="grid gap-12" style="grid-template-columns:1fr 1fr;align-items:start;">
+
+                <!-- Info Column -->
+                <div class="reveal-left">
+                    <h2 class="heading-3 mb-6">¿Cómo podemos ayudarte?</h2>
+
+                    <div class="space-y-4 mb-8">
+                        <div class="flex items-start gap-4">
+                            <div class="card-icon shrink-0" style="margin-bottom:0;"><i class="ri-mail-line"></i></div>
+                            <div>
+                                <h4 class="heading-4 mb-1">Email</h4>
+                                <p class="text-sm text-secondary">hola@coresystem.dev</p>
+                                <p class="text-xs text-muted">Respuesta en &lt; 24 horas</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="card-icon shrink-0" style="margin-bottom:0;background:var(--success-light);color:var(--success);"><i class="ri-whatsapp-line"></i></div>
+                            <div>
+                                <h4 class="heading-4 mb-1">WhatsApp</h4>
+                                <p class="text-sm text-secondary">+1 (555) 000-0000</p>
+                                <p class="text-xs text-muted">Lun–Vie 9:00–18:00</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="card-icon shrink-0" style="margin-bottom:0;background:var(--warning-light);color:var(--warning);"><i class="ri-map-pin-line"></i></div>
+                            <div>
+                                <h4 class="heading-4 mb-1">Oficina</h4>
+                                <p class="text-sm text-secondary">Av. Insurgentes 100, CDMX</p>
+                                <p class="text-xs text-muted">México, C.P. 06600</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Map placeholder -->
+                    <div class="rounded-xl overflow-hidden border" style="height:240px;background:var(--gray-100);display:flex;align-items:center;justify-content:center;">
+                        <div class="text-center text-muted">
+                            <i class="ri-map-2-line" style="font-size:3rem;display:block;margin-bottom:0.5rem;"></i>
+                            <p class="text-sm">Inserta aquí un iframe de Google Maps</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form Column -->
+                <div class="card reveal-right">
+                    <h3 class="heading-4 mb-6">Envíanos un mensaje</h3>
+
+                    <form data-validate id="contact-form" novalidate>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label" for="cf-name">Nombre <span class="required">*</span></label>
+                                <div class="input-wrapper input-icon-left">
+                                    <i class="ri-user-line input-icon"></i>
+                                    <input type="text" id="cf-name" class="form-input"
+                                           placeholder="Tu nombre"
+                                           data-rules="required|minlength:2"
+                                           autocomplete="given-name">
+                                </div>
+                                <span class="form-error"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="cf-email">Email <span class="required">*</span></label>
+                                <div class="input-wrapper input-icon-left">
+                                    <i class="ri-mail-line input-icon"></i>
+                                    <input type="email" id="cf-email" class="form-input"
+                                           placeholder="tu@email.com"
+                                           data-rules="required|email"
+                                           autocomplete="email">
+                                </div>
+                                <span class="form-error"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="cf-subject">Asunto <span class="required">*</span></label>
+                            <select id="cf-subject" class="form-select" data-rules="required">
+                                <option value="">Selecciona un asunto...</option>
+                                <option value="sales">Consulta de ventas</option>
+                                <option value="support">Soporte técnico</option>
+                                <option value="billing">Facturación</option>
+                                <option value="partnership">Alianzas</option>
+                                <option value="other">Otro</option>
+                            </select>
+                            <span class="form-error"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="cf-phone">Teléfono <span class="text-muted fw-normal">(opcional)</span></label>
+                            <div class="input-wrapper input-icon-left">
+                                <i class="ri-phone-line input-icon"></i>
+                                <input type="tel" id="cf-phone" class="form-input"
+                                       placeholder="+1 (555) 000-0000"
+                                       data-rules="phone"
+                                       autocomplete="tel">
+                            </div>
+                            <span class="form-error"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="cf-message">Mensaje <span class="required">*</span></label>
+                            <textarea id="cf-message" class="form-textarea"
+                                      placeholder="Cuéntanos cómo podemos ayudarte..."
+                                      rows="5"
+                                      data-rules="required|minlength:20"></textarea>
+                            <span class="form-error"></span>
+                            <p class="form-helper">Mínimo 20 caracteres.</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-check">
+                                <input type="checkbox" class="form-check-input" required>
+                                <span class="text-sm text-secondary">Acepto la <a href="#" class="text-primary">política de privacidad</a> y los <a href="#" class="text-primary">términos de servicio</a></span>
+                            </label>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-full btn-lg"
+                                onclick="if(event.target.form.checkValidity()) CoreSystem.toast('¡Mensaje enviado! Te contactamos pronto.', 'success')">
+                            <i class="ri-send-plane-line"></i> Enviar mensaje
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ SECTION -->
+    <section class="section-sm bg-light border-top">
+        <div class="container-md">
+            <div class="text-center mb-8 reveal">
+                <h2 class="heading-3">Preguntas frecuentes</h2>
+            </div>
+            <div class="accordion reveal">
+                <div class="accordion-item active">
+                    <button class="accordion-header">
+                        ¿Cuánto tiempo tardan en responder?
+                        <i class="ri-arrow-down-s-line accordion-icon"></i>
+                    </button>
+                    <div class="accordion-body">
+                        <div class="accordion-body-inner">
+                            <p>Garantizamos respuesta en menos de 24 horas hábiles para todos los planes. Los usuarios Pro y Enterprise tienen soporte prioritario con respuesta en menos de 2 horas.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        ¿Tienen soporte en español?
+                        <i class="ri-arrow-down-s-line accordion-icon"></i>
+                    </button>
+                    <div class="accordion-body">
+                        <div class="accordion-body-inner">
+                            <p>Sí, contamos con equipo de soporte en español disponible de Lunes a Viernes de 9:00 a 18:00 (hora CDMX) y en inglés las 24 horas.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        ¿Pueden ayudarme con la migración?
+                        <i class="ri-arrow-down-s-line accordion-icon"></i>
+                    </button>
+                    <div class="accordion-body">
+                        <div class="accordion-body-inner">
+                            <p>Absolutamente. Ofrecemos servicio de migración asistida gratuito para todos los planes anuales. Nuestro equipo técnico se encarga de todo el proceso.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-top">
+            <div class="footer-brand">
+                <h3>CoreSystem</h3>
+                <p class="text-sm">Mini framework frontend modular.</p>
+                <div class="footer-social">
+                    <a href="#" aria-label="GitHub"><i class="ri-github-fill"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="ri-twitter-fill"></i></a>
+                </div>
+            </div>
+            <div>
+                <p class="footer-col-title">Plantillas</p>
+                <a href="landing.html" class="footer-link">Landing</a>
+                <a href="dashboard.html" class="footer-link">Dashboard</a>
+                <a href="blog-standard.html" class="footer-link">Blog</a>
+            </div>
+            <div>
+                <p class="footer-col-title">Más</p>
+                <a href="portfolio.html" class="footer-link">Portfolio</a>
+                <a href="gallery.html" class="footer-link">Galería</a>
+                <a href="multistep.html" class="footer-link">Multi-step</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p class="text-xs">&copy; 2026 CoreSystem.</p>
+        </div>
+    </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

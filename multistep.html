@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Multi-Step Form — CoreSystem">
+    <title>Formulario Multi-Paso | CoreSystem</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+<body class="bg-light min-h-screen">
+
+<nav class="navbar">
+    <div class="container flex justify-between items-center">
+        <a href="index.html" class="nav-brand">Core<span class="text-primary">System</span></a>
+        <button class="nav-toggle" aria-label="Abrir menú" aria-expanded="false"><i class="ri-menu-line"></i></button>
+        <ul class="nav-menu">
+            <li><a href="index.html" class="nav-link">← Volver al inicio</a></li>
+        </ul>
+    </div>
+</nav>
+
+<main class="pt-header py-16">
+    <div class="container-md">
+        <div class="text-center mb-8 reveal">
+            <span class="badge badge-primary mb-4">Multi-Step Form</span>
+            <h1 class="heading-2 mb-2">Registro de cuenta</h1>
+            <p class="text-secondary">Completa los pasos para crear tu cuenta</p>
+        </div>
+
+        <!-- =============================================
+             MULTI-STEP FORM WRAPPER
+             data-multistep activa el módulo JS
+             ============================================= -->
+        <div class="card" data-multistep>
+
+            <!-- STEP INDICATOR BAR -->
+            <div class="stepper mb-8">
+                <div class="step active" data-step="1">
+                    <div class="step-number">1</div>
+                    <span class="step-label">Cuenta</span>
+                    <div class="step-line"></div>
+                </div>
+                <div class="step" data-step="2">
+                    <div class="step-number">2</div>
+                    <span class="step-label">Perfil</span>
+                    <div class="step-line"></div>
+                </div>
+                <div class="step" data-step="3">
+                    <div class="step-number">3</div>
+                    <span class="step-label">Plan</span>
+                    <div class="step-line"></div>
+                </div>
+                <div class="step" data-step="4">
+                    <div class="step-number"><i class="ri-check-line"></i></div>
+                    <span class="step-label">Confirmar</span>
+                </div>
+            </div>
+
+            <!-- Counter text -->
+            <p class="text-xs text-muted text-center mb-6" data-step-indicator>Paso 1 de 4</p>
+
+            <!-- ==========================================
+                 PANEL 1 — Datos de cuenta
+                 ========================================== -->
+            <div class="step-panel active">
+                <div class="text-center mb-6">
+                    <div class="card-icon mx-auto" style="background:var(--primary-light);color:var(--primary);">
+                        <i class="ri-lock-password-line"></i>
+                    </div>
+                    <h3 class="heading-4">Datos de acceso</h3>
+                    <p class="text-sm text-secondary">Define tu email y contraseña</p>
+                </div>
+
+                <form data-validate id="step1-form" novalidate>
+                    <div class="form-group">
+                        <label class="form-label" for="s1-email">Email <span class="required">*</span></label>
+                        <div class="input-wrapper input-icon-left">
+                            <i class="ri-mail-line input-icon"></i>
+                            <input type="email" id="s1-email" class="form-input"
+                                   placeholder="tu@email.com"
+                                   data-rules="required|email"
+                                   autocomplete="email">
+                        </div>
+                        <span class="form-error"></span>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="s1-pass">Contraseña <span class="required">*</span></label>
+                            <div class="input-wrapper input-icon-left">
+                                <i class="ri-key-line input-icon"></i>
+                                <input type="password" id="s1-pass" class="form-input"
+                                       placeholder="••••••••"
+                                       data-rules="required|minlength:8"
+                                       autocomplete="new-password">
+                            </div>
+                            <span class="form-error"></span>
+                            <p class="form-helper">Mínimo 8 caracteres</p>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="s1-pass2">Confirmar <span class="required">*</span></label>
+                            <div class="input-wrapper input-icon-left">
+                                <i class="ri-key-line input-icon"></i>
+                                <input type="password" id="s1-pass2" class="form-input"
+                                       placeholder="••••••••"
+                                       data-rules="required|minlength:8"
+                                       autocomplete="new-password">
+                            </div>
+                            <span class="form-error"></span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- ==========================================
+                 PANEL 2 — Perfil
+                 ========================================== -->
+            <div class="step-panel">
+                <div class="text-center mb-6">
+                    <div class="card-icon mx-auto" style="background:var(--success-light);color:var(--success);">
+                        <i class="ri-user-line"></i>
+                    </div>
+                    <h3 class="heading-4">Tu perfil</h3>
+                    <p class="text-sm text-secondary">Cuéntanos un poco sobre ti</p>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label" for="s2-fname">Nombre <span class="required">*</span></label>
+                        <input type="text" id="s2-fname" class="form-input" placeholder="Juan" autocomplete="given-name">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="s2-lname">Apellido <span class="required">*</span></label>
+                        <input type="text" id="s2-lname" class="form-input" placeholder="García" autocomplete="family-name">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="s2-company">Empresa</label>
+                    <div class="input-wrapper input-icon-left">
+                        <i class="ri-building-line input-icon"></i>
+                        <input type="text" id="s2-company" class="form-input" placeholder="Mi Empresa S.A." autocomplete="organization">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="s2-role">Rol / Cargo</label>
+                    <select id="s2-role" class="form-select">
+                        <option value="">Selecciona tu rol...</option>
+                        <option>CEO / Fundador</option>
+                        <option>CTO / Dev Lead</option>
+                        <option>Diseñador</option>
+                        <option>Developer</option>
+                        <option>Marketing</option>
+                        <option>Otro</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="s2-bio">Bio <span class="text-muted fw-normal">(opcional)</span></label>
+                    <textarea id="s2-bio" class="form-textarea" rows="3" placeholder="Cuéntanos brevemente sobre ti..."></textarea>
+                </div>
+            </div>
+
+            <!-- ==========================================
+                 PANEL 3 — Plan
+                 ========================================== -->
+            <div class="step-panel">
+                <div class="text-center mb-6">
+                    <div class="card-icon mx-auto" style="background:var(--warning-light);color:var(--warning);">
+                        <i class="ri-award-line"></i>
+                    </div>
+                    <h3 class="heading-4">Elige tu plan</h3>
+                    <p class="text-sm text-secondary">Puedes cambiar en cualquier momento</p>
+                </div>
+
+                <div class="grid gap-4" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr));">
+                    <label class="cursor-pointer">
+                        <input type="radio" name="plan" value="free" class="hidden" checked>
+                        <div class="card border-2 text-center" style="transition:var(--transition);" id="plan-free">
+                            <i class="ri-star-line" style="font-size:2rem;color:var(--text-muted);margin-bottom:0.5rem;display:block;"></i>
+                            <h4 class="heading-4 mb-1">Free</h4>
+                            <p class="text-3xl fw-extrabold text-primary mb-2">$0<span class="text-sm fw-normal text-muted">/mes</span></p>
+                            <p class="text-xs text-secondary">Para explorar</p>
+                        </div>
+                    </label>
+                    <label class="cursor-pointer">
+                        <input type="radio" name="plan" value="pro" class="hidden">
+                        <div class="card border-2 text-center" style="transition:var(--transition);" id="plan-pro">
+                            <i class="ri-rocket-line" style="font-size:2rem;color:var(--primary);margin-bottom:0.5rem;display:block;"></i>
+                            <h4 class="heading-4 mb-1">Pro</h4>
+                            <p class="text-3xl fw-extrabold text-primary mb-2">$49<span class="text-sm fw-normal text-muted">/mes</span></p>
+                            <p class="text-xs text-secondary">Para equipos</p>
+                        </div>
+                    </label>
+                    <label class="cursor-pointer">
+                        <input type="radio" name="plan" value="enterprise" class="hidden">
+                        <div class="card border-2 text-center" style="transition:var(--transition);" id="plan-ent">
+                            <i class="ri-building-4-line" style="font-size:2rem;color:var(--gray-800);margin-bottom:0.5rem;display:block;"></i>
+                            <h4 class="heading-4 mb-1">Enterprise</h4>
+                            <p class="text-3xl fw-extrabold mb-2">Custom</p>
+                            <p class="text-xs text-secondary">Para empresas</p>
+                        </div>
+                    </label>
+                </div>
+
+                <script>
+                    document.querySelectorAll('input[name="plan"]').forEach(radio => {
+                        radio.addEventListener('change', () => {
+                            document.querySelectorAll('#plan-free,#plan-pro,#plan-ent').forEach(c => {
+                                c.style.borderColor = 'var(--border)';
+                                c.style.background = 'var(--surface)';
+                            });
+                            const planId = `plan-${radio.value === 'enterprise' ? 'ent' : radio.value}`;
+                            const selected = document.getElementById(planId);
+                            if (selected) { selected.style.borderColor = 'var(--primary)'; selected.style.background = 'var(--primary-ghost)'; }
+                        });
+                    });
+                    document.getElementById('plan-free').style.borderColor = 'var(--primary)';
+                    document.getElementById('plan-free').style.background = 'var(--primary-ghost)';
+                </script>
+            </div>
+
+            <!-- ==========================================
+                 PANEL 4 — Confirmación
+                 ========================================== -->
+            <div class="step-panel">
+                <div class="text-center mb-8">
+                    <div class="mx-auto mb-4" style="width:80px;height:80px;background:var(--success-light);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:2.5rem;color:var(--success);">
+                        <i class="ri-checkbox-circle-line"></i>
+                    </div>
+                    <h3 class="heading-3 mb-2">¡Todo listo!</h3>
+                    <p class="text-secondary">Revisa tu información antes de confirmar</p>
+                </div>
+
+                <div class="card-flat rounded-xl mb-6 space-y-2 p-6 divide-y">
+                    <div class="flex justify-between py-2 text-sm">
+                        <span class="text-muted">Email</span>
+                        <span class="fw-semibold" id="confirm-email">—</span>
+                    </div>
+                    <div class="flex justify-between py-2 text-sm">
+                        <span class="text-muted">Nombre</span>
+                        <span class="fw-semibold" id="confirm-name">—</span>
+                    </div>
+                    <div class="flex justify-between py-2 text-sm">
+                        <span class="text-muted">Empresa</span>
+                        <span class="fw-semibold" id="confirm-company">—</span>
+                    </div>
+                    <div class="flex justify-between py-2 text-sm">
+                        <span class="text-muted">Plan seleccionado</span>
+                        <span class="badge badge-primary" id="confirm-plan">Free</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-check">
+                        <input type="checkbox" class="form-check-input" required>
+                        <span class="text-sm text-secondary">Acepto los <a href="#" class="text-primary">Términos de Servicio</a> y <a href="#" class="text-primary">Política de Privacidad</a></span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- ==========================================
+                 NAVIGATION BUTTONS
+                 ========================================== -->
+            <div class="flex justify-between items-center mt-8 pt-6 border-top">
+                <button class="btn btn-outline" data-step-prev style="display:none;">
+                    <i class="ri-arrow-left-line"></i> Anterior
+                </button>
+                <span></span>
+                <button class="btn btn-primary" data-step-next>
+                    Siguiente <i class="ri-arrow-right-line"></i>
+                </button>
+                <button class="btn btn-success" data-step-submit style="display:none;"
+                        onclick="CoreSystem.toast('¡Cuenta creada exitosamente!', 'success')">
+                    <i class="ri-check-line"></i> Crear cuenta
+                </button>
+            </div>
+
+        </div><!-- end data-multistep -->
+
+        <!-- Back link -->
+        <div class="text-center mt-6">
+            <a href="index.html" class="btn btn-link text-muted">← Volver al inicio</a>
+        </div>
+    </div>
+</main>
+
+<script src="script.js"></script>
+
+<!-- Fill confirmation panel on step change observation -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const nextBtn = document.querySelector('[data-step-next]');
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+            const email   = document.getElementById('s1-email')?.value   || '—';
+            const fname   = document.getElementById('s2-fname')?.value   || '';
+            const lname   = document.getElementById('s2-lname')?.value   || '';
+            const company = document.getElementById('s2-company')?.value || '—';
+            const plan    = document.querySelector('input[name="plan"]:checked')?.value || 'free';
+
+            const confirmEmail   = document.getElementById('confirm-email');
+            const confirmName    = document.getElementById('confirm-name');
+            const confirmCompany = document.getElementById('confirm-company');
+            const confirmPlan    = document.getElementById('confirm-plan');
+
+            if (confirmEmail)   confirmEmail.textContent   = email;
+            if (confirmName)    confirmName.textContent    = `${fname} ${lname}`.trim() || '—';
+            if (confirmCompany) confirmCompany.textContent = company;
+            if (confirmPlan)    confirmPlan.textContent    = plan.charAt(0).toUpperCase() + plan.slice(1);
+        });
+    }
+});
+</script>
+</body>
+</html>
