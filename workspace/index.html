@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CoreSystem — Visual Layout Workspace</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════════════════
+     App Shell — 3-column + toolbar grid
+     ════════════════════════════════════════════════════════════ -->
+<div id="app-shell">
+
+  <!-- ── Toolbar (top) ─────────────────────────────────────── -->
+  <header id="app-toolbar" aria-label="Main toolbar"></header>
+
+  <!-- ── Left Column (Toolbox + Layers) ───────────────────── -->
+  <div id="app-left">
+    <!-- Toolbox: predefined component types -->
+    <div id="app-toolbox" aria-label="Component toolbox"></div>
+    <!-- Layers: z-ordered element list -->
+    <div id="app-layers" aria-label="Layers"></div>
+  </div>
+
+  <!-- ── Canvas Area ───────────────────────────────────────── -->
+  <div id="canvas-area" class="grid-visible">
+    <!-- Grid overlay (controlled by canvasEngine CSS vars) -->
+    <div id="canvas-grid" aria-hidden="true"></div>
+
+    <!-- Scroll/pan viewport -->
+    <div id="canvas-viewport" aria-label="Drawing canvas">
+      <!-- Transform target (zoom + pan) -->
+      <div id="canvas-content">
+        <!-- Elements rendered here dynamically by Workspace -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Right Properties Panel ───────────────────────────── -->
+  <aside id="app-props" aria-label="Properties panel"></aside>
+
+</div><!-- /#app-shell -->
+
+
+<!-- ════════════════════════════════════════════════════════════
+     Context Menu
+     ════════════════════════════════════════════════════════════ -->
+<nav id="ctx-menu" aria-label="Context menu">
+  <div class="ctx-item" data-ctx="dup">⊕ Duplicate</div>
+  <div class="ctx-sep"></div>
+  <div class="ctx-item" data-ctx="front">⬆ Bring to Front</div>
+  <div class="ctx-item" data-ctx="fwd">↑ Bring Forward</div>
+  <div class="ctx-item" data-ctx="bwd">↓ Send Backward</div>
+  <div class="ctx-item" data-ctx="back">⬇ Send to Back</div>
+  <div class="ctx-sep"></div>
+  <div class="ctx-item" data-ctx="lock">🔒 Lock / Unlock</div>
+  <div class="ctx-item" data-ctx="hide">👁 Hide / Show</div>
+  <div class="ctx-sep"></div>
+  <div class="ctx-item" data-ctx="analyze">⚙ Analyze Layout</div>
+  <div class="ctx-item" data-ctx="select-all">⊞ Select All</div>
+  <div class="ctx-sep"></div>
+  <div class="ctx-item ctx-item--danger" data-ctx="delete">✕ Delete</div>
+</nav>
+
+
+<!-- ════════════════════════════════════════════════════════════
+     Code Modal
+     ════════════════════════════════════════════════════════════ -->
+<div id="modal-code" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Generated code">
+  <div class="modal-box">
+    <div class="modal-header">
+      <span class="modal-title">⟨/⟩ Generated Code</span>
+      <div style="display:flex;gap:8px;align-items:center">
+        <button class="tb-btn tb-btn--success" onclick="CodeGen.downloadZip('my-layout')">⬇ Download ZIP</button>
+        <button class="modal-close" data-close>✕</button>
+      </div>
+    </div>
+
+    <!-- Tab bar -->
+    <div class="modal-tabs">
+      <button class="code-tab is-active" data-tab="html">index.html</button>
+      <button class="code-tab" data-tab="css">styles.css</button>
+      <button class="code-tab" data-tab="js">script.js</button>
+      <div class="modal-tab-actions">
+        <button class="tb-btn tb-btn--sm" data-copy>⎘ Copy</button>
+        <button class="tb-btn tb-btn--sm" data-download="html">⬇ File</button>
+      </div>
+    </div>
+
+    <!-- Panes -->
+    <div class="modal-body">
+      <div class="code-pane is-active" data-tab-pane="html">
+        <pre><code></code></pre>
+      </div>
+      <div class="code-pane" data-tab-pane="css">
+        <pre><code></code></pre>
+      </div>
+      <div class="code-pane" data-tab-pane="js">
+        <pre><code></code></pre>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════════════════════
+     Preview Modal
+     ════════════════════════════════════════════════════════════ -->
+<div id="modal-preview" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Layout preview">
+  <div class="modal-box modal-box--wide" style="max-height:95vh;height:95vh;">
+    <div class="modal-header">
+      <span class="modal-title">▶ Layout Preview</span>
+      <button class="tb-btn tb-btn--success" onclick="CodeGen.downloadZip('my-layout')">⬇ Export ZIP</button>
+      <button class="modal-close" data-close>✕</button>
+    </div>
+    <div class="preview-bar">
+      <span style="font-size:11px;color:var(--text-muted)">Viewport:</span>
+      <button class="preview-vp-btn" data-vp="375x812">📱 Mobile (375)</button>
+      <button class="preview-vp-btn" data-vp="768x1024">📟 Tablet (768)</button>
+      <button class="preview-vp-btn is-active" data-vp="1440x900">🖥 Desktop (1440)</button>
+    </div>
+    <div class="preview-iframe-wrap">
+      <iframe id="preview-iframe"
+              title="Layout preview"
+              sandbox="allow-scripts allow-same-origin"
+              width="1440" height="900">
+      </iframe>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════════════════════
+     Script loading — dependency order
+     ════════════════════════════════════════════════════════════ -->
+
+<!-- Engine: foundation layer (no dependencies) -->
+<script src="engine/stateManager.js"></script>
+<script src="engine/historyManager.js"></script>
+<script src="engine/canvasEngine.js"></script>
+<script src="engine/snappingEngine.js"></script>
+<script src="engine/resizeEngine.js"></script>
+<script src="engine/dragEngine.js"></script>
+<script src="engine/layoutAnalyzer.js"></script>
+<script src="engine/responsiveEngine.js"></script>
+<script src="engine/codeGenerator.js"></script>
+
+<!-- UI: depends on engines -->
+<script src="ui/toolbar.js"></script>
+<script src="ui/toolbox.js"></script>
+<script src="ui/layersPanel.js"></script>
+<script src="ui/propertiesPanel.js"></script>
+<script src="ui/workspace.js"></script>
+
+<!-- Boot -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  Workspace.init();
+  console.log('%cCoreSystem Visual Workspace — ready', 'color:#58A6FF;font-weight:bold;font-size:14px');
+  console.log('%cKeyboard shortcuts:', 'color:#7D8590;font-size:12px');
+  console.log('%c  V = Select  R = Draw  H = Hand', 'color:#7D8590;font-size:11px');
+  console.log('%c  G = Grid  Del = Delete selected', 'color:#7D8590;font-size:11px');
+  console.log('%c  Ctrl+Z/Y = Undo/Redo  Ctrl+D = Duplicate', 'color:#7D8590;font-size:11px');
+  console.log('%c  Ctrl+A = Select all  Esc = Deselect', 'color:#7D8590;font-size:11px');
+  console.log('%c  Arrows = Nudge (Shift+Arrow = 10px)', 'color:#7D8590;font-size:11px');
+  console.log('%c  Space+Drag = Pan  Scroll = Zoom', 'color:#7D8590;font-size:11px');
+  console.log('%c  Double-click box = Rename  Alt+Drag = Duplicate', 'color:#7D8590;font-size:11px');
+});
+</script>
+
+</body>
+</html>
