@@ -1,0 +1,82 @@
+/**
+ * CoreSystem Platform — Preview CSS
+ * Applied inside the creative engine's iframe preview.
+ * Provides scroll behavior, font smoothing, and a baseline reset.
+ */
+
+/* Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Base */
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: #F8FAFC;
+  color: #0F172A;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* Default typography */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+
+p { line-height: 1.7; }
+
+a {
+  color: #2563EB;
+  text-decoration: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+/* Scroll bar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #F1F5F9; }
+::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 3px; }
+
+/* Empty canvas state */
+.preview-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  gap: 1rem;
+  color: #94A3B8;
+  font-size: 1rem;
+}
+
+.preview-empty__icon {
+  font-size: 3rem;
+  opacity: 0.4;
+}
+
+.preview-empty__title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #64748B;
+}
+
+.preview-empty__sub {
+  font-size: 0.875rem;
+  max-width: 280px;
+  text-align: center;
+  line-height: 1.6;
+}
