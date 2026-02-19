@@ -3,10 +3,82 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="CoreSystem Platform — Template Library, Creative Engine & Structural Code Generator. Pure HTML5, CSS3, Vanilla JS.">
+  <meta name="description" content="CoreSystem — Biblioteca de plantillas profesionales y herramienta visual. HTML5, CSS3, Vanilla JS. Sin dependencias.">
   <meta name="theme-color" content="#2563EB">
-  <title>CoreSystem Platform — Professional Web Template Library & Creative Engine</title>
-  <link rel="stylesheet" href="assets/css/main.css">
+  <title>CoreSystem — Biblioteca de Plantillas & Visual Workspace</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* ── Hub-specific styles ─────────────────────────────────── */
+    .hub-hero{background:linear-gradient(135deg,#0f172a 0%,#1e1b4b 50%,#0f172a 100%);color:#fff;padding:6rem 0 4rem;text-align:center;}
+    .hub-hero__eyebrow{display:inline-block;background:rgba(99,102,241,.2);border:1px solid rgba(99,102,241,.4);color:#a5b4fc;font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.35rem .9rem;border-radius:9999px;margin-bottom:1.5rem;}
+    .hub-hero__title{font-size:clamp(2.2rem,6vw,4rem);font-weight:900;line-height:1.1;letter-spacing:-.03em;margin-bottom:1.25rem;}
+    .hub-hero__title .grad{background:linear-gradient(135deg,#818cf8,#c084fc,#fb7185);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+    .hub-hero__sub{font-size:1.05rem;color:#94a3b8;max-width:560px;margin:0 auto 2rem;}
+    .hub-hero__actions{display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap;margin-bottom:3rem;}
+    .hub-stats{display:flex;justify-content:center;gap:3rem;flex-wrap:wrap;border-top:1px solid rgba(255,255,255,.1);padding-top:2.5rem;}
+    .hub-stat__val{font-size:2rem;font-weight:800;color:#fff;}
+    .hub-stat__label{font-size:.78rem;color:#64748b;letter-spacing:.05em;text-transform:uppercase;margin-top:.2rem;}
+
+    /* ── Template grid ────────────────────────────────────────── */
+    .tpl-section{padding:5rem 0;}
+    .section-label{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--primary,#2563eb);margin-bottom:.5rem;}
+    .tpl-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.5rem;margin-top:2rem;}
+    .tpl-card{background:var(--surface,#fff);border:1px solid var(--border,#e2e8f0);border-radius:12px;overflow:hidden;transition:transform .2s,box-shadow .2s;display:flex;flex-direction:column;}
+    .tpl-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.12);}
+    .tpl-thumb{height:140px;display:flex;align-items:center;justify-content:center;font-size:2rem;position:relative;overflow:hidden;}
+    .tpl-thumb::after{content:'';position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.15),transparent);}
+    .th-landing{background:linear-gradient(135deg,#2563eb,#7c3aed);}
+    .th-contact{background:linear-gradient(135deg,#0891b2,#06b6d4);}
+    .th-portfolio{background:linear-gradient(135deg,#7c3aed,#a855f7);}
+    .th-gallery{background:linear-gradient(135deg,#db2777,#f43f5e);}
+    .th-blog{background:linear-gradient(135deg,#d97706,#f59e0b);}
+    .th-dashboard{background:linear-gradient(135deg,#059669,#10b981);}
+    .th-design{background:linear-gradient(135deg,#4f46e5,#818cf8);}
+    .th-pricing{background:linear-gradient(135deg,#0369a1,#0ea5e9);}
+    .th-login{background:linear-gradient(135deg,#475569,#94a3b8);}
+    .th-multistep{background:linear-gradient(135deg,#6d28d9,#8b5cf6);}
+    .th-landingpro{background:linear-gradient(135deg,#1d4ed8,#6d28d9);}
+    .th-dashboard-adm{background:linear-gradient(135deg,#047857,#0d9488);}
+    .th-blogmodern{background:linear-gradient(135deg,#b45309,#d97706);}
+    .tpl-body{padding:1rem 1.25rem 1.25rem;flex:1;display:flex;flex-direction:column;}
+    .tpl-badge{display:inline-block;font-size:.65rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.2rem .55rem;border-radius:4px;margin-bottom:.5rem;}
+    .badge-std{background:#dbeafe;color:#1d4ed8;}
+    .badge-pro{background:#ede9fe;color:#6d28d9;}
+    .tpl-name{font-size:1rem;font-weight:700;margin-bottom:.35rem;color:var(--text,#0f172a);}
+    .tpl-desc{font-size:.82rem;color:var(--text-2,#64748b);line-height:1.5;flex:1;}
+    .tpl-actions{display:flex;gap:.5rem;margin-top:1rem;}
+    .tpl-actions .btn-sm{padding:.35rem .75rem;font-size:.78rem;border-radius:6px;text-decoration:none;font-weight:600;transition:background .2s,color .2s;}
+    .tpl-actions .btn-primary{background:#2563eb;color:#fff;border:none;cursor:pointer;}
+    .tpl-actions .btn-primary:hover{background:#1d4ed8;}
+    .tpl-actions .btn-ghost{background:transparent;color:var(--text-2,#64748b);border:1px solid var(--border,#e2e8f0);cursor:pointer;}
+    .tpl-actions .btn-ghost:hover{background:var(--surface-2,#f8fafc);color:var(--text,#0f172a);}
+
+    /* ── Workspace banner ─────────────────────────────────────── */
+    .workspace-banner{background:#0f172a;color:#fff;border-radius:16px;padding:3rem;display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:center;margin-top:2rem;}
+    .workspace-banner h3{font-size:1.75rem;font-weight:800;letter-spacing:-.02em;margin-bottom:.5rem;}
+    .workspace-banner p{color:#94a3b8;font-size:.92rem;max-width:500px;}
+    .ws-pills{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1rem;}
+    .ws-pill{background:rgba(99,102,241,.15);border:1px solid rgba(99,102,241,.3);color:#a5b4fc;font-size:.72rem;font-weight:600;padding:.3rem .7rem;border-radius:20px;}
+    @media(max-width:700px){.workspace-banner{grid-template-columns:1fr;}}
+
+    /* ── Architecture section ─────────────────────────────────── */
+    .arch-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1.25rem;margin-top:2rem;}
+    .arch-card{background:var(--surface,#fff);border:1px solid var(--border,#e2e8f0);border-radius:12px;padding:1.5rem;}
+    .arch-card__icon{font-size:1.5rem;margin-bottom:.75rem;}
+    .arch-card h4{font-size:.92rem;font-weight:700;margin-bottom:.5rem;}
+    .arch-card pre{font-family:monospace;font-size:.72rem;line-height:1.85;color:var(--text-2,#64748b);background:var(--surface-2,#f8fafc);padding:.75rem;border-radius:8px;overflow-x:auto;margin-top:.5rem;}
+
+    /* ── Footer ───────────────────────────────────────────────── */
+    .hub-footer{background:#0f172a;color:#64748b;padding:3rem 0 2rem;}
+    .hub-footer__inner{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:2rem;}
+    .hub-footer__brand{font-size:1.15rem;font-weight:800;color:#fff;letter-spacing:-.02em;}
+    .hub-footer__brand span{color:#818cf8;}
+    .hub-footer__tagline{font-size:.8rem;margin-top:.3rem;}
+    .hub-footer__links h5{font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#fff;margin-bottom:.75rem;}
+    .hub-footer__links a{display:block;font-size:.82rem;color:#64748b;margin-bottom:.35rem;text-decoration:none;transition:color .2s;}
+    .hub-footer__links a:hover{color:#fff;}
+    .hub-footer__copy{border-top:1px solid #1e293b;margin-top:2rem;padding-top:1.5rem;font-size:.78rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:.5rem;}
+  </style>
 </head>
 <body>
 
@@ -20,485 +92,420 @@
       <span></span><span></span><span></span>
     </button>
     <ul class="nav-menu" id="nav-menu" role="list">
-      <li><a href="#templates" class="nav-link">Plantillas</a></li>
-      <li><a href="#creative-engine" class="nav-link">Creative Engine</a></li>
-      <li><a href="#dsl" class="nav-link">DSL Editor</a></li>
+      <li><a href="#standard" class="nav-link">Plantillas</a></li>
+      <li><a href="#advanced" class="nav-link">Avanzadas</a></li>
+      <li><a href="workspace/" class="nav-link">Workspace</a></li>
       <li>
         <button class="btn btn-icon btn-ghost" data-theme-toggle aria-label="Toggle dark mode">
           <span class="theme-icon">◑</span>
         </button>
       </li>
-      <li><a href="#creative-engine" class="btn btn-gradient btn-sm">Crear Proyecto ↗</a></li>
+      <li><a href="workspace/" class="btn btn-gradient btn-sm">Abrir Workspace ↗</a></li>
     </ul>
   </div>
 </nav>
 
 <!-- ══ HERO ══════════════════════════════════════════════════════════════ -->
-<header class="platform-hero" role="banner">
+<header class="hub-hero" role="banner">
   <div class="container">
-    <p class="platform-hero__eyebrow" data-reveal>Platform v2.0 — Production Ready</p>
-    <h1 class="platform-hero__title" data-reveal data-delay="100">
-      Build Professional<br>
-      <span class="gradient-text">Web Products</span><br>
-      Without Frameworks
+    <p class="hub-hero__eyebrow" data-reveal>CoreSystem v3 — Estructura Limpia</p>
+    <h1 class="hub-hero__title" data-reveal data-delay="100">
+      Plantillas Listas<br>
+      <span class="grad">para Producción</span>
     </h1>
-    <p class="platform-hero__sub" data-reveal data-delay="200">
-      Template library, visual creative engine, structural parser and code compiler.
-      Pure HTML5, CSS3 and Vanilla JS — no dependencies, no build steps.
+    <p class="hub-hero__sub" data-reveal data-delay="200">
+      Biblioteca de plantillas independientes + workspace visual para diseñar layouts.
+      HTML5, CSS3, Vanilla JS — cero dependencias, cero build steps.
     </p>
-    <div class="platform-hero__actions" data-reveal data-delay="300">
-      <a href="#templates" class="btn btn-light btn-lg">Explorar Plantillas</a>
-      <a href="#creative-engine" class="btn btn-outline btn-lg" style="color:#fff;border-color:rgba(255,255,255,.4);">
-        Abrir Creative Engine
+    <div class="hub-hero__actions" data-reveal data-delay="300">
+      <a href="#standard" class="btn btn-light btn-lg">Ver Plantillas</a>
+      <a href="workspace/" class="btn btn-outline btn-lg" style="color:#fff;border-color:rgba(255,255,255,.4);">
+        Abrir Workspace ↗
       </a>
     </div>
-    <div class="platform-hero__stats" data-reveal data-delay="400">
-      <div class="hero-stat">
-        <div class="hero-stat__val">10+</div>
-        <div class="hero-stat__label">Plantillas</div>
+    <div class="hub-stats" data-reveal data-delay="400">
+      <div class="hub-stat">
+        <div class="hub-stat__val">10</div>
+        <div class="hub-stat__label">Estándar</div>
       </div>
-      <div class="hero-stat">
-        <div class="hero-stat__val">14</div>
-        <div class="hero-stat__label">Módulos JS</div>
+      <div class="hub-stat">
+        <div class="hub-stat__val">3</div>
+        <div class="hub-stat__label">Avanzadas</div>
       </div>
-      <div class="hero-stat">
-        <div class="hero-stat__val">30+</div>
-        <div class="hero-stat__label">Bloques UI</div>
+      <div class="hub-stat">
+        <div class="hub-stat__val">1</div>
+        <div class="hub-stat__label">Workspace Visual</div>
       </div>
-      <div class="hero-stat">
-        <div class="hero-stat__val">0</div>
-        <div class="hero-stat__label">Dependencias</div>
+      <div class="hub-stat">
+        <div class="hub-stat__val">0</div>
+        <div class="hub-stat__label">Dependencias</div>
       </div>
     </div>
   </div>
 </header>
 
-<!-- ══ PLATFORM CAPABILITIES ════════════════════════════════════════════ -->
-<section class="section-sm border-top bg-surface" aria-labelledby="capabilities-heading">
+<!-- ══ STANDARD TEMPLATES ════════════════════════════════════════════════ -->
+<section id="standard" class="tpl-section" aria-labelledby="std-heading">
   <div class="container">
-    <div class="platform-features">
-      <div class="platform-feature" data-reveal>
-        <div class="platform-feature__icon">📦</div>
-        <h3 class="platform-feature__title">Template Library</h3>
-        <p class="platform-feature__desc">Plantillas completas filtradas por categoría con preview, código separado por pestaña y descarga ZIP.</p>
-      </div>
-      <div class="platform-feature" data-reveal data-delay="100">
-        <div class="platform-feature__icon">🎨</div>
-        <h3 class="platform-feature__title">Creative Engine</h3>
-        <p class="platform-feature__desc">Constructor visual drag-and-drop con biblioteca de bloques, panel de propiedades y preview en iframe.</p>
-      </div>
-      <div class="platform-feature" data-reveal data-delay="200">
-        <div class="platform-feature__icon">⚙</div>
-        <h3 class="platform-feature__title">Structural Parser</h3>
-        <p class="platform-feature__desc">Motor compilador que lee el estado del canvas y genera HTML, CSS y JS limpios y separados.</p>
-      </div>
-      <div class="platform-feature" data-reveal data-delay="300">
-        <div class="platform-feature__icon">🧠</div>
-        <h3 class="platform-feature__title">DSL Engine</h3>
-        <p class="platform-feature__desc">Motor declarativo avanzado — escribe layouts en DSL y el parser los compila automáticamente a código.</p>
-      </div>
-      <div class="platform-feature" data-reveal data-delay="400">
-        <div class="platform-feature__icon">🌙</div>
-        <h3 class="platform-feature__title">Dark Mode System</h3>
-        <p class="platform-feature__desc">Sistema completo de temas claro/oscuro con persistencia en localStorage y CSS variables.</p>
-      </div>
-    </div>
-  </div>
-</section>
+    <p class="section-label" data-reveal>Plantillas Estándar</p>
+    <h2 id="std-heading" class="heading-2" data-reveal data-delay="100">
+      10 Estructuras Completas
+    </h2>
+    <p class="text-secondary" data-reveal data-delay="150">
+      Cada plantilla vive en su propia carpeta con HTML independiente compartiendo el sistema de diseño global.
+    </p>
 
-<!-- ══ TEMPLATE LIBRARY ══════════════════════════════════════════════════ -->
-<section id="templates" class="section" aria-labelledby="templates-heading">
-  <div class="container">
-    <div class="mb-12" data-reveal>
-      <p class="section-eyebrow">Template Library</p>
-      <h2 id="templates-heading" class="section-title">Estructuras Profesionales Completas</h2>
-      <p class="section-sub">Plantillas independientes listas para producción. Cada una incluye HTML, CSS y JS separados.</p>
-    </div>
-
-    <!-- Filters & Search -->
-    <div class="tpl-filter-bar mb-8" role="toolbar" aria-label="Template filters">
-      <button class="tpl-filter-btn is-active" data-filter="all">Todas</button>
-      <button class="tpl-filter-btn" data-filter="saas">SaaS</button>
-      <button class="tpl-filter-btn" data-filter="dashboard">Dashboard</button>
-      <button class="tpl-filter-btn" data-filter="blog">Blog</button>
-      <button class="tpl-filter-btn" data-filter="portfolio">Portfolio</button>
-      <button class="tpl-filter-btn" data-filter="ecommerce">E-commerce</button>
-      <button class="tpl-filter-btn" data-filter="avanzado">Avanzadas</button>
-      <button class="tpl-filter-btn" data-filter="intermedio">Intermedias</button>
-      <button class="tpl-filter-btn" data-filter="basico">Básicas</button>
-      <div class="tpl-search" role="search">
-        <span class="tpl-search__icon" aria-hidden="true">🔍</span>
-        <input id="tpl-search" type="search" placeholder="Buscar plantilla..." aria-label="Search templates">
-      </div>
-    </div>
-
-    <!-- Template Grid — populated by JS -->
-    <div id="template-grid" role="list" aria-label="Template grid" aria-live="polite">
-      <!-- Skeleton loaders while JS hydrates -->
-      <div class="tpl-card"><div class="tpl-card__thumb skeleton"></div><div class="tpl-card__body"><div class="skeleton" style="height:14px;width:40%;margin-bottom:8px;"></div><div class="skeleton" style="height:20px;width:80%;margin-bottom:8px;"></div><div class="skeleton" style="height:40px;"></div></div></div>
-      <div class="tpl-card"><div class="tpl-card__thumb skeleton"></div><div class="tpl-card__body"><div class="skeleton" style="height:14px;width:40%;margin-bottom:8px;"></div><div class="skeleton" style="height:20px;width:80%;margin-bottom:8px;"></div><div class="skeleton" style="height:40px;"></div></div></div>
-      <div class="tpl-card"><div class="tpl-card__thumb skeleton"></div><div class="tpl-card__body"><div class="skeleton" style="height:14px;width:40%;margin-bottom:8px;"></div><div class="skeleton" style="height:20px;width:80%;margin-bottom:8px;"></div><div class="skeleton" style="height:40px;"></div></div></div>
-    </div>
-  </div>
-</section>
-
-<!-- ══ CREATIVE ENGINE ════════════════════════════════════════════════════ -->
-<section id="creative-engine" class="section border-top" style="background:var(--surface-2);" aria-labelledby="engine-heading">
-  <div class="container-wide">
-    <div class="text-center mb-12" data-reveal>
-      <p class="section-eyebrow">Visual Builder</p>
-      <h2 id="engine-heading" class="section-title">Creative Engine</h2>
-      <p class="section-sub mx-auto">Diseña tu layout agregando bloques, configura propiedades, previsualiza en tiempo real y descarga el código limpio.</p>
-    </div>
-
-    <!-- 3-panel layout -->
-    <div class="ce-layout" role="application" aria-label="Creative engine builder">
-
-      <!-- ← Palette -->
-      <div class="ce-panel" role="complementary" aria-label="Block palette">
-        <div class="ce-panel__header">
-          <span>⊞ Bloques</span>
-          <span style="font-weight:400;font-size:.7rem;text-transform:none;" id="palette-count"></span>
-        </div>
-        <div class="ce-panel__body" id="ce-palette" role="list" aria-label="Available blocks"></div>
-      </div>
-
-      <!-- ↕ Canvas -->
-      <div class="ce-panel" style="border-left:1px solid var(--border);" role="main" aria-label="Layout canvas">
-        <div class="ce-panel__header">
-          <span>▤ Canvas</span>
-          <span id="ce-block-count" style="font-weight:400;font-size:.7rem;text-transform:none;"></span>
-        </div>
-        <div class="ce-panel__body" id="ce-canvas" aria-label="Canvas blocks" aria-dropeffect="move"></div>
-        <div style="padding:.6rem .75rem;border-top:1px solid var(--border);display:flex;gap:.4rem;">
-          <button class="btn btn-sm btn-primary" id="ce-generate-btn" title="Compile blocks to HTML/CSS/JS">⚙ Generate</button>
-          <button class="btn btn-sm btn-outline" id="ce-preview-btn" title="Preview in iframe">⊡ Preview</button>
-          <button class="btn btn-sm btn-ghost" id="ce-download-btn" title="Download ZIP">↓ ZIP</button>
-          <button class="btn btn-sm btn-ghost" id="ce-clear-btn" title="Clear canvas" style="margin-left:auto;">✕ Clear</button>
-        </div>
-      </div>
-
-      <!-- → Properties -->
-      <div class="ce-panel" role="complementary" aria-label="Block properties">
-        <div class="ce-panel__header">
-          <span>⚙ Propiedades</span>
-        </div>
-        <div class="ce-panel__body">
-          <!-- Block props -->
-          <div id="ce-props-panel"></div>
-
-          <hr style="border:none;border-top:1px solid var(--border);margin:1rem 0;">
-
-          <!-- Theme configurator -->
-          <p style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-3);margin-bottom:.6rem;">Tema</p>
-          <div id="ce-theme-panel">
-            <div class="ce-theme-grid mb-4">
-              <div class="ce-color-swatch">
-                <label for="theme-primary">Primary</label>
-                <input type="color" id="theme-primary" data-theme-prop="primaryColor" value="#2563EB">
-              </div>
-              <div class="ce-color-swatch">
-                <label for="theme-accent">Accent</label>
-                <input type="color" id="theme-accent" data-theme-prop="secondaryColor" value="#7C3AED">
-              </div>
-            </div>
-            <div class="ce-field">
-              <label class="ce-field__label">Modo</label>
-              <select class="ce-field__select" data-theme-prop="mode">
-                <option value="light">Light</option>
-                <option value="dark">Dark</option>
-              </select>
-            </div>
-            <div class="ce-field">
-              <label class="ce-field__label">Radio</label>
-              <select class="ce-field__select" data-theme-prop="radius">
-                <option value="sm">Sharp (4px)</option>
-                <option value="md" selected>Normal (8px)</option>
-                <option value="lg">Rounded (16px)</option>
-                <option value="xl">Pill (24px)</option>
-              </select>
-            </div>
-            <div class="ce-field">
-              <label class="ce-field__label">Tipografía</label>
-              <select class="ce-field__select" data-theme-prop="font">
-                <option value="system" selected>System UI</option>
-                <option value="mono">Monospace</option>
-                <option value="serif">Serif</option>
-              </select>
-            </div>
-          </div>
-
-          <hr style="border:none;border-top:1px solid var(--border);margin:1rem 0;">
-
-          <!-- Layout settings -->
-          <p style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-3);margin-bottom:.6rem;">Layout</p>
-          <div id="ce-settings-panel">
-            <div class="ce-field">
-              <label class="ce-field__label">Ancho máximo</label>
-              <select class="ce-field__select" data-setting="maxWidth">
-                <option value="1024px">1024px</option>
-                <option value="1200px" selected>1200px</option>
-                <option value="1400px">1400px</option>
-                <option value="100%">Full Width</option>
-              </select>
-            </div>
-            <div class="ce-field ce-field--checkbox">
-              <label class="ce-field__label">
-                <input type="checkbox" data-setting="animations" checked> Animaciones scroll
-              </label>
-            </div>
+    <div class="tpl-grid">
+      <!-- Landing -->
+      <div class="tpl-card" data-reveal>
+        <div class="tpl-thumb th-landing">🚀</div>
+        <div class="tpl-body">
+          <span class="tpl-badge badge-std">Landing</span>
+          <p class="tpl-name">Landing Page</p>
+          <p class="tpl-desc">Hero, features, pricing, FAQ, testimonials y CTA. Ideal para SaaS y productos.</p>
+          <div class="tpl-actions">
+            <a href="templates/landing/" class="btn-sm btn-primary">Ver plantilla</a>
+            <a href="templates/landing/" target="_blank" class="btn-sm btn-ghost">↗ Nueva pestaña</a>
           </div>
         </div>
       </div>
-    </div><!-- /ce-layout -->
 
-    <!-- Generated Code Output -->
-    <div class="ce-output" aria-label="Generated code output">
-      <div class="ce-output__header">
-        <div class="ce-output__tabs" role="tablist">
-          <button class="ce-output__tab is-active" data-ce-tab="html" role="tab" aria-selected="true">HTML</button>
-          <button class="ce-output__tab" data-ce-tab="css" role="tab" aria-selected="false">CSS</button>
-          <button class="ce-output__tab" data-ce-tab="js" role="tab" aria-selected="false">JavaScript</button>
-          <span id="ce-line-count" class="text-xs text-muted" style="margin-left:.75rem;align-self:center;"></span>
-        </div>
-        <div class="ce-output__actions">
-          <button class="btn btn-xs btn-ghost" id="ce-copy-html">Copy HTML</button>
-          <button class="btn btn-xs btn-ghost" id="ce-copy-css">Copy CSS</button>
-          <button class="btn btn-xs btn-ghost" id="ce-copy-js">Copy JS</button>
+      <!-- Dashboard -->
+      <div class="tpl-card" data-reveal data-delay="50">
+        <div class="tpl-thumb th-dashboard">📊</div>
+        <div class="tpl-body">
+          <span class="tpl-badge badge-std">Dashboard</span>
+          <p class="tpl-name">Dashboard Admin</p>
+          <p class="tpl-desc">Sidebar, KPI cards, tablas de datos y charts. Panel de administración completo.</p>
+          <div class="tpl-actions">
+            <a href="templates/dashboard/" class="btn-sm btn-primary">Ver plantilla</a>
+            <a href="templates/dashboard/" target="_blank" class="btn-sm btn-ghost">↗ Nueva pestaña</a>
+          </div>
         </div>
       </div>
-      <div class="code-viewer" style="border-radius:0 0 var(--radius-md) var(--radius-md);">
-        <div class="code-viewer__body" style="max-height:380px;">
-          <pre id="ce-code-output" style="color:#8B949E;font-style:italic;">// Click "Generate" to compile your layout to clean HTML, CSS and JavaScript.</pre>
+
+      <!-- Blog -->
+      <div class="tpl-card" data-reveal data-delay="100">
+        <div class="tpl-thumb th-blog">✍️</div>
+        <div class="tpl-body">
+          <span class="tpl-badge badge-std">Blog</span>
+          <p class="tpl-name">Blog Standard</p>
+          <p class="tpl-desc">Grid de artículos, sidebar, categorías y paginación. Listo para contenido.</p>
+          <div class="tpl-actions">
+            <a href="templates/blog/" class="btn-sm btn-primary">Ver plantilla</a>
+            <a href="templates/blog/" target="_blank" class="btn-sm btn-ghost">↗ Nueva pestaña</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Portfolio -->
+      <div class="tpl-card" data-reveal data-delay="150">
+        <div class="tpl-thumb th-portfolio">🎨</div>
+        <div class="tpl-body">
+          <span class="tpl-badge badge-std">Portfolio</span>
+          <p class="tpl-name">Portfolio</p>
+          <p class="tpl-desc">Grid de proyectos con filtros, lightbox y sección de contacto integrada.</p>
+          <div class="tpl-actions">
+            <a href="templates/portfolio/" class="btn-sm btn-primary">Ver plantilla</a>
+            <a href="templates/portfolio/" target="_blank" class="btn-sm btn-ghost">↗ Nueva pestaña</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Gallery -->
+      <div class="tpl-card" data-reveal data-delay="200">
+        <div class="tpl-thumb th-gallery">🖼️</div>
+        <div class="tpl-body">
+          <span class="tpl-badge badge-std">Galería</span>
+          <p class="tpl-name">Galería de Imágenes</p>
+          <p class="tpl-desc">Masonry grid, filtros por categoría y lightbox con navegación por teclado.</p>
+          <div class="tpl-actions">
+            <a href="templates/gallery/" class="btn-sm btn-primary">Ver plantilla</a>
+            <a href="templates/gallery/" target="_blank" class="btn-sm btn-ghost">↗ Nueva pestaña</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact -->
+      <div class="tpl-card" data-reveal data-delay="250">
+        <div class="tpl-thumb th-contact">📬</div>
+        <div class="tpl-body">
+          <span class="tpl-badge badge-std">Contacto</span>
+          <p class="tpl-name">Página de Contacto</p>
+          <p class="tpl-desc">Formulario con validación, mapa, datos de contacto y redes sociales.</p>
+          <div class="tpl-actions">
+            <a href="templates/contact/" class="btn-sm btn-primary">Ver plantilla</a>
+            <a href="templates/contact/" target="_blank" class="btn-sm btn-ghost">↗ Nueva pestaña</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Login -->
+      <div class="tpl-card" data-reveal data-delay="300">
+        <div class="tpl-thumb th-login">🔐</div>
+        <div class="tpl-body">
+          <span class="tpl-badge badge-std">Auth</span>
+          <p class="tpl-name">Login / Register</p>
+          <p class="tpl-desc">Pantalla de autenticación con tabs login/registro, validación y recuperación.</p>
+          <div class="tpl-actions">
+            <a href="templates/login/" class="btn-sm btn-primary">Ver plantilla</a>
+            <a href="templates/login/" target="_blank" class="btn-sm btn-ghost">↗ Nueva pestaña</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pricing FAQ -->
+      <div class="tpl-card" data-reveal data-delay="350">
+        <div class="tpl-thumb th-pricing">💳</div>
+        <div class="tpl-body">
+          <span class="tpl-badge badge-std">Pricing</span>
+          <p class="tpl-name">Pricing & FAQ</p>
+          <p class="tpl-desc">Planes con toggle mensual/anual, comparativa de features y accordion FAQ.</p>
+          <div class="tpl-actions">
+            <a href="templates/pricing-faq/" class="btn-sm btn-primary">Ver plantilla</a>
+            <a href="templates/pricing-faq/" target="_blank" class="btn-sm btn-ghost">↗ Nueva pestaña</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Multistep -->
+      <div class="tpl-card" data-reveal data-delay="400">
+        <div class="tpl-thumb th-multistep">🧭</div>
+        <div class="tpl-body">
+          <span class="tpl-badge badge-std">Formulario</span>
+          <p class="tpl-name">Formulario Multistep</p>
+          <p class="tpl-desc">Wizard de 4 pasos con barra de progreso, validación por paso y resumen final.</p>
+          <div class="tpl-actions">
+            <a href="templates/multistep/" class="btn-sm btn-primary">Ver plantilla</a>
+            <a href="templates/multistep/" target="_blank" class="btn-sm btn-ghost">↗ Nueva pestaña</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Design System -->
+      <div class="tpl-card" data-reveal data-delay="450">
+        <div class="tpl-thumb th-design">🎛️</div>
+        <div class="tpl-body">
+          <span class="tpl-badge badge-std">Sistema</span>
+          <p class="tpl-name">Design System</p>
+          <p class="tpl-desc">Documentación viva de tokens, componentes, tipografía, colores e iconos.</p>
+          <div class="tpl-actions">
+            <a href="templates/design-system/" class="btn-sm btn-primary">Ver plantilla</a>
+            <a href="templates/design-system/" target="_blank" class="btn-sm btn-ghost">↗ Nueva pestaña</a>
+          </div>
         </div>
       </div>
     </div>
-
   </div>
 </section>
 
-<!-- ══ DSL EDITOR ════════════════════════════════════════════════════════ -->
-<section id="dsl" class="section border-top" aria-labelledby="dsl-heading">
+<!-- ══ ADVANCED TEMPLATES ═════════════════════════════════════════════════ -->
+<section id="advanced" class="tpl-section border-top" style="background:var(--surface-2);" aria-labelledby="adv-heading">
   <div class="container">
-    <div class="text-center mb-12" data-reveal>
-      <p class="section-eyebrow">Advanced Mode</p>
-      <h2 id="dsl-heading" class="section-title">DSL Editor</h2>
-      <p class="section-sub mx-auto">Define tu layout mediante el lenguaje declarativo de CoreSystem. El motor lo parsea y compila automáticamente.</p>
-    </div>
+    <p class="section-label" data-reveal>Plantillas Avanzadas</p>
+    <h2 id="adv-heading" class="heading-2" data-reveal data-delay="100">
+      Proyectos Completos e Independientes
+    </h2>
+    <p class="text-secondary" data-reveal data-delay="150">
+      Cada plantilla avanzada es 100% independiente con su propio HTML, CSS y JS — sin dependencias externas.
+    </p>
 
-    <div class="dsl-editor-wrap" data-reveal>
+    <div class="tpl-grid" style="grid-template-columns:repeat(auto-fill,minmax(300px,1fr));">
+      <!-- Landing Pro -->
+      <div class="tpl-card" data-reveal>
+        <div class="tpl-thumb th-landingpro" style="height:180px;font-size:2.5rem;">⚡</div>
+        <div class="tpl-body">
+          <span class="tpl-badge badge-pro">Pro — Independiente</span>
+          <p class="tpl-name">Landing Pro</p>
+          <p class="tpl-desc">Landing page de alta conversión. Animaciones, gradientes avanzados, video hero, testimonials con carrusel y tabla de precios interactiva. CSS y JS completamente propios.</p>
+          <div class="tpl-actions">
+            <a href="templates/landing-pro/" class="btn-sm btn-primary">Ver plantilla</a>
+            <a href="templates/landing-pro/" target="_blank" class="btn-sm btn-ghost">↗ Nueva pestaña</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dashboard Admin -->
+      <div class="tpl-card" data-reveal data-delay="100">
+        <div class="tpl-thumb th-dashboard-adm" style="height:180px;font-size:2.5rem;">📈</div>
+        <div class="tpl-body">
+          <span class="tpl-badge badge-pro">Pro — Independiente</span>
+          <p class="tpl-name">Dashboard Admin</p>
+          <p class="tpl-desc">Panel de administración completo. Sidebar colapsable, gráficas SVG nativas, tablas con ordenación/paginación, notificaciones y gestión de usuarios.</p>
+          <div class="tpl-actions">
+            <a href="templates/dashboard-admin/" class="btn-sm btn-primary">Ver plantilla</a>
+            <a href="templates/dashboard-admin/" target="_blank" class="btn-sm btn-ghost">↗ Nueva pestaña</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Blog Modern -->
+      <div class="tpl-card" data-reveal data-delay="200">
+        <div class="tpl-thumb th-blogmodern" style="height:180px;font-size:2.5rem;">📰</div>
+        <div class="tpl-body">
+          <span class="tpl-badge badge-pro">Pro — Independiente</span>
+          <p class="tpl-name">Blog Modern</p>
+          <p class="tpl-desc">Blog editorial moderno. Grid de artículos featured, categorías dinámicas, modo lectura, tiempo estimado y barra de progreso de lectura.</p>
+          <div class="tpl-actions">
+            <a href="templates/blog-modern/" class="btn-sm btn-primary">Ver plantilla</a>
+            <a href="templates/blog-modern/" target="_blank" class="btn-sm btn-ghost">↗ Nueva pestaña</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ WORKSPACE ══════════════════════════════════════════════════════════ -->
+<section id="workspace" class="tpl-section" aria-labelledby="ws-heading">
+  <div class="container">
+    <p class="section-label" data-reveal>Herramienta Visual</p>
+    <h2 id="ws-heading" class="heading-2" data-reveal data-delay="100">Visual Workspace</h2>
+    <p class="text-secondary" data-reveal data-delay="150">
+      Diseña layouts visualmente con cajas, snap, drag &amp; resize — y exporta HTML/CSS/JS limpio.
+    </p>
+
+    <div class="workspace-banner" data-reveal data-delay="200">
       <div>
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.5rem;">
-          <p class="text-sm font-bold">layout.dsl</p>
-          <div style="display:flex;gap:.4rem;">
-            <button class="btn btn-xs btn-ghost" id="dsl-sync-btn" title="Sync canvas to DSL">⟳ Sync from Canvas</button>
-            <button class="btn btn-xs btn-primary" id="dsl-apply-btn" title="Apply DSL to canvas">▶ Compile</button>
-          </div>
-        </div>
-        <textarea id="dsl-editor" spellcheck="false" aria-label="DSL source editor" placeholder="Write your layout DSL here...">layout {
-  navbar(brand: "MyProject", sticky: true, cta: "Get Started")
-  hero(
-    title: "Build Faster",
-    subtitle: "A professional frontend ecosystem.",
-    cta: "Get Started Free",
-    cta2: "Learn More",
-    badge: "New v2.0"
-  )
-  features(
-    title: "Everything You Need",
-    cols: "3",
-    items: "Zero Dependencies|Pure HTML5 CSS3 and Vanilla JS.;Fully Responsive|Mobile-first for every screen.;Production Ready|Clean architecture ready to ship."
-  )
-  pricing(title: "Simple Pricing", featured: "1")
-  faq(title: "Common Questions")
-  footer(brand: "MyProject", cols: "Product|Templates,Components;Company|About,Blog,Contact")
-}</textarea>
-        <div id="dsl-errors" role="alert" aria-live="assertive"></div>
-      </div>
-      <div>
-        <p class="text-sm font-bold mb-4">DSL Reference</p>
-        <div class="card" style="font-family:var(--font-mono);font-size:.78rem;line-height:1.9;color:var(--text-2);max-height:360px;overflow-y:auto;">
-          <p style="color:var(--text-3);margin-bottom:.5rem;">// Available blocks:</p>
-          <p><span style="color:var(--primary);">navbar</span>(brand, sticky, links, cta)</p>
-          <p><span style="color:var(--primary);">hero</span>(title, subtitle, cta, cta2, badge)</p>
-          <p><span style="color:var(--primary);">features</span>(title, subtitle, cols, items)</p>
-          <p><span style="color:var(--primary);">pricing</span>(title, featured, plan1, plan2, plan3)</p>
-          <p><span style="color:var(--primary);">faq</span>(title, items)</p>
-          <p><span style="color:var(--primary);">testimonials</span>(title, items)</p>
-          <p><span style="color:var(--primary);">cta</span>(title, subtitle, cta, cta2)</p>
-          <p><span style="color:var(--primary);">stats</span>(items)</p>
-          <p><span style="color:var(--primary);">cards</span>(title, cols, items)</p>
-          <p><span style="color:var(--primary);">section</span>(title, subtitle, bg)</p>
-          <p><span style="color:var(--primary);">footer</span>(brand, tagline, cols)</p>
-          <hr style="border:none;border-top:1px solid var(--border);margin:.75rem 0;">
-          <p style="color:var(--text-3);">// items format: "Title|Desc;Title2|Desc2"</p>
-          <p style="color:var(--text-3);">// String values require quotes: "value"</p>
-          <p style="color:var(--text-3);">// Booleans: true / false (no quotes)</p>
+        <h3>Box-Based Layout Designer</h3>
+        <p>Crea estructuras arrastrando cajas, ajustando propiedades y generando código limpio. 25 tipos de caja predefinidos, snap inteligente, historial de 60 pasos, exportación ZIP.</p>
+        <div class="ws-pills">
+          <span class="ws-pill">Drag &amp; Drop</span>
+          <span class="ws-pill">8 handles resize</span>
+          <span class="ws-pill">Snap a grid</span>
+          <span class="ws-pill">25 box types</span>
+          <span class="ws-pill">Capas</span>
+          <span class="ws-pill">Propiedades</span>
+          <span class="ws-pill">HTML/CSS/JS export</span>
+          <span class="ws-pill">ZIP download</span>
+          <span class="ws-pill">Undo/Redo (60)</span>
         </div>
       </div>
+      <a href="workspace/" class="btn btn-gradient btn-lg" style="white-space:nowrap;flex-shrink:0;">
+        Abrir Workspace ↗
+      </a>
     </div>
   </div>
 </section>
 
 <!-- ══ ARCHITECTURE ══════════════════════════════════════════════════════ -->
-<section class="section border-top" aria-labelledby="arch-heading" style="background:var(--surface-2);">
+<section class="tpl-section border-top" style="background:var(--surface-2);" aria-labelledby="arch-heading">
   <div class="container">
-    <div class="text-center mb-12" data-reveal>
-      <p class="section-eyebrow">Arquitectura</p>
-      <h2 id="arch-heading" class="section-title">Cómo Está Construido</h2>
-    </div>
-    <div class="grid-3" style="gap:var(--s6);">
-      <div class="card card--hover" data-reveal>
-        <div style="font-size:1.5rem;margin-bottom:var(--s4);">🗂</div>
-        <h3 class="text-xl font-bold mb-4">File Structure</h3>
-        <pre style="font-family:var(--font-mono);font-size:.72rem;color:var(--text-2);line-height:1.9;background:var(--bg);padding:var(--s4);border-radius:var(--radius);overflow-x:auto;">/assets/css/main.css
-/assets/js/
-  app.js · state.js
-  template-engine.js
-  ui-controller.js
-  utils.js · theme-manager.js
-/creative-engine/
-  block-library.js
-  parser.js · compiler.js
-  dsl-engine.js · generator.js
-/templates/
-  /landing-pro/
-  /dashboard-admin/
-  /blog-modern/</pre>
+    <p class="section-label" data-reveal>Arquitectura</p>
+    <h2 id="arch-heading" class="heading-2" data-reveal data-delay="100">Estructura del Proyecto</h2>
+
+    <div class="arch-grid">
+      <div class="arch-card" data-reveal>
+        <div class="arch-card__icon">🗂</div>
+        <h4>Raíz Global</h4>
+        <pre>CoreSystem/
+├── index.html
+├── styles.css
+└── script.js</pre>
       </div>
-      <div class="card card--hover" data-reveal data-delay="100">
-        <div style="font-size:1.5rem;margin-bottom:var(--s4);">⚡</div>
-        <h3 class="text-xl font-bold mb-4">JS Architecture</h3>
-        <div style="display:flex;flex-direction:column;gap:.5rem;">
-          <div style="display:flex;align-items:center;gap:.6rem;font-size:.83rem;"><span style="width:10px;height:10px;border-radius:50%;background:var(--primary);flex-shrink:0;"></span><strong>IIFE Modules</strong> — encapsulados e independientes</div>
-          <div style="display:flex;align-items:center;gap:.6rem;font-size:.83rem;"><span style="width:10px;height:10px;border-radius:50%;background:var(--accent);flex-shrink:0;"></span><strong>AppState</strong> — pub/sub reactivo sin framework</div>
-          <div style="display:flex;align-items:center;gap:.6rem;font-size:.83rem;"><span style="width:10px;height:10px;border-radius:50%;background:var(--success);flex-shrink:0;"></span><strong>Parser → Compiler</strong> — pipeline estructural</div>
-          <div style="display:flex;align-items:center;gap:.6rem;font-size:.83rem;"><span style="width:10px;height:10px;border-radius:50%;background:var(--warning);flex-shrink:0;"></span><strong>DSL Engine</strong> — lexer + parser recursivo</div>
-          <div style="display:flex;align-items:center;gap:.6rem;font-size:.83rem;"><span style="width:10px;height:10px;border-radius:50%;background:var(--info);flex-shrink:0;"></span><strong>ZIP Writer</strong> — generado en JS puro</div>
-        </div>
+
+      <div class="arch-card" data-reveal data-delay="100">
+        <div class="arch-card__icon">📁</div>
+        <h4>Plantillas Estándar</h4>
+        <pre>templates/
+├── landing/index.html
+├── dashboard/index.html
+├── blog/index.html
+├── portfolio/index.html
+├── gallery/index.html
+├── contact/index.html
+├── login/index.html
+├── pricing-faq/index.html
+├── multistep/index.html
+└── design-system/index.html</pre>
       </div>
-      <div class="card card--hover" data-reveal data-delay="200">
-        <div style="font-size:1.5rem;margin-bottom:var(--s4);">🎨</div>
-        <h3 class="text-xl font-bold mb-4">CSS System</h3>
-        <div style="display:flex;flex-direction:column;gap:.5rem;">
-          <div style="display:flex;align-items:center;gap:.6rem;font-size:.83rem;"><span style="color:var(--primary);font-weight:700;font-size:.65rem;min-width:20px;">1</span>Design Tokens (Custom Properties)</div>
-          <div style="display:flex;align-items:center;gap:.6rem;font-size:.83rem;"><span style="color:var(--primary);font-weight:700;font-size:.65rem;min-width:20px;">2</span>Reset & Base</div>
-          <div style="display:flex;align-items:center;gap:.6rem;font-size:.83rem;"><span style="color:var(--primary);font-weight:700;font-size:.65rem;min-width:20px;">3</span>Layout System (Grid + Flex)</div>
-          <div style="display:flex;align-items:center;gap:.6rem;font-size:.83rem;"><span style="color:var(--primary);font-weight:700;font-size:.65rem;min-width:20px;">4</span>Components Library</div>
-          <div style="display:flex;align-items:center;gap:.6rem;font-size:.83rem;"><span style="color:var(--primary);font-weight:700;font-size:.65rem;min-width:20px;">5</span>Platform Sections</div>
-          <div style="display:flex;align-items:center;gap:.6rem;font-size:.83rem;"><span style="color:var(--primary);font-weight:700;font-size:.65rem;min-width:20px;">6</span>Utilities & Animations</div>
-          <div style="display:flex;align-items:center;gap:.6rem;font-size:.83rem;"><span style="color:var(--primary);font-weight:700;font-size:.65rem;min-width:20px;">7</span>Responsive Breakpoints</div>
-        </div>
+
+      <div class="arch-card" data-reveal data-delay="200">
+        <div class="arch-card__icon">⚡</div>
+        <h4>Plantillas Pro</h4>
+        <pre>templates/
+├── landing-pro/
+│   ├── index.html
+│   ├── styles.css
+│   └── script.js
+├── dashboard-admin/
+│   ├── index.html
+│   ├── styles.css
+│   └── script.js
+└── blog-modern/
+    ├── index.html
+    ├── styles.css
+    └── script.js</pre>
+      </div>
+
+      <div class="arch-card" data-reveal data-delay="300">
+        <div class="arch-card__icon">🛠</div>
+        <h4>Visual Workspace</h4>
+        <pre>workspace/
+├── index.html
+├── style.css
+├── engine/
+│   ├── stateManager.js
+│   ├── historyManager.js
+│   ├── canvasEngine.js
+│   ├── snappingEngine.js
+│   ├── resizeEngine.js
+│   ├── dragEngine.js
+│   ├── layoutAnalyzer.js
+│   ├── responsiveEngine.js
+│   └── codeGenerator.js
+└── ui/
+    ├── toolbar.js
+    ├── toolbox.js
+    ├── layersPanel.js
+    ├── propertiesPanel.js
+    └── workspace.js</pre>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ══ FOOTER ═════════════════════════════════════════════════════════════ -->
-<footer class="section-sm border-top" role="contentinfo" style="background:var(--gray-900);color:#94A3B8;">
+<footer class="hub-footer" role="contentinfo">
   <div class="container">
-    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1.5rem;">
+    <div class="hub-footer__inner">
       <div>
-        <p style="font-size:1.1rem;font-weight:800;color:#fff;letter-spacing:-.03em;">CoreSystem <span style="color:var(--primary);">Platform</span></p>
-        <p style="font-size:.8rem;margin-top:.3rem;">Professional Frontend Ecosystem — HTML5 · CSS3 · Vanilla JS</p>
+        <div class="hub-footer__brand">Core<span>System</span></div>
+        <p class="hub-footer__tagline">HTML5 · CSS3 · Vanilla JS — Sin dependencias</p>
       </div>
-      <div style="display:flex;gap:2rem;flex-wrap:wrap;">
-        <div>
-          <p style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#fff;margin-bottom:.6rem;">Plantillas</p>
-          <a href="templates/landing-pro/" style="display:block;font-size:.82rem;color:#64748B;margin-bottom:.3rem;transition:color .2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#64748B'">Landing Pro</a>
-          <a href="templates/dashboard-admin/" style="display:block;font-size:.82rem;color:#64748B;margin-bottom:.3rem;transition:color .2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#64748B'">Dashboard Admin</a>
-          <a href="templates/blog-modern/" style="display:block;font-size:.82rem;color:#64748B;transition:color .2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#64748B'">Blog Modern</a>
-        </div>
-        <div>
-          <p style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#fff;margin-bottom:.6rem;">Tools</p>
-          <a href="#creative-engine" style="display:block;font-size:.82rem;color:#64748B;margin-bottom:.3rem;transition:color .2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#64748B'">Creative Engine</a>
-          <a href="#dsl" style="display:block;font-size:.82rem;color:#64748B;transition:color .2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#64748B'">DSL Editor</a>
-        </div>
+      <div class="hub-footer__links">
+        <h5>Estándar</h5>
+        <a href="templates/landing/">Landing</a>
+        <a href="templates/dashboard/">Dashboard</a>
+        <a href="templates/blog/">Blog</a>
+        <a href="templates/portfolio/">Portfolio</a>
+        <a href="templates/gallery/">Galería</a>
+      </div>
+      <div class="hub-footer__links">
+        <h5>Más Plantillas</h5>
+        <a href="templates/contact/">Contacto</a>
+        <a href="templates/login/">Login</a>
+        <a href="templates/pricing-faq/">Pricing & FAQ</a>
+        <a href="templates/multistep/">Multistep</a>
+        <a href="templates/design-system/">Design System</a>
+      </div>
+      <div class="hub-footer__links">
+        <h5>Avanzadas & Herramientas</h5>
+        <a href="templates/landing-pro/">Landing Pro</a>
+        <a href="templates/dashboard-admin/">Dashboard Admin</a>
+        <a href="templates/blog-modern/">Blog Modern</a>
+        <a href="workspace/">Visual Workspace</a>
       </div>
     </div>
-    <div style="border-top:1px solid #1E293B;margin-top:2rem;padding-top:1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;">
-      <p style="font-size:.78rem;">© 2026 CoreSystem Platform. Built with HTML5, CSS3 & Vanilla JS.</p>
-      <p style="font-size:.78rem;">No frameworks. No dependencies. Just clean code.</p>
+    <div class="hub-footer__copy">
+      <span>© 2026 CoreSystem. Construido con HTML5, CSS3 &amp; Vanilla JS.</span>
+      <span>Sin frameworks. Sin dependencias. Solo código limpio.</span>
     </div>
   </div>
 </footer>
 
-<!-- ══ MODALS ═════════════════════════════════════════════════════════════ -->
-
-<!-- Template Preview Modal -->
-<div class="modal" id="modal-preview" role="dialog" aria-modal="true" aria-labelledby="modal-preview-title">
-  <div class="modal__backdrop" tabindex="-1"></div>
-  <div class="modal__window modal__window--full">
-    <div class="modal__header">
-      <h2 class="modal__title" id="modal-preview-title">Template Preview</h2>
-      <div style="display:flex;gap:.5rem;align-items:center;">
-        <a id="preview-open-link" href="#" target="_blank" class="btn btn-sm btn-outline">↗ Abrir</a>
-        <button class="btn btn-icon btn-ghost" data-modal-close aria-label="Close modal">✕</button>
-      </div>
-    </div>
-    <div class="modal__body" style="padding:0;overflow:hidden;">
-      <iframe id="preview-iframe" title="Template preview" style="width:100%;height:100%;border:none;" loading="lazy"></iframe>
-    </div>
-  </div>
-</div>
-
-<!-- Code Viewer Modal -->
-<div class="modal" id="modal-code" role="dialog" aria-modal="true" aria-labelledby="modal-code-title">
-  <div class="modal__backdrop" tabindex="-1"></div>
-  <div class="modal__window modal__window--xl">
-    <div class="modal__header">
-      <h2 class="modal__title" id="modal-code-title">Template Source</h2>
-      <div style="display:flex;gap:.5rem;align-items:center;">
-        <button class="btn btn-sm btn-primary" id="code-copy-btn">⎘ Copy <span id="code-lang-label">HTML</span></button>
-        <button class="btn btn-icon btn-ghost" data-modal-close aria-label="Close modal">✕</button>
-      </div>
-    </div>
-    <div class="modal__header" style="background:var(--surface-2);padding:.6rem var(--s6);gap:.25rem;" role="tablist">
-      <button class="tab-btn is-active" data-code-tab="html" role="tab" aria-selected="true">HTML</button>
-      <button class="tab-btn" data-code-tab="css" role="tab" aria-selected="false">CSS</button>
-      <button class="tab-btn" data-code-tab="js" role="tab" aria-selected="false">JavaScript</button>
-    </div>
-    <div class="modal__body" style="padding:0;background:#0D1117;">
-      <div class="code-viewer__body" style="padding:1.25rem 1rem;max-height:65vh;overflow:auto;">
-        <pre id="code-output" style="font-family:var(--font-mono);font-size:.8rem;line-height:1.75;color:#E2E8F0;white-space:pre;"></pre>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Creative Engine Preview Modal -->
-<div class="modal" id="modal-ce-preview" role="dialog" aria-modal="true" aria-labelledby="ce-preview-title">
-  <div class="modal__backdrop" tabindex="-1"></div>
-  <div class="modal__window modal__window--full">
-    <div class="modal__header">
-      <h2 class="modal__title" id="ce-preview-title">Layout Preview</h2>
-      <button class="btn btn-icon btn-ghost" data-modal-close aria-label="Close preview">✕</button>
-    </div>
-    <div class="modal__body" style="padding:0;overflow:hidden;">
-      <iframe id="ce-preview-iframe" title="Generated layout preview" style="width:100%;height:100%;border:none;" loading="lazy"></iframe>
-    </div>
-  </div>
-</div>
-
-<!-- ══ TOAST CONTAINER ═══════════════════════════════════════════════════ -->
-<div id="toast-container" class="toast-container" role="region" aria-label="Notifications" aria-live="polite"></div>
-
 <!-- ══ SCRIPTS ══════════════════════════════════════════════════════════ -->
-<!-- Core utilities (no dependencies) -->
-<script src="assets/js/utils.js"></script>
-<script src="assets/js/state.js"></script>
-<script src="assets/js/theme-manager.js"></script>
-<!-- Creative Engine (depends on state) -->
-<script src="creative-engine/block-library.js"></script>
-<script src="creative-engine/parser.js"></script>
-<script src="creative-engine/compiler.js"></script>
-<script src="creative-engine/dsl-engine.js"></script>
-<script src="creative-engine/generator.js"></script>
-<!-- Platform UI (depends on engine) -->
-<script src="assets/js/template-engine.js"></script>
-<script src="assets/js/ui-controller.js"></script>
-<!-- Entry point -->
-<script src="assets/js/app.js"></script>
+<script src="script.js"></script>
 
 </body>
 </html>
