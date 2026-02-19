@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CoreSystem 3.0 — Visual Layout OS</title>
+  <link rel="stylesheet" href="assets/app.css">
+</head>
+<body>
+
+<div id="vlos-app">
+
+  <!-- ── Toolbar ─────────────────────────────────────────── -->
+  <header id="vlos-toolbar" role="toolbar" aria-label="Main toolbar"></header>
+
+  <!-- ── Vertical ruler ─────────────────────────────────── -->
+  <div id="vlos-ruler-v" aria-hidden="true"></div>
+
+  <!-- ── Layers panel ───────────────────────────────────── -->
+  <aside id="vlos-layers" aria-label="Layers"></aside>
+
+  <!-- ── Canvas area ────────────────────────────────────── -->
+  <main id="vlos-canvas-area">
+    <!-- Horizontal ruler -->
+    <div id="vlos-ruler-h" aria-hidden="true"></div>
+
+    <!-- Drawing surface -->
+    <div id="vlos-canvas" aria-label="Drawing canvas">
+      <!-- Artboard transform wrapper -->
+      <div id="vlos-artboard-wrap">
+        <!-- Snap guides overlay -->
+        <div id="vlos-guides" aria-hidden="true"></div>
+        <!-- Artboard label -->
+        <div class="artboard-label" id="artboard-label">1440 × 900 — Desktop</div>
+        <!-- Artboard (element parent) -->
+        <div id="vlos-artboard"></div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ── Inspector panel ────────────────────────────────── -->
+  <aside id="vlos-inspector" aria-label="Inspector"></aside>
+
+</div><!-- /#vlos-app -->
+
+<!-- ── Preview modal ──────────────────────────────────────── -->
+<div id="vlos-preview-modal" role="dialog" aria-modal="true" aria-label="Layout preview">
+  <div class="preview-modal__bar">
+    <span class="preview-modal__title">Preview</span>
+    <div class="preview-modal__sizes">
+      <button class="preview-modal__size-btn" data-preview-action="size" data-w="375"  data-h="812">Mobile</button>
+      <button class="preview-modal__size-btn" data-preview-action="size" data-w="768"  data-h="1024">Tablet</button>
+      <button class="preview-modal__size-btn is-active" data-preview-action="size" data-w="1280" data-h="800">Laptop</button>
+      <button class="preview-modal__size-btn" data-preview-action="size" data-w="1440" data-h="900">Desktop</button>
+    </div>
+    <button class="toolbar__btn toolbar__btn--primary" data-preview-action="export">⬇ Export ZIP</button>
+    <button class="toolbar__btn" data-preview-action="close" title="Close (Esc)">✕</button>
+  </div>
+  <div class="preview-modal__iframe-wrap">
+    <iframe id="vlos-preview-iframe"
+            title="Layout preview"
+            sandbox="allow-scripts allow-same-origin"
+            width="1280" height="800">
+    </iframe>
+  </div>
+</div>
+
+<!-- ── Context menu ───────────────────────────────────────── -->
+<nav id="vlos-context-menu" aria-label="Context menu">
+  <div class="context-menu__item" data-ctx="bring-front">⬆ Bring to Front</div>
+  <div class="context-menu__item" data-ctx="send-back">⬇ Send to Back</div>
+  <div class="context-menu__item" data-ctx="duplicate">⊕ Duplicate</div>
+  <div class="context-menu__sep"></div>
+  <div class="context-menu__item" data-ctx="lock">🔒 Lock / Unlock</div>
+  <div class="context-menu__item" data-ctx="hide">👁 Hide / Show</div>
+  <div class="context-menu__sep"></div>
+  <div class="context-menu__item" data-ctx="analyze">⚙ Analyze Layout</div>
+  <div class="context-menu__sep"></div>
+  <div class="context-menu__item context-menu__item--danger" data-ctx="delete">✕ Delete</div>
+</nav>
+
+<!-- ================================================================
+     Script loading order (dependencies first)
+     ================================================================ -->
+
+<!-- Engine layer -->
+<script src="engine/eventBus.js"></script>
+<script src="engine/tokenSystem.js"></script>
+<script src="engine/historyManager.js"></script>
+<script src="engine/state.js"></script>
+<script src="engine/snappingEngine.js"></script>
+<script src="engine/constraintEngine.js"></script>
+<script src="engine/layoutAnalyzer.js"></script>
+<script src="engine/responsiveEngine.js"></script>
+<script src="engine/exportEngine.js"></script>
+<script src="engine/renderEngine.js"></script>
+
+<!-- UI layer -->
+<script src="ui/toolbar.js"></script>
+<script src="ui/layersPanel.js"></script>
+<script src="ui/inspector.js"></script>
+<script src="ui/previewMode.js"></script>
+<script src="ui/canvas.js"></script>
+
+<!-- Boot -->
+<script>
+(function () {
+  'use strict';
+
+  // ── Artboard dimensions ──────────────────────────────────────────────────
+  const ARTBOARD_W = 1440;
+  const ARTBOARD_H =  900;
+
+  // ── DOM references ───────────────────────────────────────────────────────
+  const artboardEl    = document.getElementById('vlos-artboard');
+  const artboardWrap  = document.getElementById('vlos-artboard-wrap');
+  const canvasEl      = document.getElementById('vlos-canvas');
+  const guidesEl      = document.getElementById('vlos-guides');
+  const rulerH        = document.getElementById('vlos-ruler-h');
+  const rulerV        = document.getElementById('vlos-ruler-v');
+  const toolbarEl     = document.getElementById('vlos-toolbar');
+  const layersEl      = document.getElementById('vlos-layers');
+  const inspectorEl   = document.getElementById('vlos-inspector');
+  const artboardLabel = document.getElementById('artboard-label');
+  const contextMenu   = document.getElementById('vlos-context-menu');
+
+  // ── Size artboard ────────────────────────────────────────────────────────
+  artboardEl.style.width  = ARTBOARD_W + 'px';
+  artboardEl.style.height = ARTBOARD_H + 'px';
+  AppState.artboardW = ARTBOARD_W;
+  AppState.artboardH = ARTBOARD_H;
+
+  // ── Init engines ─────────────────────────────────────────────────────────
+  TokenSystem.init();
+  HistoryManager.init();
+
+  // Patch AppState helpers referenced by engine modules
+  AppState.getElement     = id => AppState._elements.get(id);
+  AppState.getAll         = ()  => AppState._elements;
+  AppState.getRoots       = ()  => AppState.rootIds.map(id => AppState._elements.get(id)).filter(Boolean);
+  AppState.getChildrenOf  = id  => {
+    const el = AppState._elements.get(id);
+    return el ? el.childIds.map(c => AppState._elements.get(c)).filter(Boolean) : [];
+  };
+  AppState.getZIndex      = id  => AppState.rootIds.indexOf(id);
+
+  // ── Init UI ──────────────────────────────────────────────────────────────
+  RenderEngine.init(artboardEl, guidesEl, rulerH, rulerV);
+  ToolbarUI.init(toolbarEl);
+  LayersPanelUI.init(layersEl);
+  InspectorUI.init(inspectorEl);
+  PreviewModeUI.init();
+  CanvasUI.init(canvasEl, artboardWrap, artboardEl);
+
+  // ── Initial fit-to-screen ────────────────────────────────────────────────
+  requestAnimationFrame(() => {
+    const cW = canvasEl.clientWidth  - 80;
+    const cH = canvasEl.clientHeight - 80;
+    const zoom = Math.min(cW / ARTBOARD_W, cH / ARTBOARD_H, 1);
+    const panX = Math.max(40, (cW - ARTBOARD_W * zoom) / 2 + 40);
+    const panY = Math.max(40, (cH - ARTBOARD_H * zoom) / 2 + 40);
+    AppState.setZoom(zoom);
+    AppState.setPan(panX, panY);
+    artboardWrap.style.transform = `translate(${panX}px,${panY}px) scale(${zoom})`;
+    artboardWrap.style.transformOrigin = '0 0';
+  });
+
+  // ── Artboard label ────────────────────────────────────────────────────────
+  if (artboardLabel) {
+    artboardLabel.textContent =
+      `${ARTBOARD_W} × ${ARTBOARD_H} — ${ResponsiveEngine.inferBreakpointLabel(ARTBOARD_W).toUpperCase()}`;
+  }
+
+  // ── Context menu ──────────────────────────────────────────────────────────
+  let _ctxTargetId = null;
+
+  EventBus.on(EventBus.EVENTS.CONTEXT_MENU, ({ clientX, clientY, targetId }) => {
+    _ctxTargetId = targetId;
+    contextMenu.style.left = clientX + 'px';
+    contextMenu.style.top  = clientY + 'px';
+    contextMenu.classList.add('is-open');
+  });
+
+  document.addEventListener('click', () => contextMenu.classList.remove('is-open'));
+
+  contextMenu.addEventListener('click', e => {
+    const item = e.target.closest('[data-ctx]');
+    if (!item) return;
+    contextMenu.classList.remove('is-open');
+    const id = _ctxTargetId;
+    const el = id ? AppState.getElement(id) : null;
+
+    switch (item.dataset.ctx) {
+      case 'bring-front': if (id) { HistoryManager.push('Reorder'); AppState.bringToFront(id); } break;
+      case 'send-back':   if (id) { HistoryManager.push('Reorder'); AppState.sendToBack(id); }   break;
+      case 'duplicate':   if (id) { HistoryManager.push('Duplicate'); AppState.duplicateElement(id, 20, 20); } break;
+      case 'lock':        if (el) AppState.updateElement(id, { locked:!el.locked }); break;
+      case 'hide':        if (el) AppState.updateElement(id, { hidden:!el.hidden }); break;
+      case 'analyze':     LayoutAnalyzer.analyze(); LayersPanelUI.refresh(); break;
+      case 'delete':      if (id) { HistoryManager.push('Delete'); AppState.deleteElement(id); } break;
+    }
+    EventBus.emit(EventBus.EVENTS.CANVAS_RENDER);
+  });
+
+  // ── History change → re-render ────────────────────────────────────────────
+  EventBus.on(EventBus.EVENTS.HISTORY_CHANGE, () => {
+    EventBus.emit(EventBus.EVENTS.CANVAS_RENDER);
+    LayersPanelUI.refresh();
+  });
+
+  // ── Seed with a starter layout ────────────────────────────────────────────
+  const headerId = AppState.addElement({
+    name:'Header', x:0, y:0, width:ARTBOARD_W, height:72,
+    fill:'#1e293b', stroke:'none', strokeWidth:0,
+    role:'header', htmlTag:'header', cssClass:'site-header',
+    layoutStrategy:'flex-row',
+  });
+  AppState.addElement({
+    name:'Hero', x:0, y:72, width:ARTBOARD_W, height:480,
+    fill:'#0f172a', stroke:'none', strokeWidth:0,
+    role:'hero', htmlTag:'section', cssClass:'hero',
+    layoutStrategy:'flex-col',
+  });
+  AppState.addElement({
+    name:'Card', x:80, y:620, width:280, height:180,
+    fill:'#1e293b', stroke:'#334155', strokeWidth:1,
+    borderRadius:8,
+    role:'card', htmlTag:'article', cssClass:'card',
+  });
+  AppState.addElement({
+    name:'Card', x:400, y:620, width:280, height:180,
+    fill:'#1e293b', stroke:'#334155', strokeWidth:1,
+    borderRadius:8,
+    role:'card', htmlTag:'article', cssClass:'card',
+  });
+  AppState.addElement({
+    name:'Card', x:720, y:620, width:280, height:180,
+    fill:'#1e293b', stroke:'#334155', strokeWidth:1,
+    borderRadius:8,
+    role:'card', htmlTag:'article', cssClass:'card',
+  });
+  AppState.addElement({
+    name:'Footer', x:0, y:ARTBOARD_H - 64, width:ARTBOARD_W, height:64,
+    fill:'#0f172a', stroke:'none', strokeWidth:0,
+    role:'footer', htmlTag:'footer', cssClass:'site-footer',
+    layoutStrategy:'flex-row',
+  });
+
+  // Run analysis on seed layout
+  LayoutAnalyzer.analyze();
+  EventBus.emit(EventBus.EVENTS.CANVAS_RENDER);
+  LayersPanelUI.refresh();
+
+  console.log('%cCoreSystem 3.0 — Visual Layout OS ready', 'color:#58a6ff;font-weight:bold;font-size:14px');
+})();
+</script>
+
+</body>
+</html>
