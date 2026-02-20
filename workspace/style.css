@@ -161,6 +161,18 @@ a { color: var(--accent); text-decoration: none; }
 .tb-toggle:hover { background: var(--surface-2); color: var(--text); }
 .tb-toggle input { accent-color: var(--accent); }
 
+/* Alignment group */
+.tb-group--align { gap: 2px; }
+.tb-align-sep {
+  width: 1px;
+  height: 20px;
+  background: var(--border);
+  margin: 0 3px;
+  flex-shrink: 0;
+}
+.tb-align-btn { font-size: 16px; }
+.tb-align-btn:disabled { opacity: .25; cursor: not-allowed; }
+
 /* ── 5. Left Panel (Toolbox + Layers) ────────────────────────── */
 #app-left {
   grid-area: toolbox;
@@ -341,6 +353,20 @@ a { color: var(--accent); text-decoration: none; }
   opacity: .35;
   pointer-events: none;
   user-select: none;
+}
+.box-text {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  pointer-events: none;
+  user-select: none;
+  overflow: hidden;
+  word-break: break-word;
+  line-height: 1.4;
+  z-index: 1;
 }
 
 /* ── 8. Resize Handles ────────────────────────────────────────── */
@@ -544,6 +570,28 @@ a { color: var(--accent); text-decoration: none; }
 .props__btn--xs { padding: 3px 6px; font-size: 10px; }
 .props__btn--ghost { background: transparent; }
 .props__btn--danger:hover { border-color: var(--danger); color: var(--danger); }
+
+/* Text-align button group in props panel */
+.props__btn-group {
+  display: flex;
+  gap: 3px;
+}
+.props__align-btn {
+  flex: 1;
+  padding: 4px 0;
+  font-size: 13px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  color: var(--text-muted);
+  transition: all var(--transition);
+}
+.props__align-btn:hover { color: var(--text); border-color: var(--border-2); }
+.props__align-btn.is-active {
+  background: var(--accent-dim);
+  border-color: var(--accent);
+  color: var(--accent);
+}
 
 /* ── 12. Layers Panel ────────────────────────────────────────── */
 .layers__empty {

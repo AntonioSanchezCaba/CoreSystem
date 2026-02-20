@@ -57,6 +57,14 @@ const State = (() => {
       gap:         16,
       padding:     { top:0, right:0, bottom:0, left:0 },
       margin:      { top:0, right:0, bottom:0, left:0 },
+      // Typography & content
+      textContent: '',
+      fontSize:    16,
+      fontWeight:  'normal',
+      textColor:   '#1F2328',
+      textAlign:   'center',
+      // Shadow  { x, y, blur, spread, color } — null = disabled
+      shadow:      null,
       ...def,
       id: _gid(), // override any passed id
     };
@@ -148,6 +156,64 @@ const State = (() => {
     }
   }
 
+  // ── Alignment & Distribution ────────────────────────────────────────────────
+  function _selUnlocked() {
+    return _selIds.map(id => _elements.get(id)).filter(el => el && !el.locked);
+  }
+
+  function alignLeft() {
+    const els = _selUnlocked(); if (els.length < 2) return;
+    const minX = Math.min(...els.map(el => el.x));
+    els.forEach(el => update(el.id, { x: minX }));
+  }
+  function alignRight() {
+    const els = _selUnlocked(); if (els.length < 2) return;
+    const maxX = Math.max(...els.map(el => el.x + el.width));
+    els.forEach(el => update(el.id, { x: maxX - el.width }));
+  }
+  function alignCenterH() {
+    const els = _selUnlocked(); if (els.length < 2) return;
+    const minX = Math.min(...els.map(el => el.x));
+    const maxX = Math.max(...els.map(el => el.x + el.width));
+    const cx   = (minX + maxX) / 2;
+    els.forEach(el => update(el.id, { x: cx - el.width / 2 }));
+  }
+  function alignTop() {
+    const els = _selUnlocked(); if (els.length < 2) return;
+    const minY = Math.min(...els.map(el => el.y));
+    els.forEach(el => update(el.id, { y: minY }));
+  }
+  function alignBottom() {
+    const els = _selUnlocked(); if (els.length < 2) return;
+    const maxY = Math.max(...els.map(el => el.y + el.height));
+    els.forEach(el => update(el.id, { y: maxY - el.height }));
+  }
+  function alignCenterV() {
+    const els = _selUnlocked(); if (els.length < 2) return;
+    const minY = Math.min(...els.map(el => el.y));
+    const maxY = Math.max(...els.map(el => el.y + el.height));
+    const cy   = (minY + maxY) / 2;
+    els.forEach(el => update(el.id, { y: cy - el.height / 2 }));
+  }
+  function distributeH() {
+    const els = _selUnlocked(); if (els.length < 3) return;
+    const sorted  = [...els].sort((a, b) => a.x - b.x);
+    const totalW  = sorted.reduce((s, el) => s + el.width, 0);
+    const span    = sorted[sorted.length - 1].x + sorted[sorted.length - 1].width - sorted[0].x;
+    const gap     = (span - totalW) / (sorted.length - 1);
+    let cursor    = sorted[0].x;
+    sorted.forEach(el => { update(el.id, { x: Math.round(cursor) }); cursor += el.width + gap; });
+  }
+  function distributeV() {
+    const els = _selUnlocked(); if (els.length < 3) return;
+    const sorted  = [...els].sort((a, b) => a.y - b.y);
+    const totalH  = sorted.reduce((s, el) => s + el.height, 0);
+    const span    = sorted[sorted.length - 1].y + sorted[sorted.length - 1].height - sorted[0].y;
+    const gap     = (span - totalH) / (sorted.length - 1);
+    let cursor    = sorted[0].y;
+    sorted.forEach(el => { update(el.id, { y: Math.round(cursor) }); cursor += el.height + gap; });
+  }
+
   // ── Serialization ─────────────────────────────────────────────────────────
   function toJSON() {
     return JSON.stringify({
@@ -208,6 +274,8 @@ const State = (() => {
     add, update, remove, duplicate,
     setSelection, addToSel, clearSel, selectAll, deleteSelected,
     bringToFront, sendToBack, bringForward, sendBackward,
+    alignLeft, alignRight, alignCenterH, alignTop, alignBottom, alignCenterV,
+    distributeH, distributeV,
     toJSON, fromJSON, reset,
     getEl: id => _elements.get(id),
     getAllEls: () => [..._elements.values()],

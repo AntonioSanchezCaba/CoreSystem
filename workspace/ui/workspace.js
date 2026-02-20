@@ -94,6 +94,13 @@ const Workspace = (() => {
   function _syncDiv(id, div, el) {
     const typeDef = Toolbox.getTypeDef(el.type);
 
+    // Box shadow
+    let shadowStr = 'none';
+    if (el.shadow) {
+      const sh = el.shadow;
+      shadowStr = `${sh.x??4}px ${sh.y??4}px ${sh.blur??12}px ${sh.spread??0}px ${sh.color||'rgba(0,0,0,0.25)'}`;
+    }
+
     Object.assign(div.style, {
       left:            `${el.x}px`,
       top:             `${el.y}px`,
@@ -105,6 +112,7 @@ const Workspace = (() => {
       opacity:         el.opacity ?? 1,
       zIndex:          el.zIndex,
       display:         el.hidden ? 'none' : 'flex',
+      boxShadow:       shadowStr,
     });
 
     // Label
@@ -127,6 +135,25 @@ const Workspace = (() => {
     if (badge) {
       badge.textContent = typeDef ? typeDef.icon : '▭';
       badge.style.color  = el.stroke || '#94A3B8';
+    }
+
+    // Text content overlay
+    let textNode = div.querySelector('.box-text');
+    if (el.textContent) {
+      if (!textNode) {
+        textNode = document.createElement('div');
+        textNode.className = 'box-text';
+        div.appendChild(textNode);
+      }
+      textNode.textContent = el.textContent;
+      Object.assign(textNode.style, {
+        fontSize:   `${el.fontSize || 16}px`,
+        fontWeight: el.fontWeight  || 'normal',
+        color:      el.textColor   || '#1F2328',
+        textAlign:  el.textAlign   || 'center',
+      });
+    } else if (textNode) {
+      textNode.remove();
     }
 
     div.classList.toggle('is-locked', !!el.locked);

@@ -151,6 +151,59 @@ const PropsPanel = (() => {
   </div>
 </div>
 
+<!-- Typography -->
+<div class="props__section">
+  <div class="props__group-label">Typography</div>
+  <div class="props__row">
+    <label>Content</label>
+    <input type="text" data-prop="textContent" value="${(el.textContent||'').replace(/"/g,'&quot;')}" placeholder="Label text…" style="flex:1">
+  </div>
+  <div class="props__row">
+    <label>Size</label>
+    <input type="number" data-prop="fontSize" value="${el.fontSize||16}" min="6" max="200" style="width:55px"> px
+    <select data-prop="fontWeight" style="margin-left:auto">
+      ${['normal','500','600','700','800'].map(w =>
+        `<option ${(el.fontWeight||'normal')===w?'selected':''} value="${w}">${w}</option>`).join('')}
+    </select>
+  </div>
+  <div class="props__row">
+    <label>Color</label>
+    <input type="color" data-prop="textColor" value="${_safeColor(el.textColor||'#1F2328')}">
+    <span class="props__color-hex" data-prop-label="textColor">${el.textColor||'#1F2328'}</span>
+  </div>
+  <div class="props__row">
+    <label>Align</label>
+    <div class="props__btn-group">
+      ${['left','center','right'].map(a => `
+      <button class="props__btn props__btn--xs props__align-btn${(el.textAlign||'center')===a?' is-active':''}"
+              data-text-align="${a}" title="Align ${a}">${a==='left'?'⬛◻◻':a==='center'?'◻⬛◻':'◻◻⬛'}</button>`).join('')}
+    </div>
+  </div>
+</div>
+
+<!-- Shadow -->
+<div class="props__section">
+  <div class="props__group-label">Shadow</div>
+  <div class="props__row">
+    <label>Enable</label>
+    <input type="checkbox" id="prop-shadow-on" ${el.shadow ? 'checked' : ''} style="width:auto">
+  </div>
+  <div id="prop-shadow-fields" style="${el.shadow ? '' : 'opacity:.35;pointer-events:none'}">
+    <div class="props__grid4">
+      <label>X<input type="number" id="prop-sh-x"    value="${el.shadow?.x    ?? 4}"></label>
+      <label>Y<input type="number" id="prop-sh-y"    value="${el.shadow?.y    ?? 4}"></label>
+      <label>Blur<input type="number" id="prop-sh-b"   value="${el.shadow?.blur   ?? 12}" min="0"></label>
+      <label>Spread<input type="number" id="prop-sh-sp"  value="${el.shadow?.spread ?? 0}"></label>
+    </div>
+    <div class="props__row" style="margin-top:6px">
+      <label>Color</label>
+      <input type="color" id="prop-sh-color" value="${_safeColor(el.shadow?.color ?? '#000000')}">
+      <input type="range"  id="prop-sh-alpha" min="0" max="100" value="${_shadowAlpha(el.shadow)}" style="flex:1;margin-left:4px" title="Shadow opacity">
+      <span id="prop-sh-alpha-lbl" style="min-width:28px;text-align:right">${_shadowAlpha(el.shadow)}%</span>
+    </div>
+  </div>
+</div>
+
 <!-- Semantic -->
 <div class="props__section">
   <div class="props__group-label">Semantic / Code</div>
@@ -179,7 +232,31 @@ const PropsPanel = (() => {
 </div>`;
 
     _bindPropInputs(el);
+    _bindShadow(el);
+    _bindTextAlign(el);
     _bindActions(el);
+  }
+
+  // ── Shadow alpha helper ─────────────────────────────────────────────────────
+  function _shadowAlpha(shadow) {
+    if (!shadow) return 25;
+    // Try to extract alpha from rgba string
+    const m = (shadow.color || '').match(/rgba\([^,]+,[^,]+,[^,]+,\s*([\d.]+)\)/);
+    if (m) return Math.round(parseFloat(m[1]) * 100);
+    return 25;
+  }
+
+  function _shadowCss(el) {
+    const sh = el.shadow;
+    if (!sh) return null;
+    const alpha = _shadowAlpha(sh) / 100;
+    const hexColor = sh.color || '#000000';
+    // Convert hex to rgba
+    const r = parseInt(hexColor.slice(1,3), 16);
+    const g = parseInt(hexColor.slice(3,5), 16);
+    const b = parseInt(hexColor.slice(5,7), 16);
+    return { x: sh.x??4, y: sh.y??4, blur: sh.blur??12, spread: sh.spread??0,
+             color: `rgba(${r},${g},${b},${alpha})` };
   }
 
   function _zOrderSection(id) {
@@ -255,6 +332,63 @@ const PropsPanel = (() => {
           case 'hide': State.update(el.id, { hidden: !el.hidden }); break;
           case 'delete': History.push('Delete'); State.remove(el.id); break;
         }
+      });
+    });
+  }
+
+  // ── Shadow binding ─────────────────────────────────────────────────────────
+  function _bindShadow(el) {
+    if (!_el) return;
+    const onToggle = document.getElementById('prop-shadow-on');
+    const fields   = document.getElementById('prop-shadow-fields');
+    if (!onToggle || !fields) return;
+
+    const _readShadow = () => {
+      const x      = parseInt(document.getElementById('prop-sh-x')?.value  || 4);
+      const y      = parseInt(document.getElementById('prop-sh-y')?.value  || 4);
+      const blur   = parseInt(document.getElementById('prop-sh-b')?.value  || 12);
+      const spread = parseInt(document.getElementById('prop-sh-sp')?.value || 0);
+      const hexCol = document.getElementById('prop-sh-color')?.value || '#000000';
+      const alpha  = parseInt(document.getElementById('prop-sh-alpha')?.value || 25) / 100;
+      const r = parseInt(hexCol.slice(1,3), 16);
+      const g = parseInt(hexCol.slice(3,5), 16);
+      const b = parseInt(hexCol.slice(5,7), 16);
+      return { x, y, blur, spread, color: `rgba(${r},${g},${b},${alpha})` };
+    };
+
+    const _apply = () => {
+      const sh = onToggle.checked ? _readShadow() : null;
+      State.selIds.forEach(id => State.update(id, { shadow: sh }));
+    };
+
+    onToggle.addEventListener('change', () => {
+      fields.style.opacity = onToggle.checked ? '' : '.35';
+      fields.style.pointerEvents = onToggle.checked ? '' : 'none';
+      _apply();
+    });
+
+    ['prop-sh-x','prop-sh-y','prop-sh-b','prop-sh-sp','prop-sh-color'].forEach(id => {
+      document.getElementById(id)?.addEventListener('input', _apply);
+    });
+
+    const alphaSlider = document.getElementById('prop-sh-alpha');
+    const alphaLbl    = document.getElementById('prop-sh-alpha-lbl');
+    alphaSlider?.addEventListener('input', () => {
+      if (alphaLbl) alphaLbl.textContent = alphaSlider.value + '%';
+      _apply();
+    });
+  }
+
+  // ── Text alignment binding ─────────────────────────────────────────────────
+  function _bindTextAlign(el) {
+    if (!_el) return;
+    _el.querySelectorAll('[data-text-align]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const align = btn.dataset.textAlign;
+        State.selIds.forEach(id => State.update(id, { textAlign: align }));
+        _el.querySelectorAll('[data-text-align]').forEach(b => {
+          b.classList.toggle('is-active', b.dataset.textAlign === align);
+        });
       });
     });
   }

@@ -19,10 +19,12 @@ const Toolbar = (() => {
     _bind();
     _syncTool('select');
     _syncUndoRedo({ canUndo:false, canRedo:false });
+    _syncAlign([]);
 
     State.on('tool:change',    id => _syncTool(id));
     State.on('history:change', _syncUndoRedo);
     State.on('canvas:transform', _syncZoom);
+    State.on('sel:change',     _syncAlign);
   }
 
   function _html() {
@@ -73,6 +75,21 @@ const Toolbar = (() => {
     <input type="checkbox" id="tb-snap" ${State.snapEnabled ? 'checked' : ''}>
     <span>Snap</span>
   </label>
+</div>
+
+<div class="tb-sep"></div>
+
+<div class="tb-group tb-group--align" id="tb-align-group" title="Align (select 2+ elements)">
+  <button class="tb-btn tb-btn--icon tb-align-btn" data-align="left"    title="Align left edges">⊢</button>
+  <button class="tb-btn tb-btn--icon tb-align-btn" data-align="centerH" title="Center horizontally">↔</button>
+  <button class="tb-btn tb-btn--icon tb-align-btn" data-align="right"   title="Align right edges">⊣</button>
+  <div class="tb-align-sep"></div>
+  <button class="tb-btn tb-btn--icon tb-align-btn" data-align="top"     title="Align top edges">⊤</button>
+  <button class="tb-btn tb-btn--icon tb-align-btn" data-align="centerV" title="Center vertically">↕</button>
+  <button class="tb-btn tb-btn--icon tb-align-btn" data-align="bottom"  title="Align bottom edges">⊥</button>
+  <div class="tb-align-sep"></div>
+  <button class="tb-btn tb-btn--icon tb-align-btn" data-align="distH"   title="Distribute horizontally (3+)">⇔</button>
+  <button class="tb-btn tb-btn--icon tb-align-btn" data-align="distV"   title="Distribute vertically (3+)">⇕</button>
 </div>
 
 <div class="tb-sep"></div>
@@ -161,6 +178,23 @@ const Toolbar = (() => {
       if (confirm('Clear canvas? This cannot be undone.')) { State.reset(); }
     });
 
+    // Alignment & Distribution
+    _el.querySelectorAll('[data-align]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        History.push('Align');
+        switch(btn.dataset.align) {
+          case 'left':    State.alignLeft();     break;
+          case 'centerH': State.alignCenterH();  break;
+          case 'right':   State.alignRight();    break;
+          case 'top':     State.alignTop();      break;
+          case 'centerV': State.alignCenterV();  break;
+          case 'bottom':  State.alignBottom();   break;
+          case 'distH':   State.distributeH();   break;
+          case 'distV':   State.distributeV();   break;
+        }
+      });
+    });
+
     // Keyboard shortcut for grid
     window.addEventListener('keydown', e => {
       if (['INPUT','TEXTAREA'].includes(document.activeElement.tagName)) return;
@@ -188,6 +222,16 @@ const Toolbar = (() => {
   function _syncZoom() {
     const lbl = _el?.querySelector('#tb-zoom-lbl');
     if (lbl) lbl.textContent = `${Math.round(State.zoom * 100)}%`;
+  }
+
+  function _syncAlign(ids) {
+    if (!_el) return;
+    const n = (ids || []).length;
+    _el.querySelectorAll('.tb-align-btn').forEach(btn => {
+      const isDistrib = btn.dataset.align === 'distH' || btn.dataset.align === 'distV';
+      const needed    = isDistrib ? 3 : 2;
+      btn.disabled    = n < needed;
+    });
   }
 
   function _toast(msg, type = '') {

@@ -10,10 +10,11 @@
  *   • Space+drag pan (delegates to CanvasEng)
  */
 const DragEng = (() => {
-  let _viewport = null;
-  let _content  = null;
-  let _drag     = null; // current interaction descriptor
-  let _altDown  = false;
+  let _viewport  = null;
+  let _content   = null;
+  let _drag      = null;   // current interaction descriptor
+  let _altDown   = false;
+  let _clipboard = null;   // array of element snapshots for copy/paste
 
   // ── Init ───────────────────────────────────────────────────────────────────
   function init(viewportEl, contentEl) {
@@ -43,6 +44,34 @@ const DragEng = (() => {
       History.push('Duplicate');
       const newIds = State.selIds.map(id => State.duplicate(id, 20, 20));
       State.setSelection(newIds);
+      return;
+    }
+
+    // Copy / Cut / Paste
+    if (ctrl && e.key === 'c') {
+      if (State.selIds.length) {
+        _clipboard = State.selIds.map(id => ({ ...State.getEl(id) }));
+      }
+      return;
+    }
+    if (ctrl && e.key === 'x') {
+      if (State.selIds.length) {
+        _clipboard = State.selIds.map(id => ({ ...State.getEl(id) }));
+        History.push('Cut');
+        State.deleteSelected();
+      }
+      return;
+    }
+    if (ctrl && e.key === 'v') {
+      if (_clipboard && _clipboard.length) {
+        History.push('Paste');
+        const newIds = _clipboard.map(src =>
+          State.add({ ...src, id: undefined, x: src.x + 20, y: src.y + 20, name: src.name })
+        );
+        State.setSelection(newIds);
+        // Shift clipboard so repeated pastes offset correctly
+        _clipboard = _clipboard.map(src => ({ ...src, x: src.x + 20, y: src.y + 20 }));
+      }
       return;
     }
 
