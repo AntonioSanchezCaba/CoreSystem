@@ -46,9 +46,14 @@ const Toolbox = (() => {
     },
   ];
 
-  let _el     = null;
-  let _ghost  = null;  // drag ghost element
-  let _dragDef = null; // type being dragged
+  const DRAG_THRESHOLD = 6; // px before ghost activates
+
+  let _el      = null;
+  let _ghost   = null;   // drag ghost element
+  let _dragDef = null;   // type actively being ghost-dragged
+  let _downDef = null;   // type where mousedown started
+  let _downPos = null;   // {x,y} of mousedown, used for threshold
+  let _dropped = false;  // true after a drag-drop, so click handler skips place-at-center
 
   // ── Init ───────────────────────────────────────────────────────────────────
   function init(panelEl) {
@@ -66,7 +71,6 @@ const Toolbox = (() => {
   <div class="toolbox__items">
     ${cat.items.map(item => `
       <div class="toolbox__item" data-type="${item.type}"
-           draggable="true"
            title="Drag to canvas or click to place">
         <span class="toolbox__item-icon"
               style="background:${item.fill};border:2px solid ${item.stroke};color:${item.fillText||''}">
@@ -103,19 +107,21 @@ const Toolbox = (() => {
       });
     });
 
-    // Mouse drag from toolbox → canvas
+    // Record mousedown — ghost only activates after threshold movement
     _el.addEventListener('mousedown', e => {
       const itemEl = e.target.closest('.toolbox__item');
       if (!itemEl) return;
+      e.preventDefault(); // suppress browser native drag and text-selection
       const typeDef = _findType(itemEl.dataset.type);
       if (!typeDef) return;
-
-      _dragDef = typeDef;
-      _createGhost(typeDef, e.clientX, e.clientY);
+      _downDef = typeDef;
+      _downPos = { x: e.clientX, y: e.clientY };
+      _dropped = false;
     });
 
-    // Click-to-place (no significant move)
+    // Click-to-place — skip if a drag-drop already placed the element
     _el.addEventListener('click', e => {
+      if (_dropped) { _dropped = false; return; }
       const itemEl = e.target.closest('.toolbox__item');
       if (!itemEl) return;
       const typeDef = _findType(itemEl.dataset.type);
@@ -156,21 +162,36 @@ const Toolbox = (() => {
 
   function _bindGhostEvents() {
     window.addEventListener('mousemove', e => {
-      if (!_dragDef) return;
-      _moveGhost(e.clientX, e.clientY);
+      if (!_downDef) return;
+      if (!_dragDef) {
+        // Activate ghost only after threshold — so a plain click shows no ghost
+        const dx = e.clientX - _downPos.x;
+        const dy = e.clientY - _downPos.y;
+        if (Math.sqrt(dx * dx + dy * dy) >= DRAG_THRESHOLD) {
+          _dragDef = _downDef;
+          _createGhost(_downDef, e.clientX, e.clientY);
+        }
+      } else {
+        _moveGhost(e.clientX, e.clientY);
+      }
     });
 
     window.addEventListener('mouseup', e => {
-      if (!_dragDef) return;
-      const vp = document.getElementById('canvas-viewport');
-      if (vp) {
-        const rect = vp.getBoundingClientRect();
-        if (e.clientX >= rect.left && e.clientX <= rect.right &&
-            e.clientY >= rect.top  && e.clientY <= rect.bottom) {
-          DragEng.dropFromToolbox(_dragDef, e.clientX, e.clientY);
+      if (_dragDef) {
+        // Drop on canvas if released within viewport bounds
+        const vp = document.getElementById('canvas-viewport');
+        if (vp) {
+          const rect = vp.getBoundingClientRect();
+          if (e.clientX >= rect.left && e.clientX <= rect.right &&
+              e.clientY >= rect.top  && e.clientY <= rect.bottom) {
+            DragEng.dropFromToolbox(_dragDef, e.clientX, e.clientY);
+            _dropped = true; // suppress the following click event
+          }
         }
+        _destroyGhost();
       }
-      _destroyGhost();
+      _downDef = null;
+      _downPos = null;
     });
   }
 

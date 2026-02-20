@@ -72,12 +72,6 @@ const Workspace = (() => {
     _content.appendChild(div);
     _divs.set(id, div);
     _syncDiv(id, div, el);
-
-    // Click selects
-    div.addEventListener('mousedown', e => {
-      if (e.target.closest('[data-handle]')) return;
-      e.stopPropagation();
-    });
   }
 
   function _addDiv(id)    { _makeDiv(id); }

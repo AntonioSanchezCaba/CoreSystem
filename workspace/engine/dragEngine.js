@@ -138,11 +138,12 @@ const DragEng = (() => {
 
     // Check element div
     const boxEl = e.target.closest('[data-id]');
-    if (boxEl && State.tool === 'select') {
+    if (boxEl) {
+      e.stopPropagation(); // always consume — prevents rubber-band on locked/non-select
+      if (State.tool !== 'select') return;
       const id = boxEl.dataset.id;
       const el = State.getEl(id);
       if (!el || el.locked) return;
-      e.stopPropagation();
 
       // Alt+drag = duplicate
       if (_altDown) {
