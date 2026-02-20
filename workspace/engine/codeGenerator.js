@@ -275,12 +275,518 @@ ${responsive}`);
     };
   }
 
-  // ── Preview HTML (self-contained) ─────────────────────────────────────────
+  // ── Preview HTML (visually rich, self-contained) ──────────────────────────
+
+  function _pvIsDark(fill) {
+    if (!fill || fill === 'transparent') return false;
+    const m = fill.match(/rgba?\(\s*(\d+)[,\s]+(\d+)[,\s]+(\d+)/);
+    if (m) return (+m[1] * 0.299 + +m[2] * 0.587 + +m[3] * 0.114) < 128;
+    const h = fill.replace('#', '');
+    if (h.length < 6) return false;
+    return (parseInt(h.slice(0,2),16)*0.299 + parseInt(h.slice(2,4),16)*0.587 + parseInt(h.slice(4,6),16)*0.114) < 128;
+  }
+
+  function _pvCtx(el) {
+    const fill = el.fill || '#F8FAFC';
+    const dark  = _pvIsDark(fill);
+    return {
+      fill, dark,
+      text:   dark ? '#F8FAFC'              : '#0F172A',
+      muted:  dark ? 'rgba(248,250,252,.6)' : 'rgba(15,23,42,.45)',
+      subtle: dark ? 'rgba(248,250,252,.12)': 'rgba(15,23,42,.1)',
+      accent: '#3B82F6',
+    };
+  }
+
+  function _pvBase(el) {
+    const sh = el.shadow
+      ? `box-shadow:${el.shadow.x||4}px ${el.shadow.y||4}px ${el.shadow.blur||12}px ${el.shadow.spread||0}px ${el.shadow.color||'rgba(0,0,0,0.25)'};`
+      : '';
+    return [
+      `position:absolute`,
+      `left:${el.x}px`, `top:${el.y}px`,
+      `width:${el.width}px`, `height:${el.height}px`,
+      `background:${el.fill || 'transparent'}`,
+      `border-radius:${el.borderRadius || 0}px`,
+      `opacity:${el.opacity ?? 1}`,
+      `z-index:${el.zIndex || 0}`,
+      `overflow:hidden`,
+      `box-sizing:border-box`,
+      el.strokeWidth > 0 ? `border:${el.strokeWidth}px solid ${el.stroke}` : '',
+      sh,
+    ].filter(Boolean).join(';');
+  }
+
+  // ── Type renderers ─────────────────────────────────────────────────────────
+  function _pvNavbar(el, c) {
+    const { text, muted, subtle, accent } = c;
+    const h = el.height, w = el.width;
+    const px = Math.max(24, Math.round(w * 0.025));
+    const tsz = Math.round(Math.max(11, h * 0.26));
+    const bpad = `${Math.round(h*.17)}px ${Math.round(h*.4)}px`;
+    const logoSz = Math.round(h * 0.44);
+    return `<div style="display:flex;align-items:center;justify-content:space-between;padding:0 ${px}px;height:100%;font-family:system-ui,sans-serif;">
+      <div style="display:flex;align-items:center;gap:10px;flex-shrink:0;">
+        <div style="width:${logoSz}px;height:${logoSz}px;background:linear-gradient(135deg,#3B82F6,#6366F1);border-radius:${Math.round(logoSz*.25)}px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;font-size:${Math.round(logoSz*.55)}px;">C</div>
+        <span style="font-weight:700;font-size:${Math.round(logoSz*.62)}px;color:${text};letter-spacing:-.01em;">CoreBrand</span>
+      </div>
+      <nav style="display:flex;gap:${Math.round(w*.018)}px;align-items:center;">
+        ${['Home','About','Services','Blog','Contact'].map((n,i)=>`<span style="color:${i===0?text:muted};font-size:${tsz}px;font-weight:${i===0?600:500};cursor:pointer;${i===0?`padding-bottom:2px;border-bottom:2px solid ${accent};`:''}white-space:nowrap;">${n}</span>`).join('')}
+      </nav>
+      <div style="display:flex;gap:8px;align-items:center;flex-shrink:0;">
+        <button style="background:transparent;color:${text};border:1px solid ${subtle};border-radius:8px;padding:${bpad};font-size:${tsz}px;font-weight:500;cursor:pointer;white-space:nowrap;">Sign In</button>
+        <button style="background:linear-gradient(135deg,#3B82F6,#6366F1);color:#fff;border:none;border-radius:8px;padding:${bpad};font-size:${tsz}px;font-weight:700;cursor:pointer;white-space:nowrap;box-shadow:0 2px 12px rgba(59,130,246,.4);">Get Started</button>
+      </div>
+    </div>`;
+  }
+
+  function _pvHero(el, c) {
+    const { text, muted, accent } = c;
+    const w = el.width, h = el.height;
+    const tall  = h > 280;
+    const tsz   = Math.min(Math.round(h * (tall?.11:.14)), tall?60:36);
+    const ssz   = Math.min(Math.round(h * .045), 18);
+    const px    = Math.max(40, Math.round(w * .07));
+    const bh    = Math.round(h * .1);
+    const bpx   = Math.round(w * .025);
+    return `<div style="position:relative;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:${Math.round(h*.06)}px ${px}px;text-align:center;font-family:system-ui,sans-serif;overflow:hidden;">
+      <div style="position:absolute;top:-80px;right:-80px;width:400px;height:400px;background:linear-gradient(135deg,rgba(99,102,241,.18),rgba(124,58,237,.06));border-radius:50%;pointer-events:none;"></div>
+      <div style="position:absolute;bottom:-60px;left:-60px;width:260px;height:260px;background:linear-gradient(135deg,rgba(59,130,246,.12),rgba(16,185,129,.06));border-radius:50%;pointer-events:none;"></div>
+      ${tall?`<div style="display:inline-flex;align-items:center;gap:6px;background:rgba(99,102,241,.1);border:1px solid rgba(99,102,241,.2);border-radius:20px;padding:4px 14px;font-size:12px;font-weight:700;color:#7C3AED;margin-bottom:${Math.round(h*.04)}px;letter-spacing:.02em;">✦ Introducing CoreSystem 2.0</div>`:''}
+      <h1 style="font-size:${tsz}px;font-weight:800;color:${text};line-height:1.12;margin:0 0 ${Math.round(h*.035)}px;letter-spacing:-.025em;max-width:${Math.round(w*.65)}px;">Build Stunning Layouts<br><span style="background:linear-gradient(135deg,#7C3AED,#3B82F6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">At Warp Speed</span></h1>
+      ${tall?`<p style="font-size:${ssz}px;color:${muted};line-height:1.65;margin:0 0 ${Math.round(h*.055)}px;max-width:${Math.round(w*.42)}px;">Design professional web layouts visually, export clean production-ready code, and ship in record time.</p>`:''}
+      <div style="display:flex;gap:14px;justify-content:center;">
+        <button style="background:linear-gradient(135deg,#7C3AED,#6366F1);color:#fff;border:none;border-radius:12px;padding:${Math.round(bh*.32)}px ${bpx}px;font-size:${Math.round(bh*.33)}px;font-weight:700;cursor:pointer;box-shadow:0 4px 24px rgba(124,58,237,.38);">Start Building Free →</button>
+        ${tall?`<button style="background:rgba(255,255,255,.1);backdrop-filter:blur(8px);color:${text};border:1px solid ${muted};border-radius:12px;padding:${Math.round(bh*.32)}px ${bpx}px;font-size:${Math.round(bh*.33)}px;font-weight:600;cursor:pointer;">▶ Watch Demo</button>`:''}
+      </div>
+      ${tall?`<div style="display:flex;gap:${Math.round(w*.02)}px;margin-top:${Math.round(h*.055)}px;align-items:center;">
+        <div style="display:flex;">${[...Array(4)].map((_,i)=>`<div style="width:26px;height:26px;border-radius:50%;border:2px solid rgba(255,255,255,.25);margin-left:${i>0?'-7px':'0'};background:linear-gradient(135deg,hsl(${i*55},70%,60%),hsl(${i*55+40},65%,50%));"></div>`).join('')}</div>
+        <span style="font-size:13px;color:${muted};">Trusted by <strong style="color:${text};">12,000+</strong> designers · ★★★★★ <strong style="color:${text};">4.9</strong></span>
+      </div>`:''}
+    </div>`;
+  }
+
+  function _pvFooter(el, c) {
+    const { text, muted, subtle } = c;
+    const w = el.width, h = el.height;
+    const px = Math.max(24, Math.round(w * .04));
+    if (h < 120) {
+      return `<div style="display:flex;align-items:center;justify-content:space-between;padding:0 ${px}px;height:100%;font-family:system-ui,sans-serif;">
+        <span style="font-weight:700;font-size:15px;color:${text};">CoreBrand</span>
+        <div style="display:flex;gap:22px;">${['Privacy','Terms','Contact','Careers'].map(l=>`<span style="font-size:13px;color:${muted};cursor:pointer;">${l}</span>`).join('')}</div>
+        <span style="font-size:12px;color:${muted};">© ${new Date().getFullYear()} CoreBrand. All rights reserved.</span>
+      </div>`;
+    }
+    const py = Math.round(h * .1);
+    return `<div style="padding:${py}px ${px}px;font-family:system-ui,sans-serif;height:100%;display:flex;flex-direction:column;justify-content:space-between;box-sizing:border-box;">
+      <div style="display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:20px;">
+        <div>
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+            <div style="width:28px;height:28px;background:linear-gradient(135deg,#3B82F6,#6366F1);border-radius:7px;"></div>
+            <span style="font-weight:700;font-size:15px;color:${text};">CoreBrand</span>
+          </div>
+          <p style="font-size:12px;color:${muted};line-height:1.6;max-width:180px;margin:0 0 12px;">Design, build, and ship beautiful web experiences with confidence.</p>
+          <div style="display:flex;gap:8px;">${['◈','◉','⊕','⊞'].map(i=>`<div style="width:28px;height:28px;background:${subtle};border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;color:${muted};">${i}</div>`).join('')}</div>
+        </div>
+        ${[{t:'Product',l:['Features','Pricing','Changelog','Roadmap']},{t:'Resources',l:['Docs','Guides','API','Community']},{t:'Company',l:['About','Blog','Careers','Press']}].map(col=>`<div><h4 style="font-size:11px;font-weight:700;color:${text};margin:0 0 10px;text-transform:uppercase;letter-spacing:.07em;">${col.t}</h4><ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:7px;">${col.l.map(l=>`<li style="font-size:12px;color:${muted};cursor:pointer;">${l}</li>`).join('')}</ul></div>`).join('')}
+      </div>
+      <div style="border-top:1px solid ${subtle};padding-top:14px;display:flex;justify-content:space-between;align-items:center;">
+        <span style="font-size:12px;color:${muted};">© ${new Date().getFullYear()} CoreBrand, Inc. All rights reserved.</span>
+        <div style="display:flex;gap:14px;">${['Privacy','Terms','Cookies'].map(l=>`<span style="font-size:12px;color:${muted};cursor:pointer;">${l}</span>`).join('')}</div>
+      </div>
+    </div>`;
+  }
+
+  function _pvSidebar(el, c) {
+    const { text, muted, subtle, accent } = c;
+    const w = el.width, h = el.height;
+    const px = Math.round(w * .1);
+    const wide = w > 120;
+    const items = [
+      { ic:'⊞', lb:'Dashboard', on:true  },
+      { ic:'◈', lb:'Analytics', on:false },
+      { ic:'◉', lb:'Projects',  on:false },
+      { ic:'✉', lb:'Messages',  on:false },
+      { ic:'⚙', lb:'Settings',  on:false },
+    ];
+    return `<div style="width:100%;height:100%;display:flex;flex-direction:column;justify-content:space-between;padding:${Math.round(h*.04)}px ${px}px;font-family:system-ui,sans-serif;box-sizing:border-box;">
+      <div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:${Math.round(h*.05)}px;padding-bottom:${Math.round(h*.03)}px;border-bottom:1px solid ${subtle};">
+          <div style="width:30px;height:30px;background:linear-gradient(135deg,#3B82F6,#6366F1);border-radius:7px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;font-size:14px;flex-shrink:0;">C</div>
+          ${wide?`<span style="font-weight:700;font-size:14px;color:${text};">CoreBrand</span>`:''}
+        </div>
+        <nav style="display:flex;flex-direction:column;gap:3px;">
+          ${items.map(it=>`<div style="display:flex;align-items:center;gap:9px;padding:${Math.round(h*.018)}px ${Math.round(w*.06)}px;border-radius:8px;background:${it.on?accent+'22':'transparent'};cursor:pointer;">
+            <span style="font-size:15px;color:${it.on?accent:muted};">${it.ic}</span>
+            ${wide?`<span style="font-size:12px;font-weight:${it.on?600:400};color:${it.on?text:muted};">${it.lb}</span>`:''}
+          </div>`).join('')}
+        </nav>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;padding:${Math.round(h*.02)}px 0;border-top:1px solid ${subtle};">
+        <div style="width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#F59E0B,#EF4444);flex-shrink:0;"></div>
+        ${wide?`<div><div style="font-size:12px;font-weight:600;color:${text};">John Doe</div><div style="font-size:10px;color:${muted};">Admin</div></div>`:''}
+      </div>
+    </div>`;
+  }
+
+  function _pvCard(el, c) {
+    const { text, muted, accent, subtle } = c;
+    const w = el.width, h = el.height;
+    const imgH  = Math.round(h * .42);
+    const pad   = Math.round(Math.min(w, h) * .07);
+    const grads = ['linear-gradient(135deg,#667eea,#764ba2)','linear-gradient(135deg,#f093fb,#f5576c)','linear-gradient(135deg,#4facfe,#00f2fe)','linear-gradient(135deg,#43e97b,#38f9d7)'];
+    const g = grads[Math.abs(el.x + el.y) % grads.length];
+    return `<div style="width:100%;height:100%;display:flex;flex-direction:column;font-family:system-ui,sans-serif;">
+      <div style="height:${imgH}px;background:${g};position:relative;flex-shrink:0;">
+        <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;">
+          <div style="width:46px;height:46px;border-radius:12px;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:22px;backdrop-filter:blur(4px);">🖼</div>
+        </div>
+        <div style="position:absolute;top:10px;left:10px;background:rgba(0,0,0,.35);backdrop-filter:blur(4px);color:#fff;font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;letter-spacing:.05em;">DESIGN</div>
+      </div>
+      <div style="padding:${pad}px;flex:1;display:flex;flex-direction:column;gap:${Math.round(pad*.45)}px;overflow:hidden;">
+        <h3 style="font-size:${Math.round(h*.09)}px;font-weight:700;color:${text};line-height:1.3;margin:0;">${el.name || 'Card Title'}</h3>
+        <p style="font-size:${Math.round(h*.065)}px;color:${muted};line-height:1.5;margin:0;flex:1;overflow:hidden;">A concise description that gives context to the reader about what they will find inside.</p>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:${Math.round(pad*.4)}px;border-top:1px solid ${subtle};">
+          <div style="display:flex;align-items:center;gap:7px;">
+            <div style="width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,#F59E0B,#EF4444);"></div>
+            <span style="font-size:11px;color:${muted};">J. Smith · 3 min read</span>
+          </div>
+          <span style="font-size:12px;color:${accent};font-weight:700;cursor:pointer;">Read →</span>
+        </div>
+      </div>
+    </div>`;
+  }
+
+  function _pvSection(el, c) {
+    const { text, muted, accent, subtle } = c;
+    const w = el.width, h = el.height;
+    const px  = Math.max(24, Math.round(w * .06));
+    const py  = Math.max(20, Math.round(h * .07));
+    const tsz = Math.min(Math.round(h * .1), 36);
+    const tall = h > 200;
+    const feats = [
+      { ic:'⚡', t:'Lightning Fast', d:'Built for speed with zero compromises on performance.' },
+      { ic:'◈',  t:'Pixel Perfect',  d:'Every element snaps precisely to your design grid.' },
+      { ic:'♻',  t:'Reusable System',d:'Design tokens and components that scale effortlessly.' },
+    ];
+    return `<div style="padding:${py}px ${px}px;width:100%;height:100%;box-sizing:border-box;font-family:system-ui,sans-serif;display:flex;flex-direction:column;">
+      <div style="text-align:center;margin-bottom:${Math.round(py*.7)}px;">
+        <span style="font-size:11px;font-weight:700;color:${accent};text-transform:uppercase;letter-spacing:.1em;">Features</span>
+        <h2 style="font-size:${tsz}px;font-weight:800;color:${text};line-height:1.2;margin:6px 0;">${el.name||'Everything You Need'}</h2>
+        ${tall?`<p style="font-size:${Math.round(tsz*.42)}px;color:${muted};max-width:480px;margin:0 auto;line-height:1.6;">All the tools you need to build professional experiences, in one unified workspace.</p>`:''}
+      </div>
+      ${tall?`<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:${Math.round(w*.02)}px;flex:1;">
+        ${feats.map(f=>`<div style="background:rgba(255,255,255,.05);border:1px solid ${subtle};border-radius:12px;padding:${Math.round(h*.05)}px;display:flex;flex-direction:column;gap:10px;">
+          <div style="width:38px;height:38px;background:${accent}22;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;">${f.ic}</div>
+          <h3 style="font-size:${Math.round(tsz*.46)}px;font-weight:700;color:${text};margin:0;">${f.t}</h3>
+          <p style="font-size:${Math.round(tsz*.36)}px;color:${muted};line-height:1.5;margin:0;">${f.d}</p>
+        </div>`).join('')}
+      </div>`:''}
+    </div>`;
+  }
+
+  function _pvCardGrid(el, c) {
+    const { text, muted, accent, subtle } = c;
+    const w = el.width, h = el.height;
+    const px = Math.max(20, Math.round(w * .03));
+    const py = Math.max(16, Math.round(h * .05));
+    const cols = Math.max(2, Math.min(4, Math.round(w / 290)));
+    const grads = ['linear-gradient(135deg,#667eea,#764ba2)','linear-gradient(135deg,#f093fb,#f5576c)','linear-gradient(135deg,#4facfe,#00f2fe)','linear-gradient(135deg,#43e97b,#38f9d7)'];
+    return `<div style="padding:${py}px ${px}px;width:100%;height:100%;box-sizing:border-box;font-family:system-ui,sans-serif;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:${Math.round(py*.5)}px;">
+        <h2 style="font-size:${Math.min(Math.round(h*.07),24)}px;font-weight:800;color:${text};margin:0;">Featured</h2>
+        <span style="font-size:13px;color:${accent};cursor:pointer;font-weight:600;">View all →</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(${cols},1fr);gap:${Math.round(w*.012)}px;height:${Math.round(h-py*2-40)}px;">
+        ${[...Array(cols)].map((_,i)=>`<div style="border-radius:10px;overflow:hidden;border:1px solid ${subtle};display:flex;flex-direction:column;">
+          <div style="flex:1;background:${grads[i%grads.length]};display:flex;align-items:center;justify-content:center;font-size:24px;">🖼</div>
+          <div style="padding:10px;background:rgba(255,255,255,.04);">
+            <div style="font-size:${Math.min(Math.round(h*.05),14)}px;font-weight:600;color:${text};margin-bottom:3px;">Title ${i+1}</div>
+            <div style="font-size:11px;color:${muted};">Short description</div>
+          </div>
+        </div>`).join('')}
+      </div>
+    </div>`;
+  }
+
+  function _pvPricing(el, c) {
+    const { text, muted, accent, subtle } = c;
+    const w = el.width, h = el.height;
+    const px = Math.max(24, Math.round(w * .04));
+    const py = Math.max(16, Math.round(h * .05));
+    const tiers = [
+      { n:'Starter', p:'$9',  period:'/mo', f:['5 projects','10 GB storage','Basic analytics','Email support'], hi:false },
+      { n:'Pro',     p:'$29', period:'/mo', f:['Unlimited projects','100 GB storage','Advanced analytics','Priority support','Custom domain'], hi:true },
+      { n:'Enterprise',p:'$99',period:'/mo',f:['Everything in Pro','500 GB storage','Dedicated manager','SLA guarantee','SSO & SAML'], hi:false },
+    ];
+    return `<div style="padding:${py}px ${px}px;width:100%;height:100%;box-sizing:border-box;font-family:system-ui,sans-serif;">
+      <div style="text-align:center;margin-bottom:${Math.round(py*.5)}px;">
+        <h2 style="font-size:${Math.min(Math.round(h*.07),28)}px;font-weight:800;color:${text};margin:0 0 5px;">Simple, Transparent Pricing</h2>
+        <p style="font-size:13px;color:${muted};margin:0;">No hidden fees. Cancel anytime.</p>
+      </div>
+      <div style="display:flex;gap:14px;height:${Math.round(h*.73)}px;">
+        ${tiers.map(t=>`<div style="flex:1;border:${t.hi?`2px solid ${accent}`:`1px solid ${subtle}`};border-radius:14px;padding:${Math.round(h*.04)}px;display:flex;flex-direction:column;background:${t.hi?accent+'12':'rgba(255,255,255,.03)'};position:relative;overflow:hidden;">
+          ${t.hi?`<div style="position:absolute;top:10px;right:10px;background:${accent};color:#fff;font-size:10px;font-weight:700;border-radius:20px;padding:3px 9px;">Most Popular</div>`:''}
+          <div style="font-size:13px;font-weight:700;color:${text};margin-bottom:7px;">${t.n}</div>
+          <div style="margin-bottom:12px;"><span style="font-size:${Math.min(Math.round(h*.09),34)}px;font-weight:900;color:${t.hi?accent:text};">${t.p}</span><span style="font-size:12px;color:${muted};">${t.period}</span></div>
+          <ul style="list-style:none;padding:0;margin:0 0 auto;display:flex;flex-direction:column;gap:6px;">
+            ${t.f.map(f=>`<li style="font-size:11px;color:${muted};display:flex;align-items:center;gap:5px;"><span style="color:${t.hi?accent:'#22C55E'};font-weight:700;font-size:12px;">✓</span>${f}</li>`).join('')}
+          </ul>
+          <button style="margin-top:12px;background:${t.hi?`linear-gradient(135deg,${accent},#6366F1)`:'transparent'};color:${t.hi?'#fff':accent};border:${t.hi?'none':`1px solid ${accent}`};border-radius:8px;padding:9px;font-size:12px;font-weight:700;cursor:pointer;width:100%;">Get ${t.n}</button>
+        </div>`).join('')}
+      </div>
+    </div>`;
+  }
+
+  function _pvTestimonials(el, c) {
+    const { text, muted, subtle, accent } = c;
+    const w = el.width, h = el.height;
+    const px = Math.max(24, Math.round(w * .04));
+    const py = Math.max(16, Math.round(h * .06));
+    const cols = Math.max(1, Math.min(3, Math.round(w / 360)));
+    const avGs = ['linear-gradient(135deg,#667eea,#764ba2)','linear-gradient(135deg,#f093fb,#f5576c)','linear-gradient(135deg,#4facfe,#00f2fe)'];
+    const qs = [
+      { q:'This tool completely transformed how our team approaches design. The speed is incredible.', n:'Sarah Chen', r:'Product Designer, Figma' },
+      { q:'We cut our prototyping time in half. The export quality is truly production-ready.', n:'James Park', r:'Lead Developer, Vercel' },
+      { q:'Best investment for our workflow. The team loves how intuitive everything feels.', n:'Maria Santos', r:'Design Lead, Stripe' },
+    ];
+    return `<div style="padding:${py}px ${px}px;width:100%;height:100%;box-sizing:border-box;font-family:system-ui,sans-serif;">
+      <div style="text-align:center;margin-bottom:${Math.round(py*.5)}px;">
+        <span style="font-size:11px;font-weight:700;color:${accent};text-transform:uppercase;letter-spacing:.1em;">Testimonials</span>
+        <h2 style="font-size:${Math.min(Math.round(h*.07),26)}px;font-weight:800;color:${text};margin:5px 0 0;">Loved by thousands</h2>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(${cols},1fr);gap:${Math.round(w*.018)}px;">
+        ${qs.slice(0,cols).map((q,i)=>`<div style="border:1px solid ${subtle};border-radius:14px;padding:${Math.round(h*.06)}px;background:rgba(255,255,255,.04);">
+          <div style="color:#F59E0B;font-size:13px;margin-bottom:8px;">★★★★★</div>
+          <p style="font-size:${Math.min(Math.round(h*.052),14)}px;color:${text};line-height:1.6;margin:0 0 14px;">"${q.q}"</p>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <div style="width:34px;height:34px;border-radius:50%;background:${avGs[i]};flex-shrink:0;"></div>
+            <div><div style="font-size:12px;font-weight:600;color:${text};">${q.n}</div><div style="font-size:11px;color:${muted};">${q.r}</div></div>
+          </div>
+        </div>`).join('')}
+      </div>
+    </div>`;
+  }
+
+  function _pvFaq(el, c) {
+    const { text, muted, subtle, accent } = c;
+    const w = el.width, h = el.height;
+    const px = Math.max(24, Math.round(w * .06));
+    const py = Math.max(16, Math.round(h * .05));
+    const faqs = [
+      { q:'How does the visual workspace work?',     a:'Drag components from the toolbox onto the canvas, arrange them, and export clean HTML/CSS.',  open:true  },
+      { q:'Can I export the design to code?',        a:'Yes! CoreSystem exports semantic HTML5, structured CSS, and minimal JavaScript.',              open:false },
+      { q:'Is the output suitable for production?',  a:'The generated code follows best practices: accessibility, responsive design, and performance.', open:false },
+      { q:'What frameworks are supported?',          a:'Pure HTML/CSS/JS output — compatible with any framework, CMS, or hosting platform.',           open:false },
+    ];
+    return `<div style="padding:${py}px ${px}px;width:100%;height:100%;box-sizing:border-box;font-family:system-ui,sans-serif;">
+      <h2 style="font-size:${Math.min(Math.round(h*.08),26)}px;font-weight:800;color:${text};margin:0 0 ${Math.round(py*.5)}px;">Frequently Asked</h2>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        ${faqs.map(f=>`<div style="border:1px solid ${f.open?accent:subtle};border-radius:10px;overflow:hidden;">
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:${Math.round(h*.04)}px ${Math.round(px*.5)}px;cursor:pointer;">
+            <span style="font-size:${Math.min(Math.round(h*.045),14)}px;font-weight:${f.open?600:500};color:${f.open?text:muted};">${f.q}</span>
+            <span style="color:${f.open?accent:muted};font-size:18px;font-weight:300;">${f.open?'−':'+'}</span>
+          </div>
+          ${f.open?`<div style="padding:0 ${Math.round(px*.5)}px ${Math.round(h*.04)}px;font-size:${Math.min(Math.round(h*.038),13)}px;color:${muted};line-height:1.65;border-top:1px solid ${subtle}22;padding-top:10px;">${f.a}</div>`:''}
+        </div>`).join('')}
+      </div>
+    </div>`;
+  }
+
+  function _pvGallery(el, c) {
+    const { text, muted } = c;
+    const w = el.width, h = el.height;
+    const px = Math.max(16, Math.round(w * .03));
+    const py = Math.max(16, Math.round(h * .05));
+    const cols = Math.max(2, Math.min(5, Math.round(w / 180)));
+    const rows = Math.max(1, Math.round((h - py*2 - 36) / Math.round(w / cols)));
+    const count = cols * rows;
+    const grads = ['linear-gradient(135deg,#667eea,#764ba2)','linear-gradient(135deg,#f093fb,#f5576c)','linear-gradient(135deg,#4facfe,#00f2fe)','linear-gradient(135deg,#43e97b,#38f9d7)','linear-gradient(135deg,#fa709a,#fee140)','linear-gradient(135deg,#a18cd1,#fbc2eb)','linear-gradient(135deg,#ffecd2,#fcb69f)','linear-gradient(135deg,#a1c4fd,#c2e9fb)','linear-gradient(135deg,#fd7443,#fb8c00)','linear-gradient(135deg,#56ab2f,#a8e063)'];
+    return `<div style="padding:${py}px ${px}px;width:100%;height:100%;box-sizing:border-box;font-family:system-ui,sans-serif;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:${Math.round(py*.4)}px;">
+        <h2 style="font-size:${Math.min(Math.round(h*.07),22)}px;font-weight:800;color:${text};margin:0;">Gallery</h2>
+        <span style="font-size:12px;color:${muted};">${count} photos</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(${cols},1fr);gap:${Math.round(w*.007)}px;">
+        ${[...Array(count)].map((_,i)=>`<div style="aspect-ratio:1;border-radius:7px;background:${grads[i%grads.length]};display:flex;align-items:center;justify-content:center;font-size:16px;opacity:.85;">🖼</div>`).join('')}
+      </div>
+    </div>`;
+  }
+
+  function _pvForm(el, c) {
+    const { text, muted, subtle, accent, dark } = c;
+    const w = el.width, h = el.height;
+    const px = Math.max(20, Math.round(w * .07));
+    const py = Math.max(16, Math.round(h * .06));
+    const ib = dark ? 'rgba(255,255,255,.06)' : 'rgba(0,0,0,.04)';
+    const is = `width:100%;background:${ib};border:1px solid ${subtle};border-radius:8px;padding:9px 11px;font-size:13px;color:${text};box-sizing:border-box;`;
+    const ls = `font-size:11px;font-weight:600;color:${muted};margin-bottom:4px;display:block;`;
+    const tall = h > 300;
+    return `<div style="padding:${py}px ${px}px;width:100%;height:100%;box-sizing:border-box;font-family:system-ui,sans-serif;display:flex;flex-direction:column;gap:${Math.round(h*.032)}px;">
+      <div>
+        <h3 style="font-size:${Math.min(Math.round(h*.08),20)}px;font-weight:800;color:${text};margin:0 0 4px;">${el.name||'Get in Touch'}</h3>
+        <p style="font-size:12px;color:${muted};margin:0;">Fill out the form below and we'll be in touch.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+        <div><label style="${ls}">First Name</label><div style="${is}">John</div></div>
+        <div><label style="${ls}">Last Name</label><div style="${is}">Doe</div></div>
+      </div>
+      <div><label style="${ls}">Email address</label><div style="${is}">hello@example.com</div></div>
+      ${tall?`<div><label style="${ls}">Message</label><div style="${is}height:${Math.round(h*.17)}px;">Your message here…</div></div>`:''}
+      <button style="background:linear-gradient(135deg,${accent},#6366F1);color:#fff;border:none;border-radius:10px;padding:11px;font-size:13px;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(59,130,246,.3);">Send Message →</button>
+    </div>`;
+  }
+
+  function _pvCta(el, c) {
+    const { text, muted } = c;
+    const w = el.width, h = el.height;
+    const px = Math.max(24, Math.round(w * .06));
+    const tsz = Math.min(Math.round(h * .14), 40);
+    const tall = h > 150;
+    const bh = Math.round(h * .1);
+    return `<div style="width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:${Math.round(h*.08)}px ${px}px;text-align:center;font-family:system-ui,sans-serif;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:-40px;left:-40px;width:200px;height:200px;background:rgba(255,255,255,.05);border-radius:50%;pointer-events:none;"></div>
+      <div style="position:absolute;bottom:-50px;right:-50px;width:240px;height:240px;background:rgba(255,255,255,.04);border-radius:50%;pointer-events:none;"></div>
+      <h2 style="font-size:${tsz}px;font-weight:800;color:${text};line-height:1.15;margin:0 0 ${Math.round(h*.05)}px;letter-spacing:-.02em;">Ready to Get Started?<br>Join 12,000+ Teams Today</h2>
+      ${tall?`<p style="font-size:${Math.min(Math.round(h*.065),17)}px;color:${muted};margin:0 0 ${Math.round(h*.06)}px;max-width:460px;line-height:1.6;">Start building beautiful layouts for free. No credit card required.</p>`:''}
+      <div style="display:flex;gap:12px;justify-content:center;">
+        <button style="background:#fff;color:#3B82F6;border:none;border-radius:10px;padding:${Math.round(bh*.32)}px ${Math.round(w*.025)}px;font-size:${Math.round(bh*.33)}px;font-weight:700;cursor:pointer;box-shadow:0 4px 20px rgba(0,0,0,.2);">Start Free Trial</button>
+        ${tall?`<button style="background:transparent;color:${text};border:2px solid rgba(255,255,255,.3);border-radius:10px;padding:${Math.round(bh*.32)}px ${Math.round(w*.025)}px;font-size:${Math.round(bh*.33)}px;font-weight:600;cursor:pointer;">Learn More</button>`:''}
+      </div>
+    </div>`;
+  }
+
+  function _pvCarousel(el, c) {
+    const { text, muted } = c;
+    const w = el.width, h = el.height;
+    const asz = Math.round(h * .1);
+    return `<div style="width:100%;height:100%;position:relative;font-family:system-ui,sans-serif;overflow:hidden;">
+      <div style="width:100%;height:100%;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px;">
+        <span style="font-size:11px;font-weight:700;color:rgba(255,255,255,.7);text-transform:uppercase;letter-spacing:.12em;margin-bottom:14px;">Featured Story</span>
+        <h2 style="font-size:${Math.min(Math.round(h*.1),34)}px;font-weight:800;color:#fff;line-height:1.2;margin:0 0 12px;max-width:580px;">Discover Our Latest Collection</h2>
+        ${h>200?`<p style="font-size:14px;color:rgba(255,255,255,.72);margin:0 0 22px;max-width:400px;">Explore curated stories, features, and experiences tailored just for you.</p>`:''}
+        <button style="background:rgba(255,255,255,.18);backdrop-filter:blur(8px);color:#fff;border:1px solid rgba(255,255,255,.28);border-radius:10px;padding:9px 26px;font-size:13px;font-weight:600;cursor:pointer;">Explore →</button>
+      </div>
+      <button style="position:absolute;left:14px;top:50%;transform:translateY(-50%);width:${asz}px;height:${asz}px;border-radius:50%;background:rgba(255,255,255,.18);backdrop-filter:blur(4px);color:#fff;border:none;font-size:${Math.round(asz*.5)}px;cursor:pointer;display:flex;align-items:center;justify-content:center;">‹</button>
+      <button style="position:absolute;right:14px;top:50%;transform:translateY(-50%);width:${asz}px;height:${asz}px;border-radius:50%;background:rgba(255,255,255,.18);backdrop-filter:blur(4px);color:#fff;border:none;font-size:${Math.round(asz*.5)}px;cursor:pointer;display:flex;align-items:center;justify-content:center;">›</button>
+      <div style="position:absolute;bottom:14px;left:50%;transform:translateX(-50%);display:flex;gap:7px;">
+        ${[0,1,2].map(i=>`<div style="width:${i===0?18:7}px;height:7px;border-radius:4px;background:${i===0?'#fff':'rgba(255,255,255,.38)'};"></div>`).join('')}
+      </div>
+    </div>`;
+  }
+
+  function _pvModal(el, c) {
+    const { text, muted, subtle, accent } = c;
+    const w = el.width, h = el.height;
+    const hh = Math.round(h * .14);
+    const fh = Math.round(h * .16);
+    const bh = h - hh - fh;
+    const px = Math.round(w * .05);
+    return `<div style="width:100%;height:100%;display:flex;flex-direction:column;font-family:system-ui,sans-serif;">
+      <div style="height:${hh}px;padding:0 ${px}px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid ${subtle};">
+        <h3 style="font-size:${Math.round(hh*.42)}px;font-weight:700;color:${text};margin:0;">${el.name||'Confirm Action'}</h3>
+        <div style="width:${Math.round(hh*.48)}px;height:${Math.round(hh*.48)}px;border-radius:50%;background:${subtle};display:flex;align-items:center;justify-content:center;font-size:12px;color:${muted};cursor:pointer;">✕</div>
+      </div>
+      <div style="height:${bh}px;padding:${Math.round(h*.05)}px ${px}px;overflow:hidden;">
+        <p style="font-size:${Math.round(h*.044)}px;color:${muted};line-height:1.65;margin:0 0 12px;">Are you sure you want to proceed? This action cannot be undone and all associated data will be permanently removed.</p>
+        <div style="background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);border-radius:8px;padding:11px;display:flex;gap:9px;align-items:flex-start;">
+          <span style="color:#EF4444;font-size:15px;flex-shrink:0;">⚠</span>
+          <p style="font-size:12px;color:${muted};margin:0;line-height:1.5;">Make sure you have backed up any important data before continuing with this destructive action.</p>
+        </div>
+      </div>
+      <div style="height:${fh}px;padding:0 ${px}px;display:flex;align-items:center;justify-content:flex-end;gap:10px;border-top:1px solid ${subtle};">
+        <button style="background:transparent;color:${muted};border:1px solid ${subtle};border-radius:8px;padding:${Math.round(fh*.22)}px ${px}px;font-size:${Math.round(fh*.3)}px;font-weight:500;cursor:pointer;">Cancel</button>
+        <button style="background:linear-gradient(135deg,#EF4444,#DC2626);color:#fff;border:none;border-radius:8px;padding:${Math.round(fh*.22)}px ${px}px;font-size:${Math.round(fh*.3)}px;font-weight:700;cursor:pointer;">Delete Forever</button>
+      </div>
+    </div>`;
+  }
+
+  function _pvOverlay(el, c) {
+    const { text } = c;
+    const w = el.width, h = el.height;
+    return `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-family:system-ui,sans-serif;">
+      <div style="background:rgba(255,255,255,.08);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.15);border-radius:16px;padding:${Math.round(Math.min(w,h)*.08)}px ${Math.round(w*.06)}px;text-align:center;">
+        <div style="font-size:28px;margin-bottom:10px;">◈</div>
+        <h3 style="font-size:18px;font-weight:700;color:#fff;margin:0 0 6px;">Overlay Layer</h3>
+        <p style="font-size:13px;color:rgba(255,255,255,.6);margin:0;">Modal backdrop · Drawer overlay · Lightbox</p>
+      </div>
+    </div>`;
+  }
+
+  function _pvGeneric(el, c) {
+    const { text, muted } = c;
+    const w = el.width, h = el.height;
+    const pad = Math.round(Math.min(w, h) * .08);
+    const typeDef = Toolbox.getTypeDef(el.type);
+    const icon = typeDef ? typeDef.icon : '▭';
+    const sm = w < 100 || h < 60;
+    return `<div style="width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:${pad}px;font-family:system-ui,sans-serif;text-align:center;">
+      ${!sm?`<div style="font-size:${Math.min(Math.round(h*.18),28)}px;opacity:.35;color:${text};">${icon}</div>`:''}
+      <span style="font-size:${Math.min(Math.round(h*.1),15)}px;font-weight:600;color:${text};opacity:.75;">${el.name}</span>
+      ${!sm?`<span style="font-size:${Math.min(Math.round(h*.07),10)}px;color:${muted};font-family:monospace;opacity:.6;">${el.type}</span>`:''}
+    </div>`;
+  }
+
+  function _pvContent(el) {
+    const c = _pvCtx(el);
+    // User-typed text takes priority
+    if (el.textContent && el.type !== 'overlay') {
+      return `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:${el.textAlign==='left'?'flex-start':el.textAlign==='right'?'flex-end':'center'};padding:12px;font-size:${el.fontSize||16}px;font-weight:${el.fontWeight||'normal'};color:${el.textColor||c.text};text-align:${el.textAlign||'center'};overflow:hidden;word-break:break-word;line-height:1.4;box-sizing:border-box;">${el.textContent}</div>`;
+    }
+    switch (el.type) {
+      case 'navbar':       return _pvNavbar(el, c);
+      case 'header':       return _pvNavbar(el, c);
+      case 'hero':         return _pvHero(el, c);
+      case 'footer':       return _pvFooter(el, c);
+      case 'sidebar':      return _pvSidebar(el, c);
+      case 'card':         return _pvCard(el, c);
+      case 'section':
+      case 'main':
+      case 'container':
+      case 'features':     return _pvSection(el, c);
+      case 'card-grid':    return _pvCardGrid(el, c);
+      case 'pricing':      return _pvPricing(el, c);
+      case 'testimonials': return _pvTestimonials(el, c);
+      case 'faq':          return _pvFaq(el, c);
+      case 'gallery':      return _pvGallery(el, c);
+      case 'form':         return _pvForm(el, c);
+      case 'cta':          return _pvCta(el, c);
+      case 'carousel':     return _pvCarousel(el, c);
+      case 'modal':        return _pvModal(el, c);
+      case 'overlay':      return _pvOverlay(el, c);
+      default:             return _pvGeneric(el, c);
+    }
+  }
+
   function generatePreview() {
-    const { html, css, js, tree } = generate();
-    return html
-      .replace('<link rel="stylesheet" href="styles.css">', `<style>${css}</style>`)
-      .replace('<script src="script.js"></script>', js ? `<script>${js}<\/script>` : '');
+    const els = State.getAllEls().filter(e => !e.hidden).sort((a,b) => (a.zIndex||0)-(b.zIndex||0));
+    const W = State.artW || 1440;
+    const H = els.length ? Math.max(State.artH||900, Math.max(...els.map(e => e.y + e.height)) + 40) : (State.artH||900);
+
+    const elHtml = els.map(el =>
+      `<div style="${_pvBase(el)}">${_pvContent(el)}</div>`
+    ).join('\n');
+
+    return `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Preview</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html,body{background:#F1F5F9;width:100%;}
+body{font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;}
+button,input,textarea,select{font-family:inherit;font-size:inherit;}
+a{color:inherit;text-decoration:none;}
+</style>
+</head>
+<body>
+<div style="width:${W}px;min-height:${H}px;position:relative;background:#fff;margin:0 auto;">
+${elHtml}
+</div>
+</body>
+</html>`;
   }
 
   // ── ZIP download ──────────────────────────────────────────────────────────

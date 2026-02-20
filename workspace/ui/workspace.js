@@ -339,7 +339,12 @@ const Workspace = (() => {
 
     modal.classList.add('is-open');
     document.body.style.overflow = 'hidden';
-    _setPreviewViewport(1440, 900, modal);
+
+    // Reset active button to desktop
+    modal.querySelectorAll('[data-vp]').forEach(b => b.classList.remove('is-active'));
+    modal.querySelector('[data-vp="1440x900"]')?.classList.add('is-active');
+
+    requestAnimationFrame(() => _setPreviewViewport(1440, 900, modal));
   }
 
   function _closePreview() {
@@ -351,17 +356,42 @@ const Workspace = (() => {
   }
 
   function _setPreviewViewport(w, h, modal) {
-    const iframe = modal?.querySelector('#preview-iframe');
+    const iframe  = modal?.querySelector('#preview-iframe');
+    const chrome  = modal?.querySelector('#preview-browser-chrome');
+    const badge   = modal?.querySelector('#preview-zoom-badge');
+    const pbcTitle = modal?.querySelector('#pbc-title');
     if (!iframe) return;
-    const wrap = iframe.parentElement;
-    const maxW = (wrap?.clientWidth  || window.innerWidth)  - 40;
-    const maxH = (wrap?.clientHeight || window.innerHeight) - 40;
+
+    const wrap = iframe.closest('.preview-iframe-wrap');
+    const wrapW = wrap ? wrap.clientWidth  : window.innerWidth;
+    const wrapH = wrap ? wrap.clientHeight : window.innerHeight;
+
+    // Account for browser chrome height (34px) and padding
+    const PAD   = 24;
+    const CHROME_H = chrome ? 34 : 0;
+    const maxW  = wrapW - PAD * 2;
+    const maxH  = wrapH - PAD * 2 - CHROME_H;
     const scale = Math.min(1, maxW / w, maxH / h);
+    const pct   = Math.round(scale * 100);
+
     Object.assign(iframe.style, {
-      width: `${w}px`, height: `${h}px`,
+      width:  `${w}px`,
+      height: `${h}px`,
       transform: `scale(${scale})`,
       transformOrigin: 'top center',
+      marginBottom: scale < 1 ? `${Math.round(h * scale - h)}px` : '0',
     });
+
+    // Sync chrome width to scaled iframe width
+    if (chrome) {
+      Object.assign(chrome.style, {
+        width:  `${Math.round(w * scale)}px`,
+        marginTop: `${PAD}px`,
+      });
+    }
+
+    if (badge) badge.textContent = `${pct}%`;
+    if (pbcTitle) pbcTitle.textContent = `preview.coresystem.local — ${w}×${h}`;
   }
 
   return { init, openCodeModal, openPreview };

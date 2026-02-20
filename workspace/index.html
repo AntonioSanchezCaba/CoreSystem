@@ -109,25 +109,58 @@
      Preview Modal
      ════════════════════════════════════════════════════════════ -->
 <div id="modal-preview" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Layout preview">
-  <div class="modal-box modal-box--wide" style="max-height:95vh;height:95vh;">
+  <div class="modal-box modal-box--wide" style="max-height:96vh;height:96vh;">
+
+    <!-- Header -->
     <div class="modal-header">
       <span class="modal-title">▶ Layout Preview</span>
-      <button class="tb-btn tb-btn--success" onclick="CodeGen.downloadZip('my-layout')">⬇ Export ZIP</button>
-      <button class="modal-close" data-close>✕</button>
+      <div id="preview-zoom-badge" class="preview-zoom-badge">100%</div>
+      <div style="margin-left:auto;display:flex;gap:8px;align-items:center;">
+        <button class="tb-btn tb-btn--accent" onclick="CodeGen.downloadZip('my-layout')">⬇ Export ZIP</button>
+        <button class="modal-close" data-close>✕</button>
+      </div>
     </div>
+
+    <!-- Device & viewport bar -->
     <div class="preview-bar">
-      <span style="font-size:11px;color:var(--text-muted)">Viewport:</span>
-      <button class="preview-vp-btn" data-vp="375x812">📱 Mobile (375)</button>
-      <button class="preview-vp-btn" data-vp="768x1024">📟 Tablet (768)</button>
-      <button class="preview-vp-btn is-active" data-vp="1440x900">🖥 Desktop (1440)</button>
+      <div class="preview-devices">
+        <button class="preview-vp-btn" data-vp="375x812"  title="iPhone 14 Pro">
+          <span class="pvp-icon">📱</span><span class="pvp-label">Mobile</span><span class="pvp-size">375</span>
+        </button>
+        <button class="preview-vp-btn" data-vp="768x1024" title="iPad">
+          <span class="pvp-icon">📟</span><span class="pvp-label">Tablet</span><span class="pvp-size">768</span>
+        </button>
+        <button class="preview-vp-btn is-active" data-vp="1440x900" title="Desktop 1440">
+          <span class="pvp-icon">🖥</span><span class="pvp-label">Desktop</span><span class="pvp-size">1440</span>
+        </button>
+        <button class="preview-vp-btn" data-vp="1920x1080" title="Full HD">
+          <span class="pvp-icon">⬛</span><span class="pvp-label">Full HD</span><span class="pvp-size">1920</span>
+        </button>
+      </div>
+      <!-- Fake address bar -->
+      <div class="preview-addressbar">
+        <span class="preview-addressbar__lock">🔒</span>
+        <span class="preview-addressbar__url">preview.coresystem.local</span>
+      </div>
     </div>
+
+    <!-- Canvas -->
     <div class="preview-iframe-wrap">
+      <div class="preview-browser-chrome" id="preview-browser-chrome">
+        <div class="pbc-dots">
+          <span class="pbc-dot pbc-dot--red"></span>
+          <span class="pbc-dot pbc-dot--yellow"></span>
+          <span class="pbc-dot pbc-dot--green"></span>
+        </div>
+        <div class="pbc-title" id="pbc-title">Layout Preview</div>
+      </div>
       <iframe id="preview-iframe"
               title="Layout preview"
               sandbox="allow-scripts allow-same-origin"
               width="1440" height="900">
       </iframe>
     </div>
+
   </div>
 </div>
 
