@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="DevBlog — Artículos sobre tecnología, diseño y tutoriales para desarrolladores modernos." />
+  <meta name="keywords" content="blog, tecnología, diseño, tutoriales, programación, desarrollo web" />
+  <meta name="author" content="DevBlog" />
+  <meta property="og:title" content="DevBlog — Tecnología & Diseño" />
+  <meta property="og:description" content="Artículos sobre tecnología, diseño y tutoriales para desarrolladores modernos." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://placehold.co/1200x630/2563EB/fff?text=DevBlog" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="DevBlog — Tecnología & Diseño" />
+  <meta name="twitter:description" content="Artículos sobre tecnología, diseño y tutoriales para desarrolladores modernos." />
+  <title>DevBlog — Tecnología & Diseño</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header class="navbar" role="banner">
+    <div class="container navbar-inner">
+      <a href="#" class="navbar-logo" aria-label="DevBlog Home">
+        <span class="logo-icon"><i class="ri-code-s-slash-line"></i></span>
+        <span class="logo-text">Dev<strong>Blog</strong></span>
+      </a>
+      <nav class="navbar-nav" role="navigation" aria-label="Main navigation">
+        <a href="#" class="nav-link active">Home</a>
+        <a href="#" class="nav-link">Tech</a>
+        <a href="#" class="nav-link">Design</a>
+        <a href="#" class="nav-link">Tutorial</a>
+        <a href="#" class="nav-link">About</a>
+      </nav>
+      <div class="navbar-actions">
+        <button class="icon-btn search-toggle-btn" aria-label="Toggle search">
+          <i class="ri-search-line"></i>
+        </button>
+        <a href="#newsletter" class="btn btn-primary btn-sm">Subscribe</a>
+        <button class="mobile-menu-btn icon-btn" aria-label="Toggle menu" aria-expanded="false">
+          <i class="ri-menu-line"></i>
+        </button>
+      </div>
+    </div>
+    <!-- Search bar -->
+    <div class="navbar-search" id="navbarSearch" aria-hidden="true">
+      <div class="container">
+        <div class="search-bar-wrapper">
+          <i class="ri-search-line"></i>
+          <input type="search" id="navSearchInput" placeholder="Search articles..." aria-label="Search articles" />
+          <button class="icon-btn search-close-btn" aria-label="Close search"><i class="ri-close-line"></i></button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- FEATURED POST HERO -->
+    <section class="featured-post reveal" aria-label="Featured article">
+      <div class="featured-img-bg" aria-hidden="true">
+        <div class="featured-gradient"></div>
+      </div>
+      <div class="featured-overlay">
+        <div class="container">
+          <span class="badge badge-primary">Featured</span>
+          <span class="badge badge-info" style="margin-left:8px">Technology</span>
+          <h1 class="featured-title">The Future of Web Development: What Every Developer Must Know in 2026</h1>
+          <p class="featured-excerpt">AI-assisted coding, edge computing, and the rise of WebAssembly are reshaping how we build modern web applications. Here's everything you need to stay ahead of the curve.</p>
+          <div class="featured-meta">
+            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Alex" alt="Author avatar" class="author-avatar" width="36" height="36" />
+            <span class="author-name">Alejandro García</span>
+            <span class="meta-sep">·</span>
+            <span class="meta-date"><i class="ri-calendar-line"></i> Feb 15, 2026</span>
+            <span class="meta-sep">·</span>
+            <span class="meta-readtime"><i class="ri-time-line"></i> 8 min read</span>
+          </div>
+          <a href="#" class="btn btn-white btn-md mt-4">Read Article <i class="ri-arrow-right-line"></i></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- MAIN BLOG LAYOUT -->
+    <div class="container section-py">
+      <div class="blog-layout">
+
+        <!-- LEFT: ARTICLE LIST -->
+        <main class="articles-main" aria-label="Article list">
+          <div class="section-header">
+            <h2 class="section-title">Latest Articles</h2>
+            <span class="article-count" id="articleCount">Showing 6 articles</span>
+          </div>
+
+          <div class="articles-list" id="articleList">
+
+            <!-- Article 1 -->
+            <article class="article-card reveal" data-title="Understanding TypeScript Generics" data-tags="typescript javascript programming">
+              <div class="article-thumb thumb-blue">
+                <i class="ri-code-box-line"></i>
+              </div>
+              <div class="article-content">
+                <div class="article-badges">
+                  <span class="badge badge-primary">Tech</span>
+                  <span class="badge badge-outline">TypeScript</span>
+                </div>
+                <h3 class="article-title"><a href="#">Understanding TypeScript Generics: A Deep Dive for Intermediate Developers</a></h3>
+                <p class="article-excerpt">Generics unlock the true power of TypeScript. Learn how to write reusable, type-safe functions and classes that work with any data type while maintaining full IntelliSense support.</p>
+                <div class="article-meta">
+                  <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Maria" alt="Maria López" class="author-avatar-sm" width="28" height="28" />
+                  <span class="meta-author">Maria López</span>
+                  <span class="meta-sep">·</span>
+                  <span class="meta-date"><i class="ri-calendar-line"></i> Feb 12, 2026</span>
+                  <span class="meta-sep">·</span>
+                  <span class="meta-readtime"><i class="ri-time-line"></i> 6 min</span>
+                </div>
+                <div class="article-tags">
+                  <span class="tag">typescript</span>
+                  <span class="tag">javascript</span>
+                  <span class="tag">programming</span>
+                </div>
+                <a href="#" class="article-read-more">Read More <i class="ri-arrow-right-s-line"></i></a>
+              </div>
+            </article>
+
+            <!-- Article 2 -->
+            <article class="article-card reveal" data-title="CSS Grid vs Flexbox" data-tags="css design layout frontend">
+              <div class="article-thumb thumb-purple">
+                <i class="ri-layout-grid-line"></i>
+              </div>
+              <div class="article-content">
+                <div class="article-badges">
+                  <span class="badge badge-secondary">Design</span>
+                  <span class="badge badge-outline">CSS</span>
+                </div>
+                <h3 class="article-title"><a href="#">CSS Grid vs Flexbox: Choosing the Right Tool for Every Layout Challenge</a></h3>
+                <p class="article-excerpt">Both CSS Grid and Flexbox are powerful layout tools, but knowing when to use each one can save hours of frustration. This guide breaks it down with practical examples.</p>
+                <div class="article-meta">
+                  <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Carlos" alt="Carlos Ruiz" class="author-avatar-sm" width="28" height="28" />
+                  <span class="meta-author">Carlos Ruiz</span>
+                  <span class="meta-sep">·</span>
+                  <span class="meta-date"><i class="ri-calendar-line"></i> Feb 10, 2026</span>
+                  <span class="meta-sep">·</span>
+                  <span class="meta-readtime"><i class="ri-time-line"></i> 5 min</span>
+                </div>
+                <div class="article-tags">
+                  <span class="tag">css</span>
+                  <span class="tag">design</span>
+                  <span class="tag">layout</span>
+                  <span class="tag">frontend</span>
+                </div>
+                <a href="#" class="article-read-more">Read More <i class="ri-arrow-right-s-line"></i></a>
+              </div>
+            </article>
+
+            <!-- Article 3 -->
+            <article class="article-card reveal" data-title="Getting Started with Docker" data-tags="docker devops containers deployment">
+              <div class="article-thumb thumb-teal">
+                <i class="ri-server-line"></i>
+              </div>
+              <div class="article-content">
+                <div class="article-badges">
+                  <span class="badge badge-success">Tutorial</span>
+                  <span class="badge badge-outline">Docker</span>
+                </div>
+                <h3 class="article-title"><a href="#">Getting Started with Docker: Containerize Your App in 15 Minutes</a></h3>
+                <p class="article-excerpt">Docker makes it easy to package and deploy applications consistently across any environment. Follow this step-by-step tutorial to containerize your first Node.js app.</p>
+                <div class="article-meta">
+                  <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Luis" alt="Luis Torres" class="author-avatar-sm" width="28" height="28" />
+                  <span class="meta-author">Luis Torres</span>
+                  <span class="meta-sep">·</span>
+                  <span class="meta-date"><i class="ri-calendar-line"></i> Feb 8, 2026</span>
+                  <span class="meta-sep">·</span>
+                  <span class="meta-readtime"><i class="ri-time-line"></i> 10 min</span>
+                </div>
+                <div class="article-tags">
+                  <span class="tag">docker</span>
+                  <span class="tag">devops</span>
+                  <span class="tag">containers</span>
+                  <span class="tag">deployment</span>
+                </div>
+                <a href="#" class="article-read-more">Read More <i class="ri-arrow-right-s-line"></i></a>
+              </div>
+            </article>
+
+            <!-- Article 4 -->
+            <article class="article-card reveal" data-title="React Server Components Explained" data-tags="react nextjs frontend performance">
+              <div class="article-thumb thumb-orange">
+                <i class="ri-reactjs-line"></i>
+              </div>
+              <div class="article-content">
+                <div class="article-badges">
+                  <span class="badge badge-warning">Tech</span>
+                  <span class="badge badge-outline">React</span>
+                </div>
+                <h3 class="article-title"><a href="#">React Server Components Explained: A Practical Guide with Real Examples</a></h3>
+                <p class="article-excerpt">Server Components are a paradigm shift in React development. Learn how they differ from client components, when to use them, and how they dramatically improve performance.</p>
+                <div class="article-meta">
+                  <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Sofia" alt="Sofía Mendez" class="author-avatar-sm" width="28" height="28" />
+                  <span class="meta-author">Sofía Mendez</span>
+                  <span class="meta-sep">·</span>
+                  <span class="meta-date"><i class="ri-calendar-line"></i> Feb 5, 2026</span>
+                  <span class="meta-sep">·</span>
+                  <span class="meta-readtime"><i class="ri-time-line"></i> 9 min</span>
+                </div>
+                <div class="article-tags">
+                  <span class="tag">react</span>
+                  <span class="tag">nextjs</span>
+                  <span class="tag">performance</span>
+                </div>
+                <a href="#" class="article-read-more">Read More <i class="ri-arrow-right-s-line"></i></a>
+              </div>
+            </article>
+
+            <!-- Article 5 -->
+            <article class="article-card reveal" data-title="UX Design Principles Every Developer Should Know" data-tags="ux design ui principles">
+              <div class="article-thumb thumb-pink">
+                <i class="ri-pencil-ruler-2-line"></i>
+              </div>
+              <div class="article-content">
+                <div class="article-badges">
+                  <span class="badge badge-secondary">Design</span>
+                  <span class="badge badge-outline">UX</span>
+                </div>
+                <h3 class="article-title"><a href="#">10 UX Design Principles Every Developer Should Know and Apply</a></h3>
+                <p class="article-excerpt">Good UX isn't just for designers. As a developer, understanding these fundamental principles will help you build interfaces that users actually enjoy using.</p>
+                <div class="article-meta">
+                  <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Ana" alt="Ana Fernández" class="author-avatar-sm" width="28" height="28" />
+                  <span class="meta-author">Ana Fernández</span>
+                  <span class="meta-sep">·</span>
+                  <span class="meta-date"><i class="ri-calendar-line"></i> Feb 2, 2026</span>
+                  <span class="meta-sep">·</span>
+                  <span class="meta-readtime"><i class="ri-time-line"></i> 7 min</span>
+                </div>
+                <div class="article-tags">
+                  <span class="tag">ux</span>
+                  <span class="tag">design</span>
+                  <span class="tag">ui</span>
+                </div>
+                <a href="#" class="article-read-more">Read More <i class="ri-arrow-right-s-line"></i></a>
+              </div>
+            </article>
+
+            <!-- Article 6 -->
+            <article class="article-card reveal" data-title="Building REST APIs with Node.js and Express" data-tags="nodejs express api backend rest">
+              <div class="article-thumb thumb-indigo">
+                <i class="ri-node-tree"></i>
+              </div>
+              <div class="article-content">
+                <div class="article-badges">
+                  <span class="badge badge-primary">Tutorial</span>
+                  <span class="badge badge-outline">Node.js</span>
+                </div>
+                <h3 class="article-title"><a href="#">Building Production-Ready REST APIs with Node.js, Express and MongoDB</a></h3>
+                <p class="article-excerpt">From authentication to rate limiting and error handling, this comprehensive tutorial walks you through building a robust REST API ready for production deployment.</p>
+                <div class="article-meta">
+                  <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Jorge" alt="Jorge Vega" class="author-avatar-sm" width="28" height="28" />
+                  <span class="meta-author">Jorge Vega</span>
+                  <span class="meta-sep">·</span>
+                  <span class="meta-date"><i class="ri-calendar-line"></i> Jan 28, 2026</span>
+                  <span class="meta-sep">·</span>
+                  <span class="meta-readtime"><i class="ri-time-line"></i> 12 min</span>
+                </div>
+                <div class="article-tags">
+                  <span class="tag">nodejs</span>
+                  <span class="tag">express</span>
+                  <span class="tag">api</span>
+                  <span class="tag">backend</span>
+                </div>
+                <a href="#" class="article-read-more">Read More <i class="ri-arrow-right-s-line"></i></a>
+              </div>
+            </article>
+
+          </div><!-- /.articles-list -->
+
+          <!-- PAGINATION -->
+          <nav class="pagination" aria-label="Article pagination">
+            <button class="pagination-btn" aria-label="Previous page" disabled>
+              <i class="ri-arrow-left-s-line"></i>
+            </button>
+            <button class="pagination-btn active" aria-current="page">1</button>
+            <button class="pagination-btn">2</button>
+            <button class="pagination-btn">3</button>
+            <button class="pagination-btn">4</button>
+            <button class="pagination-btn">5</button>
+            <button class="pagination-btn" aria-label="Next page">
+              <i class="ri-arrow-right-s-line"></i>
+            </button>
+          </nav>
+
+        </main>
+
+        <!-- RIGHT SIDEBAR -->
+        <aside class="sidebar" role="complementary" aria-label="Blog sidebar">
+
+          <!-- Search Widget -->
+          <div class="sidebar-widget reveal">
+            <h3 class="widget-title">Search</h3>
+            <div class="newsletter-form">
+              <input type="search" id="sidebarSearch" class="form-input" placeholder="Search articles..." aria-label="Search articles" />
+              <button class="btn btn-primary btn-block">
+                <i class="ri-search-line"></i> Search
+              </button>
+            </div>
+          </div>
+
+          <!-- Popular Posts -->
+          <div class="sidebar-widget reveal">
+            <h3 class="widget-title">Popular Posts</h3>
+            <div class="popular-posts">
+              <div class="popular-post-item">
+                <span class="popular-number">01</span>
+                <div class="popular-info">
+                  <a href="#" class="popular-title">JavaScript Async/Await: The Complete Guide</a>
+                  <span class="popular-views"><i class="ri-eye-line"></i> 24.3k views</span>
+                </div>
+              </div>
+              <div class="popular-post-item">
+                <span class="popular-number">02</span>
+                <div class="popular-info">
+                  <a href="#" class="popular-title">How to Build a REST API from Scratch</a>
+                  <span class="popular-views"><i class="ri-eye-line"></i> 18.7k views</span>
+                </div>
+              </div>
+              <div class="popular-post-item">
+                <span class="popular-number">03</span>
+                <div class="popular-info">
+                  <a href="#" class="popular-title">CSS Variables: A Practical Guide</a>
+                  <span class="popular-views"><i class="ri-eye-line"></i> 15.2k views</span>
+                </div>
+              </div>
+              <div class="popular-post-item">
+                <span class="popular-number">04</span>
+                <div class="popular-info">
+                  <a href="#" class="popular-title">React Hooks Explained Simply</a>
+                  <span class="popular-views"><i class="ri-eye-line"></i> 12.9k views</span>
+                </div>
+              </div>
+              <div class="popular-post-item">
+                <span class="popular-number">05</span>
+                <div class="popular-info">
+                  <a href="#" class="popular-title">Git Workflow for Teams</a>
+                  <span class="popular-views"><i class="ri-eye-line"></i> 11.4k views</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Categories -->
+          <div class="sidebar-widget reveal">
+            <h3 class="widget-title">Categories</h3>
+            <div class="categories-list">
+              <div class="category-item"><span>Technology</span><span class="count-pill">24</span></div>
+              <div class="category-item"><span>Design</span><span class="count-pill">18</span></div>
+              <div class="category-item"><span>Tutorial</span><span class="count-pill">32</span></div>
+              <div class="category-item"><span>JavaScript</span><span class="count-pill">15</span></div>
+              <div class="category-item"><span>CSS</span><span class="count-pill">11</span></div>
+              <div class="category-item"><span>DevOps</span><span class="count-pill">9</span></div>
+              <div class="category-item"><span>Career</span><span class="count-pill">7</span></div>
+              <div class="category-item"><span>Tools</span><span class="count-pill">13</span></div>
+            </div>
+          </div>
+
+          <!-- Tags Cloud -->
+          <div class="sidebar-widget reveal">
+            <h3 class="widget-title">Tags</h3>
+            <div class="tags-cloud">
+              <a href="#" class="tag tag-lg">JavaScript</a>
+              <a href="#" class="tag tag-md">React</a>
+              <a href="#" class="tag tag-sm">Vue</a>
+              <a href="#" class="tag tag-lg">CSS</a>
+              <a href="#" class="tag tag-md">Node.js</a>
+              <a href="#" class="tag tag-sm">Python</a>
+              <a href="#" class="tag tag-md">TypeScript</a>
+              <a href="#" class="tag tag-sm">Docker</a>
+              <a href="#" class="tag tag-lg">Design</a>
+              <a href="#" class="tag tag-sm">API</a>
+              <a href="#" class="tag tag-md">Git</a>
+              <a href="#" class="tag tag-sm">Testing</a>
+              <a href="#" class="tag tag-lg">UX</a>
+              <a href="#" class="tag tag-md">Performance</a>
+              <a href="#" class="tag tag-sm">Security</a>
+            </div>
+          </div>
+
+          <!-- Newsletter -->
+          <div class="sidebar-widget widget-newsletter reveal" id="newsletter">
+            <h3 class="widget-title">Newsletter</h3>
+            <p class="widget-desc">Get the best articles delivered to your inbox every week.</p>
+            <form class="newsletter-form" id="newsletterForm" novalidate>
+              <input type="email" id="newsletterEmail" class="form-input" placeholder="your@email.com" aria-label="Email address" required />
+              <button type="submit" class="btn btn-primary btn-block">
+                <i class="ri-mail-send-line"></i> Subscribe Free
+              </button>
+            </form>
+            <p class="widget-note"><i class="ri-shield-check-line"></i> No spam, unsubscribe anytime.</p>
+          </div>
+
+          <!-- About Author -->
+          <div class="sidebar-widget reveal">
+            <h3 class="widget-title">About the Author</h3>
+            <div class="about-widget">
+              <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=DevBlog" alt="Editor profile" class="about-avatar" width="80" height="80" />
+              <h4 class="about-name">Alejandro García</h4>
+              <p class="about-role">Senior Developer & Editor</p>
+              <p class="about-bio">Full-stack developer with 8+ years of experience building scalable web applications. Passionate about clean code and great UX.</p>
+              <div class="about-social">
+                <a href="#" class="social-icon" aria-label="Twitter"><i class="ri-twitter-line"></i></a>
+                <a href="#" class="social-icon" aria-label="GitHub"><i class="ri-github-line"></i></a>
+                <a href="#" class="social-icon" aria-label="LinkedIn"><i class="ri-linkedin-line"></i></a>
+                <a href="#" class="social-icon" aria-label="RSS"><i class="ri-rss-line"></i></a>
+              </div>
+            </div>
+          </div>
+
+        </aside>
+      </div><!-- /.blog-layout -->
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer" role="contentinfo">
+    <div class="container footer-grid">
+      <div class="footer-col">
+        <a href="#" class="navbar-logo">
+          <span class="logo-icon"><i class="ri-code-s-slash-line"></i></span>
+          <span class="logo-text">Dev<strong>Blog</strong></span>
+        </a>
+        <p class="footer-desc">A community-driven blog for developers and designers who want to stay ahead in the ever-evolving tech landscape.</p>
+        <div class="footer-social">
+          <a href="#" class="social-icon" aria-label="Twitter"><i class="ri-twitter-line"></i></a>
+          <a href="#" class="social-icon" aria-label="GitHub"><i class="ri-github-line"></i></a>
+          <a href="#" class="social-icon" aria-label="LinkedIn"><i class="ri-linkedin-line"></i></a>
+          <a href="#" class="social-icon" aria-label="RSS"><i class="ri-rss-line"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4 class="footer-heading">Quick Links</h4>
+        <ul class="footer-links">
+          <li><a href="#"><i class="ri-arrow-right-s-line"></i> Home</a></li>
+          <li><a href="#"><i class="ri-arrow-right-s-line"></i> Tech</a></li>
+          <li><a href="#"><i class="ri-arrow-right-s-line"></i> Design</a></li>
+          <li><a href="#"><i class="ri-arrow-right-s-line"></i> Tutorials</a></li>
+          <li><a href="#"><i class="ri-arrow-right-s-line"></i> About</a></li>
+          <li><a href="#"><i class="ri-arrow-right-s-line"></i> Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 class="footer-heading">Recent Posts</h4>
+        <ul class="footer-recent">
+          <li>
+            <a href="#">Understanding TypeScript Generics</a>
+            <span class="footer-date">Feb 12, 2026</span>
+          </li>
+          <li>
+            <a href="#">CSS Grid vs Flexbox</a>
+            <span class="footer-date">Feb 10, 2026</span>
+          </li>
+          <li>
+            <a href="#">Getting Started with Docker</a>
+            <span class="footer-date">Feb 8, 2026</span>
+          </li>
+          <li>
+            <a href="#">React Server Components</a>
+            <span class="footer-date">Feb 5, 2026</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container footer-bottom-inner">
+        <p>&copy; 2026 DevBlog. All rights reserved.</p>
+        <div class="footer-bottom-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Use</a>
+          <a href="#">Cookies</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- TOAST CONTAINER -->
+  <div id="toastContainer" aria-live="polite" aria-atomic="true"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
