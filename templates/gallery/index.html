@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Galería Responsive — CoreSystem">
+    <title>Galería | CoreSystem</title>
+    <link rel="stylesheet" href="./styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="container flex justify-between items-center">
+        <a href="../../index.html" class="nav-brand">Core<span class="text-primary">System</span></a>
+        <button class="nav-toggle" aria-label="Abrir menú" aria-expanded="false"><i class="ri-menu-line"></i></button>
+        <ul class="nav-menu">
+            <li><a href="../../index.html" class="nav-link">Inicio</a></li>
+            <li><a href="../portfolio/" class="nav-link">Portfolio</a></li>
+            <li><a href="../gallery/" class="nav-link active">Galería</a></li>
+        </ul>
+    </div>
+</nav>
+
+<main style="padding-top:var(--header-height);">
+
+    <!-- HEADER -->
+    <section class="hero-sm bg-light border-bottom text-center">
+        <div class="container reveal">
+            <span class="badge badge-primary mb-4">Galería Responsive</span>
+            <h1 class="heading-2 mb-2">Colección Fotográfica</h1>
+            <p class="text-lead">Click en cualquier imagen para verla en pantalla completa</p>
+        </div>
+    </section>
+
+    <!-- FILTER BAR -->
+    <section class="py-6 bg-white border-bottom">
+        <div class="container flex items-center justify-between flex-wrap gap-4">
+            <div class="tabs-pills">
+                <div class="tabs-header">
+                    <button class="tab-btn active" data-tab-target="#gallery-all">Todos</button>
+                    <button class="tab-btn" data-tab-target="#gallery-nature">Naturaleza</button>
+                    <button class="tab-btn" data-tab-target="#gallery-arch">Arquitectura</button>
+                    <button class="tab-btn" data-tab-target="#gallery-people">Personas</button>
+                </div>
+            </div>
+            <!-- Sort / view toggle -->
+            <div class="flex gap-2">
+                <button class="btn btn-outline btn-sm" data-tooltip="Vista cuadrícula" aria-label="Cuadrícula"><i class="ri-grid-fill"></i></button>
+                <button class="btn btn-ghost btn-sm" data-tooltip="Vista lista" aria-label="Lista"><i class="ri-list-check"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- GALLERY GRID — All -->
+    <section class="section">
+        <div class="container">
+
+            <div id="gallery-all" class="tab-content active">
+                <div class="gallery-grid">
+                    <!-- Each item: data-gallery-src triggers lightbox -->
+                    <div class="gallery-item reveal delay-100" data-gallery-src="https://via.placeholder.com/1200x800/2563eb/ffffff?text=Imagen+1">
+                        <div style="width:100%;height:100%;background:linear-gradient(135deg,#2563eb,#7c3aed);"></div>
+                        <div class="gallery-overlay"><i class="ri-zoom-in-line"></i></div>
+                    </div>
+                    <div class="gallery-item reveal delay-200" data-gallery-src="https://via.placeholder.com/1200x800/10b981/ffffff?text=Imagen+2">
+                        <div style="width:100%;height:100%;background:linear-gradient(135deg,#10b981,#0ea5e9);"></div>
+                        <div class="gallery-overlay"><i class="ri-zoom-in-line"></i></div>
+                    </div>
+                    <div class="gallery-item reveal delay-300" data-gallery-src="https://via.placeholder.com/1200x800/f59e0b/ffffff?text=Imagen+3">
+                        <div style="width:100%;height:100%;background:linear-gradient(135deg,#f59e0b,#ef4444);"></div>
+                        <div class="gallery-overlay"><i class="ri-zoom-in-line"></i></div>
+                    </div>
+                    <div class="gallery-item reveal delay-100" data-gallery-src="https://via.placeholder.com/1200x800/7c3aed/ffffff?text=Imagen+4">
+                        <div style="width:100%;height:100%;background:linear-gradient(135deg,#7c3aed,#ec4899);"></div>
+                        <div class="gallery-overlay"><i class="ri-zoom-in-line"></i></div>
+                    </div>
+                    <div class="gallery-item reveal delay-200" data-gallery-src="https://via.placeholder.com/1200x800/0f172a/ffffff?text=Imagen+5">
+                        <div style="width:100%;height:100%;background:linear-gradient(135deg,#0f172a,#334155);"></div>
+                        <div class="gallery-overlay"><i class="ri-zoom-in-line"></i></div>
+                    </div>
+                    <div class="gallery-item reveal delay-300" data-gallery-src="https://via.placeholder.com/1200x800/06b6d4/ffffff?text=Imagen+6">
+                        <div style="width:100%;height:100%;background:linear-gradient(135deg,#06b6d4,#0ea5e9);"></div>
+                        <div class="gallery-overlay"><i class="ri-zoom-in-line"></i></div>
+                    </div>
+                    <div class="gallery-item reveal delay-100" data-gallery-src="https://via.placeholder.com/1200x800/ef4444/ffffff?text=Imagen+7">
+                        <div style="width:100%;height:100%;background:linear-gradient(135deg,#ef4444,#f59e0b);"></div>
+                        <div class="gallery-overlay"><i class="ri-zoom-in-line"></i></div>
+                    </div>
+                    <div class="gallery-item reveal delay-200" data-gallery-src="https://via.placeholder.com/1200x800/84cc16/ffffff?text=Imagen+8">
+                        <div style="width:100%;height:100%;background:linear-gradient(135deg,#84cc16,#10b981);"></div>
+                        <div class="gallery-overlay"><i class="ri-zoom-in-line"></i></div>
+                    </div>
+                    <div class="gallery-item reveal delay-300" data-gallery-src="https://via.placeholder.com/1200x800/f43f5e/ffffff?text=Imagen+9">
+                        <div style="width:100%;height:100%;background:linear-gradient(135deg,#f43f5e,#7c3aed);"></div>
+                        <div class="gallery-overlay"><i class="ri-zoom-in-line"></i></div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="gallery-nature" class="tab-content">
+                <div class="gallery-grid">
+                    <div class="gallery-item" data-gallery-src="https://via.placeholder.com/1200x800/10b981/ffffff?text=Naturaleza+1">
+                        <div style="width:100%;height:100%;background:linear-gradient(135deg,#10b981,#84cc16);"></div>
+                        <div class="gallery-overlay"><i class="ri-zoom-in-line"></i></div>
+                    </div>
+                    <div class="gallery-item" data-gallery-src="https://via.placeholder.com/1200x800/059669/ffffff?text=Naturaleza+2">
+                        <div style="width:100%;height:100%;background:linear-gradient(135deg,#059669,#0ea5e9);"></div>
+                        <div class="gallery-overlay"><i class="ri-zoom-in-line"></i></div>
+                    </div>
+                    <div class="gallery-item" data-gallery-src="https://via.placeholder.com/1200x800/16a34a/ffffff?text=Naturaleza+3">
+                        <div style="width:100%;height:100%;background:linear-gradient(135deg,#16a34a,#15803d);"></div>
+                        <div class="gallery-overlay"><i class="ri-zoom-in-line"></i></div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="gallery-arch" class="tab-content">
+                <div class="gallery-grid">
+                    <div class="gallery-item" data-gallery-src="https://via.placeholder.com/1200x800/475569/ffffff?text=Arquitectura+1">
+                        <div style="width:100%;height:100%;background:linear-gradient(135deg,#475569,#0f172a);"></div>
+                        <div class="gallery-overlay"><i class="ri-zoom-in-line"></i></div>
+                    </div>
+                    <div class="gallery-item" data-gallery-src="https://via.placeholder.com/1200x800/334155/ffffff?text=Arquitectura+2">
+                        <div style="width:100%;height:100%;background:linear-gradient(135deg,#334155,#2563eb);"></div>
+                        <div class="gallery-overlay"><i class="ri-zoom-in-line"></i></div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="gallery-people" class="tab-content">
+                <div class="gallery-grid">
+                    <div class="gallery-item" data-gallery-src="https://via.placeholder.com/1200x800/f43f5e/ffffff?text=Personas+1">
+                        <div style="width:100%;height:100%;background:linear-gradient(135deg,#f43f5e,#ec4899);"></div>
+                        <div class="gallery-overlay"><i class="ri-zoom-in-line"></i></div>
+                    </div>
+                    <div class="gallery-item" data-gallery-src="https://via.placeholder.com/1200x800/e11d48/ffffff?text=Personas+2">
+                        <div style="width:100%;height:100%;background:linear-gradient(135deg,#e11d48,#f59e0b);"></div>
+                        <div class="gallery-overlay"><i class="ri-zoom-in-line"></i></div>
+                    </div>
+                    <div class="gallery-item" data-gallery-src="https://via.placeholder.com/1200x800/be185d/ffffff?text=Personas+3">
+                        <div style="width:100%;height:100%;background:linear-gradient(135deg,#be185d,#7c3aed);"></div>
+                        <div class="gallery-overlay"><i class="ri-zoom-in-line"></i></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAGINATION -->
+            <div class="flex justify-center mt-12 reveal">
+                <nav class="pagination" aria-label="Paginación">
+                    <button class="page-btn" disabled aria-label="Anterior"><i class="ri-arrow-left-s-line"></i></button>
+                    <button class="page-btn active" aria-current="page">1</button>
+                    <button class="page-btn">2</button>
+                    <button class="page-btn">3</button>
+                    <span class="page-btn" style="border:none;background:none;">...</span>
+                    <button class="page-btn">12</button>
+                    <button class="page-btn" aria-label="Siguiente"><i class="ri-arrow-right-s-line"></i></button>
+                </nav>
+            </div>
+
+        </div>
+    </section>
+
+</main>
+
+<footer class="py-8 bg-white border-top text-center">
+    <div class="container">
+        <p class="text-sm text-muted">&copy; 2026 CoreSystem — Galería Responsive Template</p>
+        <a href="../../index.html" class="btn btn-link mt-2">← Volver al inicio</a>
+    </div>
+</footer>
+
+<script src="./script.js"></script>
+</body>
+</html>

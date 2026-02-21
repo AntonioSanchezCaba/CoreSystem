@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="AdminPro — Modern Admin Dashboard" />
+  <title>AdminPro Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+<div class="dashboard">
+
+  <!-- ═══════════════════════════════════════════
+       SIDEBAR
+  ════════════════════════════════════════════ -->
+  <aside class="sidebar" role="navigation" aria-label="Main navigation">
+
+    <!-- Logo -->
+    <div class="sidebar__logo">
+      <div class="sidebar__logo-icon" aria-hidden="true">⚡</div>
+      <span class="sidebar__logo-text">AdminPro</span>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="sidebar__nav" aria-label="Site sections">
+
+      <!-- MAIN section -->
+      <div class="nav-section">
+        <div class="nav-section__label" aria-hidden="true">Main</div>
+        <ul>
+          <li>
+            <a href="#" class="nav-item active" aria-current="page" aria-label="Dashboard">
+              <span class="nav-item__icon" aria-hidden="true">🏠</span>
+              <span class="nav-item__label">Dashboard</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-item" aria-label="Analytics">
+              <span class="nav-item__icon" aria-hidden="true">📊</span>
+              <span class="nav-item__label">Analytics</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-item" aria-label="Reports">
+              <span class="nav-item__icon" aria-hidden="true">📋</span>
+              <span class="nav-item__label">Reports</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- CONTENT section -->
+      <div class="nav-section">
+        <div class="nav-section__label" aria-hidden="true">Content</div>
+        <ul>
+          <li>
+            <a href="#" class="nav-item" aria-label="Users">
+              <span class="nav-item__icon" aria-hidden="true">👥</span>
+              <span class="nav-item__label">Users</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-item" aria-label="Products">
+              <span class="nav-item__icon" aria-hidden="true">📦</span>
+              <span class="nav-item__label">Products</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-item" aria-label="Orders">
+              <span class="nav-item__icon" aria-hidden="true">🛒</span>
+              <span class="nav-item__label">Orders</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- SETTINGS section -->
+      <div class="nav-section">
+        <div class="nav-section__label" aria-hidden="true">Settings</div>
+        <ul>
+          <li>
+            <a href="#" class="nav-item" aria-label="Settings">
+              <span class="nav-item__icon" aria-hidden="true">⚙️</span>
+              <span class="nav-item__label">Settings</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-item" aria-label="Team">
+              <span class="nav-item__icon" aria-hidden="true">🤝</span>
+              <span class="nav-item__label">Team</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-item" aria-label="Billing">
+              <span class="nav-item__icon" aria-hidden="true">💳</span>
+              <span class="nav-item__label">Billing</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+    </nav><!-- /nav -->
+
+    <!-- Upgrade CTA -->
+    <div class="sidebar__upgrade" aria-label="Upgrade prompt">
+      <div class="sidebar__upgrade-title">Upgrade to Pro</div>
+      <p class="sidebar__upgrade-text">Unlock advanced analytics and unlimited reports.</p>
+      <a href="#" class="btn-upgrade" role="button">Upgrade Now →</a>
+    </div>
+
+    <!-- Collapse Button -->
+    <button
+      class="sidebar__collapse-btn"
+      id="collapseBtn"
+      aria-label="Collapse sidebar"
+      aria-expanded="true"
+    >
+      <span class="collapse-icon" aria-hidden="true">◀</span>
+    </button>
+
+  </aside><!-- /sidebar -->
+
+  <!-- Mobile sidebar overlay -->
+  <div class="sidebar-overlay" aria-hidden="true"></div>
+
+  <!-- ═══════════════════════════════════════════
+       MAIN AREA
+  ════════════════════════════════════════════ -->
+  <div class="main" role="main">
+
+    <!-- ─── TOPBAR ──────────────────────────────── -->
+    <header class="topbar" role="banner">
+
+      <!-- Hamburger (mobile) -->
+      <button
+        class="topbar__hamburger"
+        aria-label="Open navigation menu"
+        aria-expanded="false"
+        aria-controls="sidebar"
+      >☰</button>
+
+      <!-- Page Title -->
+      <h1 class="topbar__title">Dashboard</h1>
+
+      <!-- Search -->
+      <div class="topbar__search" role="search">
+        <span class="topbar__search-icon" aria-hidden="true">🔍</span>
+        <input
+          type="search"
+          placeholder="Search anything..."
+          aria-label="Search"
+          autocomplete="off"
+        />
+      </div>
+
+      <div class="topbar__actions">
+
+        <!-- Notification Bell -->
+        <div class="dropdown-wrapper">
+          <button
+            class="topbar__icon-btn"
+            id="notifToggle"
+            aria-label="Notifications — 3 unread"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            🔔
+            <span class="badge" aria-label="3 unread notifications">3</span>
+          </button>
+          <div class="dropdown-menu" id="notifMenu" role="menu" aria-label="Notifications">
+            <a href="#" role="menuitem">📦 New order placed — #ORD-1298</a>
+            <a href="#" role="menuitem">👤 New user registered</a>
+            <a href="#" role="menuitem">⚠️ Server load at 87%</a>
+          </div>
+        </div>
+
+        <!-- Dark Mode Toggle -->
+        <button
+          class="topbar__icon-btn"
+          id="darkModeToggle"
+          aria-label="Switch to dark mode"
+          aria-pressed="false"
+          title="Switch to dark mode"
+        >🌙</button>
+
+        <!-- User Avatar + Dropdown -->
+        <div class="dropdown-wrapper">
+          <button
+            class="topbar__avatar"
+            id="userToggle"
+            aria-label="User menu — Alex Johnson"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >AJ</button>
+          <div class="dropdown-menu" id="userMenu" role="menu" aria-label="User account">
+            <a href="#" role="menuitem">👤 Profile</a>
+            <a href="#" role="menuitem">⚙️ Settings</a>
+            <a href="#" role="menuitem" style="color: var(--danger);">🚪 Logout</a>
+          </div>
+        </div>
+
+      </div><!-- /topbar__actions -->
+    </header><!-- /topbar -->
+
+    <!-- ─── CONTENT ──────────────────────────────── -->
+    <div class="content">
+
+      <!-- 1. Welcome Bar -->
+      <div class="welcome-bar">
+        <div>
+          <h2>Good morning, Alex 👋</h2>
+          <p class="welcome-bar__meta">
+            <time datetime="2026-02-19">Thursday, February 19, 2026</time>
+            &nbsp;·&nbsp; Here's what's happening today.
+          </p>
+        </div>
+        <button class="btn-export" aria-label="Export dashboard report">
+          📥 Export Report
+        </button>
+      </div>
+
+      <!-- 2. KPI Cards -->
+      <section aria-label="Key performance indicators">
+        <div class="kpi-grid">
+
+          <!-- Total Revenue -->
+          <div class="kpi-card">
+            <div class="kpi-card__header">
+              <div class="kpi-card__icon" style="background:#DBEAFE;" aria-hidden="true">💰</div>
+              <span class="kpi-card__trend trend-up" aria-label="Up 12.5 percent">▲ 12.5%</span>
+            </div>
+            <div class="kpi-card__label">Total Revenue</div>
+            <div
+              class="kpi-card__value"
+              data-count="124590"
+              data-prefix="$"
+              aria-label="$124,590 total revenue"
+            >$0</div>
+          </div>
+
+          <!-- Active Users -->
+          <div class="kpi-card">
+            <div class="kpi-card__header">
+              <div class="kpi-card__icon" style="background:#DCFCE7;" aria-hidden="true">👥</div>
+              <span class="kpi-card__trend trend-up" aria-label="Up 8.2 percent">▲ 8.2%</span>
+            </div>
+            <div class="kpi-card__label">Active Users</div>
+            <div
+              class="kpi-card__value"
+              data-count="8429"
+              aria-label="8,429 active users"
+            >0</div>
+          </div>
+
+          <!-- New Orders -->
+          <div class="kpi-card">
+            <div class="kpi-card__header">
+              <div class="kpi-card__icon" style="background:#FEF3C7;" aria-hidden="true">🛒</div>
+              <span class="kpi-card__trend trend-up" aria-label="Up 3.1 percent">▲ 3.1%</span>
+            </div>
+            <div class="kpi-card__label">New Orders</div>
+            <div
+              class="kpi-card__value"
+              data-count="1293"
+              aria-label="1,293 new orders"
+            >0</div>
+          </div>
+
+          <!-- Conversion Rate -->
+          <div class="kpi-card">
+            <div class="kpi-card__header">
+              <div class="kpi-card__icon" style="background:#EDE9FE;" aria-hidden="true">📈</div>
+              <span class="kpi-card__trend trend-down" aria-label="Down 0.4 percent">▼ 0.4%</span>
+            </div>
+            <div class="kpi-card__label">Conversion Rate</div>
+            <div
+              class="kpi-card__value"
+              data-count="3.4"
+              data-suffix="%"
+              aria-label="3.4 percent conversion rate"
+            >0%</div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- 3. Chart Section -->
+      <section class="chart-section" aria-label="Revenue overview chart">
+        <div class="chart-section__header">
+          <h2 class="chart-section__title">Revenue Overview</h2>
+          <div class="chart-section__legend" aria-hidden="true">
+            <span class="legend-item">
+              <span class="legend-dot"></span> This Month
+            </span>
+            <span class="legend-item" style="--dot-color:#CBD5E1;">
+              <span class="legend-dot" style="background:#CBD5E1;"></span> Last Month
+            </span>
+          </div>
+        </div>
+
+        <!-- CSS bar chart — 7 months -->
+        <div class="bar-chart" role="img" aria-label="Bar chart showing revenue for the past 7 months. August is the highest.">
+          <div class="bar-group">
+            <div class="bar" style="height:72px;" title="February: $89k" aria-hidden="true"></div>
+            <span class="bar-label" aria-hidden="true">Feb</span>
+          </div>
+          <div class="bar-group">
+            <div class="bar" style="height:95px;" title="March: $101k" aria-hidden="true"></div>
+            <span class="bar-label" aria-hidden="true">Mar</span>
+          </div>
+          <div class="bar-group">
+            <div class="bar" style="height:60px;" title="April: $74k" aria-hidden="true"></div>
+            <span class="bar-label" aria-hidden="true">Apr</span>
+          </div>
+          <div class="bar-group">
+            <div class="bar" style="height:110px;" title="May: $115k" aria-hidden="true"></div>
+            <span class="bar-label" aria-hidden="true">May</span>
+          </div>
+          <div class="bar-group">
+            <div class="bar" style="height:84px;" title="June: $97k" aria-hidden="true"></div>
+            <span class="bar-label" aria-hidden="true">Jun</span>
+          </div>
+          <div class="bar-group">
+            <div class="bar" style="height:125px;" title="July: $119k" aria-hidden="true"></div>
+            <span class="bar-label" aria-hidden="true">Jul</span>
+          </div>
+          <div class="bar-group">
+            <div class="bar highlighted" style="height:132px;" title="August: $125k (current)" aria-hidden="true"></div>
+            <span class="bar-label" aria-hidden="true" style="font-weight:700;color:var(--primary);">Aug</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4 & 5. Two-Column: Orders Table + Quick Stats -->
+      <div class="two-col">
+
+        <!-- Recent Orders Table -->
+        <section class="table-card" aria-label="Recent orders">
+          <div class="table-card__header">
+            <h2 class="table-card__title">Recent Orders</h2>
+            <button class="btn-export" style="font-size:12px;padding:6px 14px;" data-modal-open aria-label="Quick actions">
+              + Quick Action
+            </button>
+          </div>
+          <div class="table-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th scope="col">
+                    <input
+                      type="checkbox"
+                      id="selectAll"
+                      aria-label="Select all rows"
+                    />
+                  </th>
+                  <th scope="col" data-sort="id">
+                    Order ID <span class="sort-icon" aria-hidden="true">↕</span>
+                  </th>
+                  <th scope="col" data-sort="customer">
+                    Customer <span class="sort-icon" aria-hidden="true">↕</span>
+                  </th>
+                  <th scope="col" data-sort="amount">
+                    Amount <span class="sort-icon" aria-hidden="true">↕</span>
+                  </th>
+                  <th scope="col" data-sort="status">
+                    Status <span class="sort-icon" aria-hidden="true">↕</span>
+                  </th>
+                  <th scope="col" data-sort="date">
+                    Date <span class="sort-icon" aria-hidden="true">↕</span>
+                  </th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><input type="checkbox" class="row-check" aria-label="Select order 1298" /></td>
+                  <td><strong>#ORD-1298</strong></td>
+                  <td>Sarah Johnson</td>
+                  <td>$340.00</td>
+                  <td><span class="status-badge status-completed">Completed</span></td>
+                  <td>Feb 19, 2026</td>
+                  <td>
+                    <button class="btn-sm btn-view" aria-label="View order 1298">View</button>
+                    <button class="btn-sm btn-edit" aria-label="Edit order 1298">Edit</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" class="row-check" aria-label="Select order 1297" /></td>
+                  <td><strong>#ORD-1297</strong></td>
+                  <td>Marcus Lee</td>
+                  <td>$125.50</td>
+                  <td><span class="status-badge status-pending">Pending</span></td>
+                  <td>Feb 18, 2026</td>
+                  <td>
+                    <button class="btn-sm btn-view" aria-label="View order 1297">View</button>
+                    <button class="btn-sm btn-edit" aria-label="Edit order 1297">Edit</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" class="row-check" aria-label="Select order 1296" /></td>
+                  <td><strong>#ORD-1296</strong></td>
+                  <td>Priya Sharma</td>
+                  <td>$780.00</td>
+                  <td><span class="status-badge status-completed">Completed</span></td>
+                  <td>Feb 18, 2026</td>
+                  <td>
+                    <button class="btn-sm btn-view" aria-label="View order 1296">View</button>
+                    <button class="btn-sm btn-edit" aria-label="Edit order 1296">Edit</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" class="row-check" aria-label="Select order 1295" /></td>
+                  <td><strong>#ORD-1295</strong></td>
+                  <td>Tom Nguyen</td>
+                  <td>$56.00</td>
+                  <td><span class="status-badge status-cancelled">Cancelled</span></td>
+                  <td>Feb 17, 2026</td>
+                  <td>
+                    <button class="btn-sm btn-view" aria-label="View order 1295">View</button>
+                    <button class="btn-sm btn-edit" aria-label="Edit order 1295">Edit</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" class="row-check" aria-label="Select order 1294" /></td>
+                  <td><strong>#ORD-1294</strong></td>
+                  <td>Elena Petrov</td>
+                  <td>$430.75</td>
+                  <td><span class="status-badge status-pending">Pending</span></td>
+                  <td>Feb 17, 2026</td>
+                  <td>
+                    <button class="btn-sm btn-view" aria-label="View order 1294">View</button>
+                    <button class="btn-sm btn-edit" aria-label="Edit order 1294">Edit</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" class="row-check" aria-label="Select order 1293" /></td>
+                  <td><strong>#ORD-1293</strong></td>
+                  <td>James Williams</td>
+                  <td>$210.00</td>
+                  <td><span class="status-badge status-completed">Completed</span></td>
+                  <td>Feb 16, 2026</td>
+                  <td>
+                    <button class="btn-sm btn-view" aria-label="View order 1293">View</button>
+                    <button class="btn-sm btn-edit" aria-label="Edit order 1293">Edit</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section><!-- /table-card -->
+
+        <!-- Quick Stats Sidebar -->
+        <aside class="quick-stats" aria-label="Quick statistics">
+          <h2 class="quick-stats__title">Quick Stats</h2>
+
+          <div class="stat-item">
+            <span class="stat-item__label"><span aria-hidden="true">🎯</span> Goal Progress</span>
+            <span class="stat-item__value">74%</span>
+          </div>
+          <div class="progress-bar" role="progressbar" aria-valuenow="74" aria-valuemin="0" aria-valuemax="100" aria-label="Goal progress 74%">
+            <div class="progress-fill" style="width:74%"></div>
+          </div>
+
+          <div class="stat-item">
+            <span class="stat-item__label"><span aria-hidden="true">🌍</span> US Traffic</span>
+            <span class="stat-item__value">48%</span>
+          </div>
+          <div class="progress-bar" role="progressbar" aria-valuenow="48" aria-valuemin="0" aria-valuemax="100" aria-label="US traffic 48%">
+            <div class="progress-fill" style="width:48%;background:linear-gradient(90deg,#16A34A,#4ADE80)"></div>
+          </div>
+
+          <div class="stat-item">
+            <span class="stat-item__label"><span aria-hidden="true">📱</span> Mobile Users</span>
+            <span class="stat-item__value">62%</span>
+          </div>
+          <div class="progress-bar" role="progressbar" aria-valuenow="62" aria-valuemin="0" aria-valuemax="100" aria-label="Mobile users 62%">
+            <div class="progress-fill" style="width:62%;background:linear-gradient(90deg,#D97706,#FCD34D)"></div>
+          </div>
+
+          <div class="stat-item">
+            <span class="stat-item__label"><span aria-hidden="true">⭐</span> Avg. Rating</span>
+            <span class="stat-item__value">4.8 / 5</span>
+          </div>
+
+          <div class="stat-item">
+            <span class="stat-item__label"><span aria-hidden="true">🔄</span> Return Rate</span>
+            <span class="stat-item__value">34%</span>
+          </div>
+
+          <div class="stat-item">
+            <span class="stat-item__label"><span aria-hidden="true">⏱️</span> Avg. Session</span>
+            <span class="stat-item__value">4m 12s</span>
+          </div>
+
+        </aside><!-- /quick-stats -->
+
+      </div><!-- /two-col -->
+
+    </div><!-- /content -->
+  </div><!-- /main -->
+
+</div><!-- /dashboard -->
+
+<!-- ═══════════════════════════════════════════
+     MODAL — Quick Actions
+════════════════════════════════════════════ -->
+<div
+  class="modal-overlay"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="modalTitle"
+>
+  <div class="modal">
+    <div class="modal__header">
+      <h2 class="modal__title" id="modalTitle">Quick Action</h2>
+      <button class="modal__close" aria-label="Close dialog">✕</button>
+    </div>
+    <p style="color:var(--text-secondary);font-size:14px;margin-bottom:20px;">
+      Select an action to perform on the selected orders.
+    </p>
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <button class="btn-export" style="text-align:left;padding:12px 16px;">
+        📦 Mark as Shipped
+      </button>
+      <button class="btn-export" style="background:var(--success);text-align:left;padding:12px 16px;">
+        ✅ Mark as Completed
+      </button>
+      <button class="btn-export" style="background:var(--danger);text-align:left;padding:12px 16px;">
+        ❌ Cancel Orders
+      </button>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
