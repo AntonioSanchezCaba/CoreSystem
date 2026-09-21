@@ -947,6 +947,9 @@ a { color: var(--accent); text-decoration: none; }
   user-select: none;
 }
 
+/* Mobile-only close button for the properties bottom-sheet (hidden on desktop) */
+#mobile-props-close { display: none; }
+
 /* ── Tablet (≤1024px) ─────────────────────────────────────────── */
 @media (max-width: 1024px) {
   #app-toolbox  { width: 180px; min-width: 180px; }
@@ -985,9 +988,66 @@ a { color: var(--accent); text-decoration: none; }
 
 /* ── Mobile (≤768px) ──────────────────────────────────────────── */
 @media (max-width: 768px) {
-  /* Hide side panels that clutter small screens */
+  /* Hide the layers list; z-order is still reachable from the props sheet */
   #app-layers { display: none; }
-  #app-props  { display: none; }
+
+  /* Properties become a slide-up bottom sheet, shown only when something is
+     selected (#app-shell.has-selection toggled in workspace.js). This keeps
+     full editing — fill, size, text, z-order — available on phones. */
+  #app-props {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    min-width: 0;
+    height: 55vh;
+    max-height: 55vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    z-index: 5000;
+    transform: translateY(101%);
+    transition: transform 220ms ease;
+    box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.45);
+    border-top: 2px solid var(--accent);
+    border-radius: 14px 14px 0 0;
+    padding-top: 14px;
+    padding-bottom: calc(env(safe-area-inset-bottom, 8px) + 8px);
+  }
+  /* Grab-handle affordance at the top of the sheet (CSS pseudo — survives
+     the panel's innerHTML re-renders) */
+  #app-props::before {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 4px;
+    margin: 0 auto 10px;
+    border-radius: 2px;
+    background: var(--border-2);
+  }
+  #app-shell.has-selection #app-props {
+    transform: translateY(0);
+  }
+
+  /* Round close button pinned to the top-right of the sheet */
+  #app-shell.has-selection #mobile-props-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    right: 12px;
+    top: calc(45vh + 8px);
+    z-index: 5001;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid var(--border-2);
+    background: var(--surface-2);
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  }
 
   /* Narrow toolbox, icon-only mode */
   #app-toolbox {

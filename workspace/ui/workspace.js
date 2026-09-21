@@ -39,6 +39,9 @@ const Workspace = (() => {
       if (type === 'reorder') _syncZIndices();
     });
 
+    // Mobile: reveal the properties panel as a bottom sheet on selection
+    _initMobileSheet();
+
     // Context menu
     _initContextMenu();
 
@@ -188,6 +191,27 @@ const Workspace = (() => {
     State.add({ type:'footer', name:'Footer',
       x:0, y:920, width:1440, height:80,
       fill:'#FEF3C7', stroke:'#D97706', strokeWidth:0 });
+  }
+
+  // ── Mobile properties bottom-sheet ─────────────────────────────────────────
+  // On phones the right panel is hidden by default (see style.css ≤768px) and
+  // slides up as a bottom sheet whenever an element is selected. The class is
+  // harmless on desktop, where the panel is always docked.
+  function _initMobileSheet() {
+    const shell = document.getElementById('app-shell');
+    if (!shell) return;
+
+    const closeBtn = document.createElement('button');
+    closeBtn.id = 'mobile-props-close';
+    closeBtn.type = 'button';
+    closeBtn.setAttribute('aria-label', 'Close properties');
+    closeBtn.textContent = '✕';
+    closeBtn.addEventListener('click', () => State.clearSel());
+    shell.appendChild(closeBtn);
+
+    const sync = ids => shell.classList.toggle('has-selection', !!(ids && ids.length));
+    State.on('sel:change', sync);
+    sync(State.selIds);
   }
 
   // ── Context menu ───────────────────────────────────────────────────────────
