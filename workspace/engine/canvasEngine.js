@@ -8,8 +8,9 @@ const CanvasEng = (() => {
   let _viewport = null;  // #canvas-viewport (overflow:hidden)
   let _content  = null;  // #canvas-content  (transform target)
   let _gridEl   = null;  // #canvas-grid     (SVG grid overlay)
-  let _spaceDown = false;
-  let _panDrag   = null; // { startX, startY, startPanX, startPanY }
+  let _spaceDown  = false;
+  let _panDrag    = null; // { startX, startY, startPanX, startPanY }
+  let _touchState = null; // { type: 'pan'|'pinch', ... }
 
   // ── Init ───────────────────────────────────────────────────────────────────
   function init(viewportEl, contentEl, gridEl) {
@@ -48,7 +49,91 @@ const CanvasEng = (() => {
 
     // Redraw grid on pan/zoom
     State.on('canvas:transform', _renderGrid);
+
+    // Touch events for mobile pan + pinch-to-zoom
+    _viewport.addEventListener('touchstart',  _onTouchStart,  { passive: false });
+    _viewport.addEventListener('touchmove',   _onTouchMove,   { passive: false });
+    _viewport.addEventListener('touchend',    _onTouchEnd,    { passive: false });
+    _viewport.addEventListener('touchcancel', _onTouchEnd,    { passive: false });
   }
+
+  // ── Touch helpers ──────────────────────────────────────────────────────────
+  function _touchDist(t0, t1) {
+    return Math.hypot(t1.clientX - t0.clientX, t1.clientY - t0.clientY);
+  }
+  function _touchMid(t0, t1) {
+    return { x: (t0.clientX + t1.clientX) / 2, y: (t0.clientY + t1.clientY) / 2 };
+  }
+
+  function _onTouchStart(e) {
+    if (e.touches.length === 1) {
+      // Single finger: delegate to DragEng via synthetic-coord pan when hand tool is active
+      // Two-finger pan / pinch handled here only
+      const t = e.touches[0];
+      if (State.tool === 'hand') {
+        e.preventDefault();
+        startPan(t.clientX, t.clientY);
+        _touchState = { type: 'pan' };
+      }
+    } else if (e.touches.length === 2) {
+      e.preventDefault();
+      const t0 = e.touches[0], t1 = e.touches[1];
+      _touchState = {
+        type:      'pinch',
+        startDist: _touchDist(t0, t1),
+        startZoom: State.zoom,
+        startMid:  _touchMid(t0, t1),
+        startPanX: State.panX,
+        startPanY: State.panY,
+      };
+      // End any ongoing pan when second finger lands
+      if (_panDrag) endPan();
+    }
+  }
+
+  function _onTouchMove(e) {
+    if (!_touchState) return;
+    e.preventDefault();
+
+    if (_touchState.type === 'pan' && e.touches.length === 1) {
+      const t = e.touches[0];
+      movePan(t.clientX, t.clientY);
+
+    } else if (_touchState.type === 'pinch' && e.touches.length === 2) {
+      const t0 = e.touches[0], t1 = e.touches[1];
+      const dist  = _touchDist(t0, t1);
+      const mid   = _touchMid(t0, t1);
+      const rect  = _viewport.getBoundingClientRect();
+
+      // Compute new zoom
+      const newZoom = Math.min(8, Math.max(0.05,
+        _touchState.startZoom * (dist / _touchState.startDist)
+      ));
+
+      // Zoom towards the midpoint between fingers
+      const pivotX = mid.x - rect.left;
+      const pivotY = mid.y - rect.top;
+      const midStartX = _touchState.startMid.x - rect.left;
+      const midStartY = _touchState.startMid.y - rect.top;
+
+      // pan = pivot - (pivot - startPan) * (newZoom / startZoom) + translation delta
+      State.panX = pivotX - (midStartX - _touchState.startPanX) * (newZoom / _touchState.startZoom) + (mid.x - _touchState.startMid.x);
+      State.panY = pivotY - (midStartY - _touchState.startPanY) * (newZoom / _touchState.startZoom) + (mid.y - _touchState.startMid.y);
+      State.zoom  = newZoom;
+
+      _applyTransform();
+      _renderGrid();
+      State.emit('canvas:transform');
+    }
+  }
+
+  function _onTouchEnd(e) {
+    if (!_touchState) return;
+    if (_touchState.type === 'pan') endPan();
+    _touchState = null;
+  }
+
+  function isTouchActive() { return !!_touchState; }
 
   // ── Zoom ───────────────────────────────────────────────────────────────────
   function _onWheel(e) {
@@ -158,7 +243,7 @@ const CanvasEng = (() => {
 
   return {
     init, fitToScreen, zoomIn, zoomOut, zoomReset,
-    startPan, movePan, endPan, isPanning, isSpaceDown,
-    screenToWorld, worldToScreen,
+    startPan, movePan, endPan, isPanning, isSpaceDown, isTouchActive,
+    screenToWorld, worldToScreen, toggleGrid,
   };
 })();
