@@ -99,6 +99,7 @@ const Toolbar = (() => {
   <button class="tb-btn tb-btn--primary" id="tb-generate" title="Generate code">⟨/⟩ Code</button>
   <button class="tb-btn tb-btn--success" id="tb-export" title="Export ZIP">⬇ Export</button>
   <button class="tb-btn tb-btn--ghost" id="tb-preview" title="Preview">▶ Preview</button>
+  <button class="tb-btn tb-btn--ghost" id="tb-3d" title="View floor plan in 3D">⬲ 3D</button>
 </div>
 
 <div class="tb-group tb-group--right">
@@ -161,6 +162,10 @@ const Toolbar = (() => {
 
     _el.querySelector('#tb-preview')?.addEventListener('click', () => {
       Workspace.openPreview();
+    });
+
+    _el.querySelector('#tb-3d')?.addEventListener('click', () => {
+      Workspace.openRoom3D();
     });
 
     _el.querySelector('#tb-dark')?.addEventListener('click', () => {

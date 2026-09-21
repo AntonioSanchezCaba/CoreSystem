@@ -166,6 +166,40 @@
 
 
 <!-- ════════════════════════════════════════════════════════════
+     3D Room Modal
+     ════════════════════════════════════════════════════════════ -->
+<div id="modal-3d" class="modal-overlay" role="dialog" aria-modal="true" aria-label="3D room view">
+  <div class="modal-box modal-box--wide" style="max-height:96vh;height:96vh;">
+    <div class="modal-header">
+      <span class="modal-title">⬲ 3D Room View</span>
+      <div style="margin-left:auto;display:flex;gap:8px;align-items:center;">
+        <button class="tb-btn tb-btn--sm" id="r3d-reset" title="Reset camera">⟲ Reset view</button>
+        <button class="modal-close" data-close>✕</button>
+      </div>
+    </div>
+    <div class="r3d-wrap">
+      <div class="r3d-stage">
+        <canvas id="r3d-canvas"></canvas>
+        <div class="r3d-hud">Drag to orbit · scroll / pinch to zoom · two-finger (or right-drag) to pan</div>
+      </div>
+      <aside class="r3d-side">
+        <div class="r3d-ctrl">
+          <label>Scale <small>px / metre</small>
+            <input type="number" id="r3d-scale" value="100" min="1" step="1">
+          </label>
+          <label>Wall height <small>metres</small>
+            <input type="number" id="r3d-height" value="2.7" min="0.1" step="0.1">
+          </label>
+          <label class="r3d-check"><input type="checkbox" id="r3d-floor" checked> Show floor</label>
+        </div>
+        <div class="r3d-measure" id="r3d-measure"></div>
+      </aside>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════════════════════
      Script loading — dependency order
      ════════════════════════════════════════════════════════════ -->
 
@@ -179,6 +213,7 @@
 <script src="engine/layoutAnalyzer.js"></script>
 <script src="engine/responsiveEngine.js"></script>
 <script src="engine/codeGenerator.js"></script>
+<script src="engine/room3d.js"></script>
 
 <!-- UI: depends on engines -->
 <script src="ui/toolbar.js"></script>

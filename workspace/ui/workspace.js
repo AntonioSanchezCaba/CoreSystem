@@ -51,6 +51,9 @@ const Workspace = (() => {
     // Preview modal
     _initPreviewModal();
 
+    // 3D room modal
+    _init3DModal();
+
     // Restore saved state
     const saved = localStorage.getItem('cs-workspace-save');
     if (saved) {
@@ -418,5 +421,35 @@ const Workspace = (() => {
     if (pbcTitle) pbcTitle.textContent = `preview.coresystem.local — ${w}×${h}`;
   }
 
-  return { init, openCodeModal, openPreview };
+  // ── 3D Room Modal ──────────────────────────────────────────────────────────
+  function _init3DModal() {
+    const modal = document.getElementById('modal-3d');
+    if (!modal) return;
+
+    Room3D.init(modal);
+
+    modal.addEventListener('click', e => { if (e.target === modal) _close3D(); });
+    modal.querySelector('[data-close]')?.addEventListener('click', _close3D);
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && modal.classList.contains('is-open')) _close3D();
+    });
+  }
+
+  function openRoom3D() {
+    const modal = document.getElementById('modal-3d');
+    if (!modal) return;
+    modal.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+    // Size + first render must happen after the modal is visible (layout ready)
+    requestAnimationFrame(() => Room3D.open());
+  }
+
+  function _close3D() {
+    const modal = document.getElementById('modal-3d');
+    modal?.classList.remove('is-open');
+    document.body.style.overflow = '';
+    Room3D.close();
+  }
+
+  return { init, openCodeModal, openPreview, openRoom3D };
 })();
