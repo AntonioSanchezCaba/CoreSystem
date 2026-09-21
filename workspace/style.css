@@ -954,6 +954,8 @@ a { color: var(--accent); text-decoration: none; }
 
 /* ── Tablet (≤1024px) ─────────────────────────────────────────── */
 @media (max-width: 1024px) {
+  /* Shrink the fixed side columns so the canvas keeps real width on tablets */
+  #app-shell { grid-template-columns: 180px 1fr 220px; }
   #app-toolbox  { width: 180px; min-width: 180px; }
   #app-layers   { width: 180px; min-width: 180px; }
   #app-props    { width: 220px; min-width: 220px; }
@@ -990,6 +992,15 @@ a { color: var(--accent); text-decoration: none; }
 
 /* ── Mobile (≤768px) ──────────────────────────────────────────── */
 @media (max-width: 768px) {
+  /* Collapse to a two-column shell: icon rail + canvas. The props panel is a
+     fixed bottom sheet (below) and is out of flow, so it needs no column. */
+  #app-shell {
+    grid-template-columns: 56px 1fr;
+    grid-template-areas:
+      "toolbar toolbar"
+      "toolbox canvas";
+  }
+
   /* Hide the layers list; z-order is still reachable from the props sheet */
   #app-layers { display: none; }
 
