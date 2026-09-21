@@ -15,6 +15,7 @@ const DragEng = (() => {
   let _drag      = null;   // current interaction descriptor
   let _altDown   = false;
   let _clipboard = null;   // array of element snapshots for copy/paste
+  let _touchDragId = null; // identifier of the primary touch finger
 
   // ── Init ───────────────────────────────────────────────────────────────────
   function init(viewportEl, contentEl) {
@@ -27,6 +28,11 @@ const DragEng = (() => {
     window.addEventListener('keydown',   _onKeyDown);
     window.addEventListener('keyup',     _onKeyUp);
     _viewport.addEventListener('dblclick', _onDblClick);
+
+    _viewport.addEventListener('touchstart',  _onTouchStart,       { passive: false });
+    window.addEventListener('touchmove',   _onTouchMoveHandler, { passive: false });
+    window.addEventListener('touchend',    _onTouchEndHandler,  { passive: false });
+    window.addEventListener('touchcancel', _onTouchEndHandler,  { passive: false });
   }
 
   // ── Key tracking ──────────────────────────────────────────────────────────
@@ -361,6 +367,158 @@ const DragEng = (() => {
     };
     label.addEventListener('blur', commit);
     label.addEventListener('keydown', keyHandle);
+  }
+
+  // ── Touch handlers ────────────────────────────────────────────────────────
+  function _onTouchStart(e) {
+    if (e.touches.length >= 2) {
+      // Pinch started — abort any ongoing drag, CanvasEng takes over
+      if (_drag) { _drag = null; _clearGuides(); _hideRubber(); }
+      return;
+    }
+    if (e.touches.length !== 1) return;
+    const t = e.touches[0];
+    _touchDragId = t.identifier;
+
+    // Hand tool / space: CanvasEng handles the pan
+    if (CanvasEng.isSpaceDown() || State.tool === 'hand') return;
+
+    e.preventDefault();
+    const worldPt = CanvasEng.screenToWorld(t.clientX, t.clientY);
+    const target  = document.elementFromPoint(t.clientX, t.clientY);
+
+    const handleEl = target?.closest('[data-handle]');
+    if (handleEl) {
+      const boxEl = handleEl.closest('[data-id]');
+      if (!boxEl) return;
+      const id = boxEl.dataset.id;
+      const el = State.getEl(id);
+      if (!el || el.locked) return;
+      History.push('Resize');
+      _drag = {
+        type: 'resize',
+        handle: handleEl.dataset.handle,
+        id,
+        origEl:  { x:el.x, y:el.y, w:el.width, h:el.height },
+        startPt: { ...worldPt },
+      };
+      return;
+    }
+
+    const boxEl = target?.closest('[data-id]');
+    if (boxEl) {
+      if (State.tool !== 'select') return;
+      const id = boxEl.dataset.id;
+      const el = State.getEl(id);
+      if (!el || el.locked) return;
+      if (!State.selIds.includes(id)) State.setSelection([id]);
+      History.push('Move');
+      _drag = {
+        type: 'move',
+        ids:  [...State.selIds],
+        startPt: { ...worldPt },
+        origins: State.selIds.map(sid => {
+          const sel = State.getEl(sid);
+          return { id: sid, x: sel.x, y: sel.y };
+        }),
+      };
+      return;
+    }
+
+    if (State.tool === 'draw') {
+      History.push('Draw');
+      const snapped = { x: SnapEng.toGrid(worldPt.x), y: SnapEng.toGrid(worldPt.y) };
+      const newId = State.add({
+        name: 'Frame', type: 'custom',
+        x: snapped.x, y: snapped.y, width: 2, height: 2,
+        fill: '#EFF6FF', stroke: '#60A5FA', strokeWidth: 2,
+      });
+      State.setSelection([newId]);
+      _drag = { type: 'draw', id: newId, startPt: snapped };
+      return;
+    }
+
+    if (State.tool === 'select') {
+      State.clearSel();
+      _drag = { type: 'rubber', startPt: { ...worldPt }, rect: null };
+      _showRubber(worldPt.x, worldPt.y, 0, 0);
+    }
+  }
+
+  function _onTouchMoveHandler(e) {
+    if (!_drag) return;
+    if (CanvasEng.isTouchActive()) { _drag = null; _clearGuides(); _hideRubber(); return; }
+
+    let t = null;
+    for (let i = 0; i < e.changedTouches.length; i++) {
+      if (e.changedTouches[i].identifier === _touchDragId) { t = e.changedTouches[i]; break; }
+    }
+    if (!t) return;
+    e.preventDefault();
+
+    const wp = CanvasEng.screenToWorld(t.clientX, t.clientY);
+
+    switch (_drag.type) {
+      case 'move': {
+        const dx = wp.x - _drag.startPt.x;
+        const dy = wp.y - _drag.startPt.y;
+        const skipIds = new Set(_drag.ids);
+        _drag.origins.forEach(({ id, x, y }) => {
+          const candidate = { ...State.getEl(id), x: x + dx, y: y + dy };
+          const snapped   = SnapEng.snap(candidate, skipIds);
+          State.update(id, { x: snapped.x, y: snapped.y });
+          _drawGuides(snapped.guides);
+        });
+        break;
+      }
+      case 'resize': {
+        const { handle, origEl, startPt } = _drag;
+        const dx = wp.x - startPt.x;
+        const dy = wp.y - startPt.y;
+        let { x, y, w, h } = { x:origEl.x, y:origEl.y, w:origEl.w, h:origEl.h };
+        if (handle.includes('e')) w  = Math.max(10, origEl.w + dx);
+        if (handle.includes('s')) h  = Math.max(10, origEl.h + dy);
+        if (handle.includes('w')) { x = origEl.x + dx; w = Math.max(10, origEl.w - dx); }
+        if (handle.includes('n')) { y = origEl.y + dy; h = Math.max(10, origEl.h - dy); }
+        State.update(_drag.id, {
+          x: Math.round(x), y: Math.round(y),
+          width: Math.round(w), height: Math.round(h),
+        });
+        break;
+      }
+      case 'draw': {
+        const sx = _drag.startPt.x, sy = _drag.startPt.y;
+        const x = Math.min(sx, wp.x), y = Math.min(sy, wp.y);
+        const w = Math.abs(wp.x - sx), h = Math.abs(wp.y - sy);
+        State.update(_drag.id, {
+          x: Math.round(x), y: Math.round(y),
+          width: Math.max(2, Math.round(w)),
+          height: Math.max(2, Math.round(h)),
+        });
+        break;
+      }
+      case 'rubber': {
+        const sx = _drag.startPt.x, sy = _drag.startPt.y;
+        const x = Math.min(sx, wp.x), y = Math.min(sy, wp.y);
+        const w = Math.abs(wp.x - sx), h = Math.abs(wp.y - sy);
+        _drag.rect = { x, y, w, h };
+        _showRubber(x, y, w, h);
+        break;
+      }
+    }
+  }
+
+  function _onTouchEndHandler(e) {
+    _touchDragId = null;
+    if (!_drag) return;
+    if (_drag.type === 'rubber') { _finishRubber(_drag.rect); _hideRubber(); }
+    if (_drag.type === 'draw') {
+      const el = State.getEl(_drag.id);
+      if (el && (el.width < 5 || el.height < 5)) State.remove(_drag.id);
+      State.tool = 'select';
+    }
+    _clearGuides();
+    _drag = null;
   }
 
   // ── Toolbox drop ───────────────────────────────────────────────────────────

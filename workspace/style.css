@@ -931,3 +931,131 @@ a { color: var(--accent); text-decoration: none; }
 /* ── 17. Animations ───────────────────────────────────────────── */
 @keyframes fadeIn { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:none; } }
 .modal-box { animation: fadeIn 180ms ease; }
+
+/* ── 18. Touch / Mobile support ───────────────────────────────── */
+
+/* Prevent browser pan/zoom from interfering with canvas gestures */
+#canvas-viewport {
+  touch-action: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* Ensure toolbox items are not selected/highlighted on touch */
+#app-toolbox {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* ── Tablet (≤1024px) ─────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  #app-toolbox  { width: 180px; min-width: 180px; }
+  #app-layers   { width: 180px; min-width: 180px; }
+  #app-props    { width: 220px; min-width: 220px; }
+
+  /* Larger tap targets for toolbox items */
+  .toolbox__item {
+    min-height: 36px;
+    padding: 4px 8px;
+  }
+  .toolbox__item-icon {
+    width: 30px;
+    height: 30px;
+    font-size: 14px;
+  }
+
+  /* Larger tap targets for layer rows */
+  .layer-row {
+    min-height: 36px;
+  }
+
+  /* Larger toolbar buttons */
+  .toolbar__btn, .toolbar__tool-btn {
+    min-width: 36px;
+    min-height: 36px;
+  }
+
+  /* Bigger resize handles */
+  .resize-handle {
+    width: 12px;
+    height: 12px;
+    margin: -6px;
+  }
+}
+
+/* ── Mobile (≤768px) ──────────────────────────────────────────── */
+@media (max-width: 768px) {
+  /* Hide side panels that clutter small screens */
+  #app-layers { display: none; }
+  #app-props  { display: none; }
+
+  /* Narrow toolbox, icon-only mode */
+  #app-toolbox {
+    width: 56px;
+    min-width: 56px;
+    overflow: hidden;
+  }
+  .toolbox__header { display: none; }
+  .toolbox__cat-label { display: none; }
+  .toolbox__item-name { display: none; }
+  .toolbox__items {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 0;
+  }
+  .toolbox__item {
+    width: 44px;
+    height: 44px;
+    min-height: 44px;
+    justify-content: center;
+    padding: 0;
+    border-radius: 8px;
+  }
+  .toolbox__item-icon {
+    width: 36px;
+    height: 36px;
+    font-size: 16px;
+    border-radius: 6px;
+  }
+
+  /* Scrollable toolbar */
+  #app-toolbar {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  #app-toolbar::-webkit-scrollbar { display: none; }
+
+  /* Minimum 44px tap targets (Apple HIG) */
+  .toolbar__btn,
+  .toolbar__tool-btn,
+  .toolbar__sep + .toolbar__btn {
+    min-width: 44px;
+    min-height: 44px;
+    flex-shrink: 0;
+  }
+
+  /* Bigger resize handles for finger accuracy */
+  .resize-handle {
+    width: 16px;
+    height: 16px;
+    margin: -8px;
+  }
+
+  /* Modal full-screen on mobile */
+  .modal-box {
+    width: 100vw;
+    max-width: 100vw;
+    height: 100vh;
+    max-height: 100vh;
+    border-radius: 0;
+    margin: 0;
+  }
+
+  /* Preview modal fills screen */
+  #modal-preview .modal-box {
+    padding: 0;
+  }
+}

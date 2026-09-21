@@ -119,6 +119,18 @@ const Toolbox = (() => {
       _dropped = false;
     });
 
+    // Touch start — mirror mousedown for ghost drag on touch devices
+    _el.addEventListener('touchstart', e => {
+      const itemEl = e.target.closest('.toolbox__item');
+      if (!itemEl) return;
+      e.preventDefault();
+      const typeDef = _findType(itemEl.dataset.type);
+      if (!typeDef) return;
+      _downDef = typeDef;
+      _downPos = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+      _dropped = false;
+    }, { passive: false });
+
     // Click-to-place — skip if a drag-drop already placed the element
     _el.addEventListener('click', e => {
       if (_dropped) { _dropped = false; return; }
@@ -190,6 +202,48 @@ const Toolbox = (() => {
         }
         _destroyGhost();
       }
+      _downDef = null;
+      _downPos = null;
+    });
+
+    // Touch move — activate ghost after threshold, then track finger
+    window.addEventListener('touchmove', e => {
+      if (!_downDef) return;
+      const t = e.touches[0];
+      if (!_dragDef) {
+        const dx = t.clientX - _downPos.x;
+        const dy = t.clientY - _downPos.y;
+        if (Math.sqrt(dx * dx + dy * dy) >= DRAG_THRESHOLD) {
+          _dragDef = _downDef;
+          _createGhost(_downDef, t.clientX, t.clientY);
+        }
+      } else {
+        e.preventDefault();
+        _moveGhost(t.clientX, t.clientY);
+      }
+    }, { passive: false });
+
+    // Touch end — drop on canvas or cancel
+    window.addEventListener('touchend', e => {
+      if (_dragDef) {
+        const t = e.changedTouches[0];
+        const vp = document.getElementById('canvas-viewport');
+        if (vp) {
+          const rect = vp.getBoundingClientRect();
+          if (t.clientX >= rect.left && t.clientX <= rect.right &&
+              t.clientY >= rect.top  && t.clientY <= rect.bottom) {
+            DragEng.dropFromToolbox(_dragDef, t.clientX, t.clientY);
+            _dropped = true;
+          }
+        }
+        _destroyGhost();
+      }
+      _downDef = null;
+      _downPos = null;
+    });
+
+    window.addEventListener('touchcancel', () => {
+      _destroyGhost();
       _downDef = null;
       _downPos = null;
     });
