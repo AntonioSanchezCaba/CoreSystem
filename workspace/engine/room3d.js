@@ -27,6 +27,7 @@ const Room3D = (() => {
   let _pxPerM   = 100;    // world-px per metre (measurement scale)
   let _heightM  = 2.7;    // wall height in metres
   let _showFloor = true;
+  let _showLabels = true;
   const WALL_T  = 8;      // wall thickness in world-px
   const FOV     = 55 * Math.PI / 180;
 
@@ -34,7 +35,8 @@ const Room3D = (() => {
   let _cam = { theta: -0.7, phi: 0.62, radius: 1400, center: { x: 0, y: 0, z: 0 } };
 
   // ── Geometry cache ──────────────────────────────────────────────────────────
-  let _quads = [];        // [{ v:[[x,y,z]x4], color:[r,g,b], n:[x,y,z] }]
+  let _quads  = [];       // [{ v:[[x,y,z]x4], color:[r,g,b], n:[x,y,z] }]
+  let _labels = [];       // [{ p:[x,y,z], text }] dimension labels in world space
 
   // ── Light ────────────────────────────────────────────────────────────────────
   const LIGHT = _norm([-0.4, 0.85, 0.35]);
@@ -56,7 +58,9 @@ const Room3D = (() => {
     const scale  = modalEl.querySelector('#r3d-scale');
     const height = modalEl.querySelector('#r3d-height');
     const floor  = modalEl.querySelector('#r3d-floor');
+    const labels = modalEl.querySelector('#r3d-labels');
     const reset  = modalEl.querySelector('#r3d-reset');
+    const top    = modalEl.querySelector('#r3d-top');
 
     scale?.addEventListener('input', () => {
       _pxPerM = Math.max(1, parseFloat(scale.value) || 100);
@@ -69,7 +73,15 @@ const Room3D = (() => {
     floor?.addEventListener('change', () => {
       _showFloor = floor.checked; _rebuild(); _invalidate();
     });
+    labels?.addEventListener('change', () => { _showLabels = labels.checked; _invalidate(); });
     reset?.addEventListener('click', () => { _resetView(); _invalidate(); });
+    top?.addEventListener('click', () => { _topView(); _invalidate(); });
+  }
+
+  function _topView() {
+    _cam.theta  = 0.0001;
+    _cam.phi    = 1.44;          // near straight-down (clamp is ±1.45)
+    _cam.radius = _frameRadius;
   }
 
   // ── Public: open / close ─────────────────────────────────────────────────────
@@ -89,6 +101,7 @@ const Room3D = (() => {
   // ── Build geometry from the 2D layout ──────────────────────────────────────
   function _rebuild() {
     _quads = [];
+    _labels = [];
     const els = (State.getAllEls?.() || []).filter(e => !e.hidden);
     const H = _heightM * _pxPerM;
 
@@ -120,6 +133,11 @@ const Room3D = (() => {
       _addBox(x0 - t, z1 - t, x1 + t, z1 + t, H, c); // south
       _addBox(x0 - t, z0 - t, x0 + t, z1 + t, H, c); // west
       _addBox(x1 - t, z0 - t, x1 + t, z1 + t, H, c); // east
+
+      // Dimension labels: width along the north edge, depth along the west edge
+      const wM = e.width / _pxPerM, dM = e.height / _pxPerM;
+      _labels.push({ p: [(x0 + x1) / 2, 6, z0], text: wM.toFixed(2) + ' m' });
+      _labels.push({ p: [x0, 6, (z0 + z1) / 2], text: dM.toFixed(2) + ' m' });
     });
 
     _cam.center = { x: (minX + maxX) / 2, y: H * 0.4, z: (minZ + maxZ) / 2 };
@@ -232,12 +250,44 @@ const Room3D = (() => {
       _ctx.stroke();
     }
 
+    // Dimension labels on top of the geometry
+    if (_showLabels && _labels.length) {
+      _ctx.font = '600 12px -apple-system, BlinkMacSystemFont, sans-serif';
+      _ctx.textAlign = 'center';
+      _ctx.textBaseline = 'middle';
+      for (const lab of _labels) {
+        const rel = [lab.p[0]-eye[0], lab.p[1]-eye[1], lab.p[2]-eye[2]];
+        const cz = _dot(rel, basis.z);
+        if (-cz < near) continue;
+        const sx = cx + (_dot(rel, basis.x) / -cz) * fpx;
+        const sy = cy - (_dot(rel, basis.y) / -cz) * fpx;
+        if (sx < -40 || sx > W + 40 || sy < -20 || sy > H + 20) continue;
+        const tw = _ctx.measureText(lab.text).width;
+        _ctx.fillStyle = 'rgba(15,20,28,0.72)';
+        _roundRect(sx - tw/2 - 6, sy - 9, tw + 12, 18, 5);
+        _ctx.fill();
+        _ctx.fillStyle = '#eef3f8';
+        _ctx.fillText(lab.text, sx, sy);
+      }
+      _ctx.textBaseline = 'alphabetic';
+    }
+
     if (!_quads.length) {
       _ctx.fillStyle = '#7d8590';
       _ctx.font = '14px -apple-system, sans-serif';
       _ctx.textAlign = 'center';
       _ctx.fillText('No elements to show — draw a floor plan first.', W / 2, H / 2);
     }
+  }
+
+  function _roundRect(x, y, w, h, r) {
+    _ctx.beginPath();
+    _ctx.moveTo(x + r, y);
+    _ctx.arcTo(x + w, y,     x + w, y + h, r);
+    _ctx.arcTo(x + w, y + h, x,     y + h, r);
+    _ctx.arcTo(x,     y + h, x,     y,     r);
+    _ctx.arcTo(x,     y,     x + w, y,     r);
+    _ctx.closePath();
   }
 
   // ── Camera helpers ─────────────────────────────────────────────────────────
