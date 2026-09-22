@@ -1,237 +1,541 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-theme="light">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="CoreSystem - Framework y Arquitectura Web Modular">
-    <title>CoreSystem | Ecosistema de Desarrollo</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="CoreSystem — Biblioteca de plantillas profesionales y herramienta visual. HTML5, CSS3, Vanilla JS. Sin dependencias.">
+  <meta name="theme-color" content="#2563EB">
+  <title>CoreSystem — Biblioteca de Plantillas & Visual Workspace</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* ── Hub-specific styles ─────────────────────────────────── */
+    .hub-hero{background:linear-gradient(135deg,#0f172a 0%,#1e1b4b 50%,#0f172a 100%);color:#fff;padding:6rem 0 4rem;text-align:center;}
+    .hub-hero__eyebrow{display:inline-block;background:rgba(99,102,241,.2);border:1px solid rgba(99,102,241,.4);color:#a5b4fc;font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.35rem .9rem;border-radius:9999px;margin-bottom:1.5rem;}
+    .hub-hero__title{font-size:clamp(2.2rem,6vw,4rem);font-weight:900;line-height:1.1;letter-spacing:-.03em;margin-bottom:1.25rem;}
+    .hub-hero__title .grad{background:linear-gradient(135deg,#818cf8,#c084fc,#fb7185);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+    .hub-hero__sub{font-size:1.05rem;color:#94a3b8;max-width:560px;margin:0 auto 2rem;}
+    .hub-hero__actions{display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap;margin-bottom:3rem;}
+    .hub-stats{display:flex;justify-content:center;gap:3rem;flex-wrap:wrap;border-top:1px solid rgba(255,255,255,.1);padding-top:2.5rem;}
+    .hub-stat__val{font-size:2rem;font-weight:800;color:#fff;}
+    .hub-stat__label{font-size:.78rem;color:#64748b;letter-spacing:.05em;text-transform:uppercase;margin-top:.2rem;}
+
+    /* ── Template grid ────────────────────────────────────────── */
+    .tpl-section{padding:5rem 0;}
+    .section-label{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--primary,#2563eb);margin-bottom:.5rem;}
+    .tpl-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.5rem;margin-top:2rem;}
+    .tpl-card{background:var(--surface,#fff);border:1px solid var(--border,#e2e8f0);border-radius:12px;overflow:hidden;transition:transform .2s,box-shadow .2s;display:flex;flex-direction:column;}
+    .tpl-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.12);}
+    .tpl-thumb{height:140px;display:flex;align-items:center;justify-content:center;font-size:2rem;position:relative;overflow:hidden;}
+    .tpl-thumb::after{content:'';position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.15),transparent);}
+    .th-landing{background:linear-gradient(135deg,#2563eb,#7c3aed);}
+    .th-contact{background:linear-gradient(135deg,#0891b2,#06b6d4);}
+    .th-portfolio{background:linear-gradient(135deg,#7c3aed,#a855f7);}
+    .th-gallery{background:linear-gradient(135deg,#db2777,#f43f5e);}
+    .th-blog{background:linear-gradient(135deg,#d97706,#f59e0b);}
+    .th-dashboard{background:linear-gradient(135deg,#059669,#10b981);}
+    .th-design{background:linear-gradient(135deg,#4f46e5,#818cf8);}
+    .th-pricing{background:linear-gradient(135deg,#0369a1,#0ea5e9);}
+    .th-login{background:linear-gradient(135deg,#475569,#94a3b8);}
+    .th-multistep{background:linear-gradient(135deg,#6d28d9,#8b5cf6);}
+    .th-landingpro{background:linear-gradient(135deg,#1d4ed8,#6d28d9);}
+    .th-dashboard-adm{background:linear-gradient(135deg,#047857,#0d9488);}
+    .th-blogmodern{background:linear-gradient(135deg,#b45309,#d97706);}
+    .tpl-body{padding:1rem 1.25rem 1.25rem;flex:1;display:flex;flex-direction:column;}
+    .tpl-badge{display:inline-block;font-size:.65rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.2rem .55rem;border-radius:4px;margin-bottom:.5rem;}
+    .badge-std{background:#dbeafe;color:#1d4ed8;}
+    .badge-pro{background:#ede9fe;color:#6d28d9;}
+    .tpl-name{font-size:1rem;font-weight:700;margin-bottom:.35rem;color:var(--text,#0f172a);}
+    .tpl-desc{font-size:.82rem;color:var(--text-2,#64748b);line-height:1.5;flex:1;}
+    .tpl-actions{display:flex;gap:.5rem;margin-top:1rem;}
+    .tpl-actions .btn-sm{padding:.35rem .75rem;font-size:.78rem;border-radius:6px;text-decoration:none;font-weight:600;transition:background .2s,color .2s;}
+    .tpl-actions .btn-primary{background:#2563eb;color:#fff;border:none;cursor:pointer;}
+    .tpl-actions .btn-primary:hover{background:#1d4ed8;}
+    .tpl-actions .btn-ghost{background:transparent;color:var(--text-2,#64748b);border:1px solid var(--border,#e2e8f0);cursor:pointer;}
+    .tpl-actions .btn-ghost:hover{background:var(--surface-2,#f8fafc);color:var(--text,#0f172a);}
+
+    /* ── Workspace banner ─────────────────────────────────────── */
+    .workspace-banner{background:#0f172a;color:#fff;border-radius:16px;padding:3rem;display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:center;margin-top:2rem;}
+    .workspace-banner h3{font-size:1.75rem;font-weight:800;letter-spacing:-.02em;margin-bottom:.5rem;}
+    .workspace-banner p{color:#94a3b8;font-size:.92rem;max-width:500px;}
+    .ws-pills{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1rem;}
+    .ws-pill{background:rgba(99,102,241,.15);border:1px solid rgba(99,102,241,.3);color:#a5b4fc;font-size:.72rem;font-weight:600;padding:.3rem .7rem;border-radius:20px;}
+    @media(max-width:700px){.workspace-banner{grid-template-columns:1fr;}}
+
+    /* ── Architecture section ─────────────────────────────────── */
+    .arch-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1.25rem;margin-top:2rem;}
+    .arch-card{background:var(--surface,#fff);border:1px solid var(--border,#e2e8f0);border-radius:12px;padding:1.5rem;}
+    .arch-card__icon{font-size:1.5rem;margin-bottom:.75rem;}
+    .arch-card h4{font-size:.92rem;font-weight:700;margin-bottom:.5rem;}
+    .arch-card pre{font-family:monospace;font-size:.72rem;line-height:1.85;color:var(--text-2,#64748b);background:var(--surface-2,#f8fafc);padding:.75rem;border-radius:8px;overflow-x:auto;margin-top:.5rem;}
+
+    /* ── Footer ───────────────────────────────────────────────── */
+    .hub-footer{background:#0f172a;color:#64748b;padding:3rem 0 2rem;}
+    .hub-footer__inner{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:2rem;}
+    .hub-footer__brand{font-size:1.15rem;font-weight:800;color:#fff;letter-spacing:-.02em;}
+    .hub-footer__brand span{color:#818cf8;}
+    .hub-footer__tagline{font-size:.8rem;margin-top:.3rem;}
+    .hub-footer__links h5{font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#fff;margin-bottom:.75rem;}
+    .hub-footer__links a{display:block;font-size:.82rem;color:#64748b;margin-bottom:.35rem;text-decoration:none;transition:color .2s;}
+    .hub-footer__links a:hover{color:#fff;}
+    .hub-footer__copy{border-top:1px solid #1e293b;margin-top:2rem;padding-top:1.5rem;font-size:.78rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:.5rem;}
+  </style>
 </head>
 <body>
 
-    <nav class="navbar">
-        <div class="container flex justify-between">
-            <a href="index.html" class="heading-3 fw-bold text-primary">Core<span style="color:var(--accent)">System</span></a>
-            
-            <div class="nav-toggle">
-                <i class="ri-menu-line"></i>
-            </div>
+<!-- ══ NAVBAR ════════════════════════════════════════════════════════════ -->
+<nav class="navbar" id="main-navbar" role="navigation" aria-label="Main navigation">
+  <div class="container">
+    <a href="#" class="nav-brand" aria-label="CoreSystem home">
+      Core<span class="accent">System</span>
+    </a>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-menu" id="nav-menu" role="list">
+      <li><a href="#standard" class="nav-link">Plantillas</a></li>
+      <li><a href="#advanced" class="nav-link">Avanzadas</a></li>
+      <li><a href="workspace/" class="nav-link">Workspace</a></li>
+      <li>
+        <button class="btn btn-icon btn-ghost" data-theme-toggle aria-label="Toggle dark mode">
+          <span class="theme-icon">◑</span>
+        </button>
+      </li>
+      <li><a href="workspace/" class="btn btn-gradient btn-sm">Abrir Workspace ↗</a></li>
+    </ul>
+  </div>
+</nav>
 
-            <ul class="nav-menu items-center">
-                <li><a href="#demos" class="text-sm fw-bold">Plantillas</a></li>
-                <li><a href="#ui-kit" class="text-sm fw-bold">UI Kit</a></li>
-                <li><a href="#docs" class="text-sm fw-bold">Documentación</a></li>
-                <li>
-                    <button class="btn btn-primary btn-sm" onclick="window.CoreToast.show('Descarga iniciada (demo)')">
-                        <i class="ri-download-line"></i> Descargar v1.0
-                    </button>
-                </li>
-            </ul>
-        </div>
-    </nav>
-
-    <main style="padding-top: var(--header-height);">
-        
-        <section class="py-12 bg-light border-bottom">
-            <div class="container text-center reveal">
-                <span class="badge mb-4">Arquitectura Frontend Vanilla</span>
-                <h1 class="display-1 mb-4">Tu Ecosistema Web <br><span class="text-primary">Listo para Producción</span></h1>
-                <p class="text-lead mb-8" style="max-width: 700px; margin-left: auto; margin-right: auto;">
-                    Un conjunto de layouts profesionales, componentes atómicos y utilidades CSS. 
-                    Sin dependencias, sin build steps complejos. Copia, pega y escala.
-                </p>
-                <div class="flex gap-2 justify-center">
-                    <a href="#demos" class="btn btn-primary">Ver Plantillas</a>
-                    <button class="btn btn-outline" data-modal-open="modal-info">¿Cómo funciona?</button>
-                </div>
-            </div>
-        </section>
-
-        <section id="demos" class="py-12 bg-white">
-            <div class="container">
-                <div class="text-center mb-8 reveal">
-                    <h2 class="heading-2">Estructuras Incluidas</h2>
-                    <p class="text-secondary">Páginas completas listas para usar. Haz clic para ver la demo en vivo.</p>
-                </div>
-
-                <div class="grid grid-2 gap-4">
-                    
-                    <article class="card reveal hover-up">
-                        <div style="height: 200px; background: var(--accent); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; margin-bottom: var(--space-4); position: relative; overflow: hidden;">
-                            <div style="position: absolute; left: 0; top: 0; bottom: 0; width: 60px; background: rgba(255,255,255,0.1);"></div>
-                            <div style="position: absolute; left: 70px; top: 20px; right: 20px; height: 40px; background: rgba(255,255,255,0.05); border-radius: 4px;"></div>
-                            <div style="position: absolute; left: 70px; top: 70px; width: 100px; height: 80px; background: var(--primary); border-radius: 4px; opacity: 0.8;"></div>
-                            <i class="ri-dashboard-3-line" style="font-size: 3rem; color: rgba(255,255,255,0.2); position: relative; z-index: 2;"></i>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <div>
-                                <h3 class="heading-3 mb-1">Admin Dashboard</h3>
-                                <p class="text-sm text-secondary">Sidebar colapsable, tablas y gráficas.</p>
-                            </div>
-                            <a href="dashboard.html" class="btn btn-outline btn-sm">Ver Demo <i class="ri-arrow-right-line"></i></a>
-                        </div>
-                    </article>
-
-                    <article class="card reveal hover-up">
-                        <div style="height: 200px; background: var(--background); border: 1px solid var(--border); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; margin-bottom: var(--space-4);">
-                            <i class="ri-article-line" style="font-size: 3rem; color: var(--secondary); opacity: 0.3;"></i>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <div>
-                                <h3 class="heading-3 mb-1">Blog Standard</h3>
-                                <p class="text-sm text-secondary">Layout de lectura con Sidebar y Grid.</p>
-                            </div>
-                            <a href="blog-standard.html" class="btn btn-outline btn-sm">Ver Demo <i class="ri-arrow-right-line"></i></a>
-                        </div>
-                    </article>
-
-                    <article class="card reveal hover-up">
-                        <div style="height: 200px; background: linear-gradient(135deg, var(--primary-light) 0%, var(--background) 100%); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; margin-bottom: var(--space-4);">
-                            <div class="flex gap-2">
-                                <div style="width: 40px; height: 60px; background: white; border-radius: 4px; opacity: 0.5;"></div>
-                                <div style="width: 40px; height: 80px; background: var(--primary); border-radius: 4px; box-shadow: var(--shadow-lg);"></div>
-                                <div style="width: 40px; height: 60px; background: white; border-radius: 4px; opacity: 0.5;"></div>
-                            </div>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <div>
-                                <h3 class="heading-3 mb-1">Precios & FAQ</h3>
-                                <p class="text-sm text-secondary">Tablas de precios y acordeones.</p>
-                            </div>
-                            <a href="pricing-faq.html" class="btn btn-outline btn-sm">Ver Demo <i class="ri-arrow-right-line"></i></a>
-                        </div>
-                    </article>
-
-                    <article class="card reveal hover-up">
-                        <div style="height: 200px; background: var(--accent); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; margin-bottom: var(--space-4);">
-                            <div style="width: 120px; height: 140px; background: white; border-radius: 8px; display: flex; flex-direction: column; gap: 10px; padding: 15px; justify-content: center;">
-                                <div style="height: 8px; background: var(--border); border-radius: 2px;"></div>
-                                <div style="height: 8px; background: var(--border); border-radius: 2px;"></div>
-                                <div style="height: 20px; background: var(--primary); border-radius: 4px; margin-top: 10px;"></div>
-                            </div>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <div>
-                                <h3 class="heading-3 mb-1">Autenticación</h3>
-                                <p class="text-sm text-secondary">Pantalla de Login / Registro centrada.</p>
-                            </div>
-                            <a href="login.html" class="btn btn-outline btn-sm">Ver Demo <i class="ri-arrow-right-line"></i></a>
-                        </div>
-                    </article>
-
-                </div>
-            </div>
-        </section>
-
-        <section id="ui-kit" class="py-12 bg-light border-top">
-            <div class="container">
-                <div class="flex justify-between items-end mb-8 reveal">
-                    <div>
-                        <h2 class="heading-2">UI Kit & Componentes</h2>
-                        <p class="text-secondary">Bloques de construcción atómicos listos para copiar.</p>
-                    </div>
-                </div>
-
-                <div class="grid grid-3 gap-6">
-                    
-                    <div class="card reveal">
-                        <h4 class="text-sm uppercase fw-bold text-secondary mb-4">Botones</h4>
-                        <div class="flex flex-col gap-2">
-                            <button class="btn btn-primary">Primary Button</button>
-                            <button class="btn btn-outline">Outline Button</button>
-                            <button class="btn btn-primary btn-full">Full Width</button>
-                            <div class="flex gap-2 mt-2">
-                                <button class="btn btn-primary" style="padding: 0.5rem;"><i class="ri-add-line"></i></button>
-                                <button class="btn btn-outline" style="padding: 0.5rem;"><i class="ri-settings-line"></i></button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card reveal">
-                        <h4 class="text-sm uppercase fw-bold text-secondary mb-4">Feedback</h4>
-                        <div class="alert alert-success mb-2">
-                            <i class="ri-check-line"></i> Operación exitosa
-                        </div>
-                        <div class="alert alert-warning mb-2">
-                            <i class="ri-alert-line"></i> Atención requerida
-                        </div>
-                        <div class="alert alert-info mb-4">
-                            <i class="ri-information-line"></i> Nueva versión disponible
-                        </div>
-                        <div class="flex gap-2">
-                            <span class="badge" style="background:var(--primary-light); color:var(--primary);">Nuevo</span>
-                            <span class="badge" style="background:#d1fae5; color:#065f46;">Activo</span>
-                            <span class="badge" style="background:#fef3c7; color:#92400e;">Beta</span>
-                        </div>
-                    </div>
-
-                    <div class="card reveal">
-                        <h4 class="text-sm uppercase fw-bold text-secondary mb-4">Inputs</h4>
-                        <form onsubmit="event.preventDefault(); window.CoreToast.show('Formulario de prueba enviado');">
-                            <div class="form-group">
-                                <label class="form-label">Nombre</label>
-                                <input type="text" class="form-input" placeholder="Tu nombre...">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Opción</label>
-                                <select class="form-input">
-                                    <option>Seleccionar opción...</option>
-                                    <option>Opción A</option>
-                                    <option>Opción B</option>
-                                </select>
-                            </div>
-                            <button class="btn btn-outline btn-full btn-sm">Probar Submit</button>
-                        </form>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-
-        <section id="docs" class="py-12 bg-accent text-white">
-            <div class="container text-center reveal">
-                <h2 class="heading-2" style="color:white;">¿Listo para construir?</h2>
-                <p class="text-lead mb-8" style="color: rgba(255,255,255,0.7);">
-                    Utiliza este sistema como base para tus proyectos freelance o corporativos.
-                </p>
-                <button class="btn btn-primary btn-lg" onclick="window.scrollTo(0,0)">Volver arriba</button>
-            </div>
-        </section>
-
-    </main>
-
-    <footer class="py-12 bg-white border-top">
-        <div class="container text-center">
-            <h4 class="heading-3">CoreSystem</h4>
-            <p class="text-sm text-secondary mt-2">&copy; 2026 Arquitectura Frontend Modular.</p>
-            <div class="flex justify-center gap-4 mt-4">
-                <a href="#" class="text-secondary hover:text-primary"><i class="ri-github-fill" style="font-size: 1.5rem;"></i></a>
-                <a href="#" class="text-secondary hover:text-primary"><i class="ri-twitter-fill" style="font-size: 1.5rem;"></i></a>
-            </div>
-        </div>
-    </footer>
-
-    <div class="modal-overlay" id="modal-info">
-        <div class="modal-window">
-            <div class="flex justify-between items-center mb-4">
-                <h3 class="heading-3">Sobre CoreSystem</h3>
-                <button class="btn btn-outline" style="padding: 5px 10px;" data-modal-close>&times;</button>
-            </div>
-            <p class="text-secondary mb-4">
-                Este sistema utiliza una arquitectura <strong>ITCSS</strong> para los estilos y el patrón de <strong>Módulos ES6</strong> para JavaScript.
-            </p>
-            <ul class="list-disc pl-4 text-sm text-secondary mb-6 space-y-2">
-                <li>Sin dependencias (No Node_modules)</li>
-                <li>100% Responsive</li>
-                <li>Accesible y Semántico</li>
-            </ul>
-            <button class="btn btn-primary btn-full" data-modal-close>Entendido</button>
-        </div>
+<!-- ══ HERO ══════════════════════════════════════════════════════════════ -->
+<header class="hub-hero" role="banner">
+  <div class="container">
+    <p class="hub-hero__eyebrow" data-reveal>CoreSystem v3 — Estructura Limpia</p>
+    <h1 class="hub-hero__title" data-reveal data-delay="100">
+      Plantillas Listas<br>
+      <span class="grad">para Producción</span>
+    </h1>
+    <p class="hub-hero__sub" data-reveal data-delay="200">
+      Biblioteca de plantillas independientes + workspace visual para diseñar layouts.
+      HTML5, CSS3, Vanilla JS — cero dependencias, cero build steps.
+    </p>
+    <div class="hub-hero__actions" data-reveal data-delay="300">
+      <a href="#standard" class="btn btn-light btn-lg">Ver Plantillas</a>
+      <a href="workspace/" class="btn btn-outline btn-lg" style="color:#fff;border-color:rgba(255,255,255,.4);">
+        Abrir Workspace ↗
+      </a>
     </div>
+    <div class="hub-stats" data-reveal data-delay="400">
+      <div class="hub-stat">
+        <div class="hub-stat__val">12</div>
+        <div class="hub-stat__label">Estándar</div>
+      </div>
+      <div class="hub-stat">
+        <div class="hub-stat__val">3</div>
+        <div class="hub-stat__label">Avanzadas</div>
+      </div>
+      <div class="hub-stat">
+        <div class="hub-stat__val">1</div>
+        <div class="hub-stat__label">Workspace Visual</div>
+      </div>
+      <div class="hub-stat">
+        <div class="hub-stat__val">0</div>
+        <div class="hub-stat__label">Dependencias</div>
+      </div>
+    </div>
+  </div>
+</header>
 
-    <div id="toast-container" class="toast-container"></div>
+<!-- ══ STANDARD TEMPLATES ════════════════════════════════════════════════ -->
+<section id="standard" class="tpl-section" aria-labelledby="std-heading">
+  <div class="container">
+    <p class="section-label" data-reveal>Plantillas Estándar</p>
+    <h2 id="std-heading" class="heading-2" data-reveal data-delay="100">
+      12 Estructuras Completas
+    </h2>
+    <p class="text-secondary" data-reveal data-delay="150">
+      Cada plantilla vive en su propia carpeta con HTML independiente compartiendo el sistema de diseño global.
+    </p>
 
-    <script src="script.js"></script>
+    <div class="tpl-grid">
+      <!-- Landing -->
+      <div class="tpl-card" data-reveal>
+        <div class="tpl-thumb th-landing">🚀</div>
+        <div class="tpl-body">
+          <span class="tpl-badge badge-std">Landing</span>
+          <p class="tpl-name">Landing Page</p>
+          <p class="tpl-desc">Hero, features, pricing, FAQ, testimonials y CTA. Ideal para SaaS y productos.</p>
+          <div class="tpl-actions">
+            <a href="templates/landing/" class="btn-sm btn-primary">Ver plantilla</a>
+            <a href="templates/landing/" target="_blank" class="btn-sm btn-ghost">↗ Nueva pestaña</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dashboard -->
+      <div class="tpl-card" data-reveal data-delay="50">
+        <div class="tpl-thumb th-dashboard">📊</div>
+        <div class="tpl-body">
+          <span class="tpl-badge badge-std">Dashboard</span>
+          <p class="tpl-name">Dashboard Admin</p>
+          <p class="tpl-desc">Sidebar, KPI cards, tablas de datos y charts. Panel de administración completo.</p>
+          <div class="tpl-actions">
+            <a href="templates/dashboard/" class="btn-sm btn-primary">Ver plantilla</a>
+            <a href="templates/dashboard/" target="_blank" class="btn-sm btn-ghost">↗ Nueva pestaña</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Blog -->
+      <div class="tpl-card" data-reveal data-delay="100">
+        <div class="tpl-thumb th-blog">✍️</div>
+        <div class="tpl-body">
+          <span class="tpl-badge badge-std">Blog</span>
+          <p class="tpl-name">Blog Standard</p>
+          <p class="tpl-desc">Grid de artículos, sidebar, categorías y paginación. Listo para contenido.</p>
+          <div class="tpl-actions">
+            <a href="templates/blog/" class="btn-sm btn-primary">Ver plantilla</a>
+            <a href="templates/blog/" target="_blank" class="btn-sm btn-ghost">↗ Nueva pestaña</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Portfolio -->
+      <div class="tpl-card" data-reveal data-delay="150">
+        <div class="tpl-thumb th-portfolio">🎨</div>
+        <div class="tpl-body">
+          <span class="tpl-badge badge-std">Portfolio</span>
+          <p class="tpl-name">Portfolio</p>
+          <p class="tpl-desc">Grid de proyectos con filtros, lightbox y sección de contacto integrada.</p>
+          <div class="tpl-actions">
+            <a href="templates/portfolio/" class="btn-sm btn-primary">Ver plantilla</a>
+            <a href="templates/portfolio/" target="_blank" class="btn-sm btn-ghost">↗ Nueva pestaña</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Gallery -->
+      <div class="tpl-card" data-reveal data-delay="200">
+        <div class="tpl-thumb th-gallery">🖼️</div>
+        <div class="tpl-body">
+          <span class="tpl-badge badge-std">Galería</span>
+          <p class="tpl-name">Galería de Imágenes</p>
+          <p class="tpl-desc">Masonry grid, filtros por categoría y lightbox con navegación por teclado.</p>
+          <div class="tpl-actions">
+            <a href="templates/gallery/" class="btn-sm btn-primary">Ver plantilla</a>
+            <a href="templates/gallery/" target="_blank" class="btn-sm btn-ghost">↗ Nueva pestaña</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact -->
+      <div class="tpl-card" data-reveal data-delay="250">
+        <div class="tpl-thumb th-contact">📬</div>
+        <div class="tpl-body">
+          <span class="tpl-badge badge-std">Contacto</span>
+          <p class="tpl-name">Página de Contacto</p>
+          <p class="tpl-desc">Formulario con validación, mapa, datos de contacto y redes sociales.</p>
+          <div class="tpl-actions">
+            <a href="templates/contact/" class="btn-sm btn-primary">Ver plantilla</a>
+            <a href="templates/contact/" target="_blank" class="btn-sm btn-ghost">↗ Nueva pestaña</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Login -->
+      <div class="tpl-card" data-reveal data-delay="300">
+        <div class="tpl-thumb th-login">🔐</div>
+        <div class="tpl-body">
+          <span class="tpl-badge badge-std">Auth</span>
+          <p class="tpl-name">Login / Register</p>
+          <p class="tpl-desc">Pantalla de autenticación con tabs login/registro, validación y recuperación.</p>
+          <div class="tpl-actions">
+            <a href="templates/login/" class="btn-sm btn-primary">Ver plantilla</a>
+            <a href="templates/login/" target="_blank" class="btn-sm btn-ghost">↗ Nueva pestaña</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pricing FAQ -->
+      <div class="tpl-card" data-reveal data-delay="350">
+        <div class="tpl-thumb th-pricing">💳</div>
+        <div class="tpl-body">
+          <span class="tpl-badge badge-std">Pricing</span>
+          <p class="tpl-name">Pricing & FAQ</p>
+          <p class="tpl-desc">Planes con toggle mensual/anual, comparativa de features y accordion FAQ.</p>
+          <div class="tpl-actions">
+            <a href="templates/pricing-faq/" class="btn-sm btn-primary">Ver plantilla</a>
+            <a href="templates/pricing-faq/" target="_blank" class="btn-sm btn-ghost">↗ Nueva pestaña</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Multistep -->
+      <div class="tpl-card" data-reveal data-delay="400">
+        <div class="tpl-thumb th-multistep">🧭</div>
+        <div class="tpl-body">
+          <span class="tpl-badge badge-std">Formulario</span>
+          <p class="tpl-name">Formulario Multistep</p>
+          <p class="tpl-desc">Wizard de 4 pasos con barra de progreso, validación por paso y resumen final.</p>
+          <div class="tpl-actions">
+            <a href="templates/multistep/" class="btn-sm btn-primary">Ver plantilla</a>
+            <a href="templates/multistep/" target="_blank" class="btn-sm btn-ghost">↗ Nueva pestaña</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Design System -->
+      <div class="tpl-card" data-reveal data-delay="450">
+        <div class="tpl-thumb th-design">🎛️</div>
+        <div class="tpl-body">
+          <span class="tpl-badge badge-std">Sistema</span>
+          <p class="tpl-name">Design System</p>
+          <p class="tpl-desc">Documentación viva de tokens, componentes, tipografía, colores e iconos.</p>
+          <div class="tpl-actions">
+            <a href="templates/design-system/" class="btn-sm btn-primary">Ver plantilla</a>
+            <a href="templates/design-system/" target="_blank" class="btn-sm btn-ghost">↗ Nueva pestaña</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Blog Sidebar -->
+      <div class="tpl-card" data-reveal data-delay="500">
+        <div class="tpl-thumb" style="background:linear-gradient(135deg,#2563eb,#0ea5e9);">📰</div>
+        <div class="tpl-body">
+          <span class="tpl-badge badge-std">Blog</span>
+          <p class="tpl-name">Blog con Sidebar</p>
+          <p class="tpl-desc">Blog moderno con sidebar lateral, búsqueda, categorías, tags cloud y newsletter.</p>
+          <div class="tpl-actions">
+            <a href="templates/blog-sidebar/" class="btn-sm btn-primary">Ver plantilla</a>
+            <a href="templates/blog-sidebar/" target="_blank" class="btn-sm btn-ghost">↗ Nueva pestaña</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ecommerce -->
+      <div class="tpl-card" data-reveal data-delay="550">
+        <div class="tpl-thumb" style="background:linear-gradient(135deg,#0d9488,#10b981);">🛒</div>
+        <div class="tpl-body">
+          <span class="tpl-badge badge-std">E-Commerce</span>
+          <p class="tpl-name">Tienda Online</p>
+          <p class="tpl-desc">Catálogo de productos con filtros, carrito de compras, wishlist y vista grid/lista.</p>
+          <div class="tpl-actions">
+            <a href="templates/ecommerce/" class="btn-sm btn-primary">Ver plantilla</a>
+            <a href="templates/ecommerce/" target="_blank" class="btn-sm btn-ghost">↗ Nueva pestaña</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ADVANCED TEMPLATES ═════════════════════════════════════════════════ -->
+<section id="advanced" class="tpl-section border-top" style="background:var(--surface-2);" aria-labelledby="adv-heading">
+  <div class="container">
+    <p class="section-label" data-reveal>Plantillas Avanzadas</p>
+    <h2 id="adv-heading" class="heading-2" data-reveal data-delay="100">
+      Proyectos Completos e Independientes
+    </h2>
+    <p class="text-secondary" data-reveal data-delay="150">
+      Cada plantilla avanzada es 100% independiente con su propio HTML, CSS y JS — sin dependencias externas.
+    </p>
+
+    <div class="tpl-grid" style="grid-template-columns:repeat(auto-fill,minmax(300px,1fr));">
+      <!-- Landing Pro -->
+      <div class="tpl-card" data-reveal>
+        <div class="tpl-thumb th-landingpro" style="height:180px;font-size:2.5rem;">⚡</div>
+        <div class="tpl-body">
+          <span class="tpl-badge badge-pro">Pro — Independiente</span>
+          <p class="tpl-name">Landing Pro</p>
+          <p class="tpl-desc">Landing page de alta conversión. Animaciones, gradientes avanzados, video hero, testimonials con carrusel y tabla de precios interactiva. CSS y JS completamente propios.</p>
+          <div class="tpl-actions">
+            <a href="templates/landing-pro/" class="btn-sm btn-primary">Ver plantilla</a>
+            <a href="templates/landing-pro/" target="_blank" class="btn-sm btn-ghost">↗ Nueva pestaña</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dashboard Admin -->
+      <div class="tpl-card" data-reveal data-delay="100">
+        <div class="tpl-thumb th-dashboard-adm" style="height:180px;font-size:2.5rem;">📈</div>
+        <div class="tpl-body">
+          <span class="tpl-badge badge-pro">Pro — Independiente</span>
+          <p class="tpl-name">Dashboard Admin</p>
+          <p class="tpl-desc">Panel de administración completo. Sidebar colapsable, gráficas SVG nativas, tablas con ordenación/paginación, notificaciones y gestión de usuarios.</p>
+          <div class="tpl-actions">
+            <a href="templates/dashboard-admin/" class="btn-sm btn-primary">Ver plantilla</a>
+            <a href="templates/dashboard-admin/" target="_blank" class="btn-sm btn-ghost">↗ Nueva pestaña</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Blog Modern -->
+      <div class="tpl-card" data-reveal data-delay="200">
+        <div class="tpl-thumb th-blogmodern" style="height:180px;font-size:2.5rem;">📰</div>
+        <div class="tpl-body">
+          <span class="tpl-badge badge-pro">Pro — Independiente</span>
+          <p class="tpl-name">Blog Modern</p>
+          <p class="tpl-desc">Blog editorial moderno. Grid de artículos featured, categorías dinámicas, modo lectura, tiempo estimado y barra de progreso de lectura.</p>
+          <div class="tpl-actions">
+            <a href="templates/blog-modern/" class="btn-sm btn-primary">Ver plantilla</a>
+            <a href="templates/blog-modern/" target="_blank" class="btn-sm btn-ghost">↗ Nueva pestaña</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ WORKSPACE ══════════════════════════════════════════════════════════ -->
+<section id="workspace" class="tpl-section" aria-labelledby="ws-heading">
+  <div class="container">
+    <p class="section-label" data-reveal>Herramienta Visual</p>
+    <h2 id="ws-heading" class="heading-2" data-reveal data-delay="100">Visual Workspace</h2>
+    <p class="text-secondary" data-reveal data-delay="150">
+      Diseña layouts visualmente con cajas, snap, drag &amp; resize — y exporta HTML/CSS/JS limpio.
+    </p>
+
+    <div class="workspace-banner" data-reveal data-delay="200">
+      <div>
+        <h3>Box-Based Layout Designer</h3>
+        <p>Crea estructuras arrastrando cajas, ajustando propiedades y generando código limpio. 25 tipos de caja predefinidos, snap inteligente, historial de 60 pasos, exportación ZIP.</p>
+        <div class="ws-pills">
+          <span class="ws-pill">Drag &amp; Drop</span>
+          <span class="ws-pill">8 handles resize</span>
+          <span class="ws-pill">Snap a grid</span>
+          <span class="ws-pill">25 box types</span>
+          <span class="ws-pill">Capas</span>
+          <span class="ws-pill">Propiedades</span>
+          <span class="ws-pill">HTML/CSS/JS export</span>
+          <span class="ws-pill">ZIP download</span>
+          <span class="ws-pill">Undo/Redo (60)</span>
+        </div>
+      </div>
+      <a href="workspace/" class="btn btn-gradient btn-lg" style="white-space:nowrap;flex-shrink:0;">
+        Abrir Workspace ↗
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ARCHITECTURE ══════════════════════════════════════════════════════ -->
+<section class="tpl-section border-top" style="background:var(--surface-2);" aria-labelledby="arch-heading">
+  <div class="container">
+    <p class="section-label" data-reveal>Arquitectura</p>
+    <h2 id="arch-heading" class="heading-2" data-reveal data-delay="100">Estructura del Proyecto</h2>
+
+    <div class="arch-grid">
+      <div class="arch-card" data-reveal>
+        <div class="arch-card__icon">🗂</div>
+        <h4>Raíz Global</h4>
+        <pre>CoreSystem/
+├── index.html
+├── styles.css
+└── script.js</pre>
+      </div>
+
+      <div class="arch-card" data-reveal data-delay="100">
+        <div class="arch-card__icon">📁</div>
+        <h4>Plantillas Estándar</h4>
+        <pre>templates/
+├── landing/index.html
+├── dashboard/index.html
+├── blog/index.html
+├── portfolio/index.html
+├── gallery/index.html
+├── contact/index.html
+├── login/index.html
+├── pricing-faq/index.html
+├── multistep/index.html
+└── design-system/index.html</pre>
+      </div>
+
+      <div class="arch-card" data-reveal data-delay="200">
+        <div class="arch-card__icon">⚡</div>
+        <h4>Plantillas Pro</h4>
+        <pre>templates/
+├── landing-pro/
+│   ├── index.html
+│   ├── styles.css
+│   └── script.js
+├── dashboard-admin/
+│   ├── index.html
+│   ├── styles.css
+│   └── script.js
+└── blog-modern/
+    ├── index.html
+    ├── styles.css
+    └── script.js</pre>
+      </div>
+
+      <div class="arch-card" data-reveal data-delay="300">
+        <div class="arch-card__icon">🛠</div>
+        <h4>Visual Workspace</h4>
+        <pre>workspace/
+├── index.html
+├── style.css
+├── engine/
+│   ├── stateManager.js
+│   ├── historyManager.js
+│   ├── canvasEngine.js
+│   ├── snappingEngine.js
+│   ├── resizeEngine.js
+│   ├── dragEngine.js
+│   ├── layoutAnalyzer.js
+│   ├── responsiveEngine.js
+│   └── codeGenerator.js
+└── ui/
+    ├── toolbar.js
+    ├── toolbox.js
+    ├── layersPanel.js
+    ├── propertiesPanel.js
+    └── workspace.js</pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ═════════════════════════════════════════════════════════════ -->
+<footer class="hub-footer" role="contentinfo">
+  <div class="container">
+    <div class="hub-footer__inner">
+      <div>
+        <div class="hub-footer__brand">Core<span>System</span></div>
+        <p class="hub-footer__tagline">HTML5 · CSS3 · Vanilla JS — Sin dependencias</p>
+      </div>
+      <div class="hub-footer__links">
+        <h5>Estándar</h5>
+        <a href="templates/landing/">Landing</a>
+        <a href="templates/dashboard/">Dashboard</a>
+        <a href="templates/blog/">Blog</a>
+        <a href="templates/portfolio/">Portfolio</a>
+        <a href="templates/gallery/">Galería</a>
+      </div>
+      <div class="hub-footer__links">
+        <h5>Más Plantillas</h5>
+        <a href="templates/contact/">Contacto</a>
+        <a href="templates/login/">Login</a>
+        <a href="templates/pricing-faq/">Pricing & FAQ</a>
+        <a href="templates/multistep/">Multistep</a>
+        <a href="templates/design-system/">Design System</a>
+        <a href="templates/blog-sidebar/">Blog Sidebar</a>
+        <a href="templates/ecommerce/">E-Commerce</a>
+      </div>
+      <div class="hub-footer__links">
+        <h5>Avanzadas & Herramientas</h5>
+        <a href="templates/landing-pro/">Landing Pro</a>
+        <a href="templates/dashboard-admin/">Dashboard Admin</a>
+        <a href="templates/blog-modern/">Blog Modern</a>
+        <a href="workspace/">Visual Workspace</a>
+      </div>
+    </div>
+    <div class="hub-footer__copy">
+      <span>© 2026 CoreSystem. Construido con HTML5, CSS3 &amp; Vanilla JS.</span>
+      <span>Sin frameworks. Sin dependencias. Solo código limpio.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ══ SCRIPTS ══════════════════════════════════════════════════════════ -->
+<script src="script.js"></script>
+
 </body>
 </html>

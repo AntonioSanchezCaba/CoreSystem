@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="LaunchKit — The all-in-one platform to build, launch, and scale your SaaS product faster than ever. Start free today." />
+  <meta name="robots" content="index, follow" />
+
+  <!-- Open Graph -->
+  <meta property="og:title"       content="LaunchKit — Build Your SaaS Faster" />
+  <meta property="og:description" content="The all-in-one platform to build, launch, and scale your SaaS product." />
+  <meta property="og:type"        content="website" />
+  <meta property="og:image"       content="/assets/og-image.png" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="LaunchKit — Build Your SaaS Faster" />
+  <meta name="twitter:description" content="The all-in-one platform to build, launch, and scale your SaaS product." />
+
+  <title>LaunchKit — Build Your SaaS Product Faster Than Ever</title>
+
+  <!-- Preconnect for Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="/favicon.ico" />
+</head>
+
+<body>
+
+  <!-- ════════════════════════════════════════════════════════
+       NAVBAR
+  ═════════════════════════════════════════════════════════ -->
+  <header id="navbar" class="navbar" role="banner">
+    <div class="container">
+
+      <!-- Brand -->
+      <a href="#" class="navbar-brand" aria-label="LaunchKit home">
+        Launch<span>Kit</span>
+      </a>
+
+      <!-- Navigation Menu -->
+      <nav id="nav-menu" class="navbar-menu" role="navigation" aria-label="Main navigation">
+        <a href="#features"      class="navbar-link">Features</a>
+        <a href="#pricing"       class="navbar-link">Pricing</a>
+        <a href="#testimonials"  class="navbar-link">Testimonials</a>
+        <a href="#faq"           class="navbar-link">FAQ</a>
+        <a href="#"              class="navbar-link">Blog</a>
+      </nav>
+
+      <!-- Actions -->
+      <div class="navbar-actions">
+        <!-- Theme Toggle -->
+        <button id="theme-toggle" class="theme-toggle" aria-label="Switch to dark mode" type="button">
+          <!-- Moon (shown in light mode) -->
+          <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+               viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+          <!-- Sun (shown in dark mode, hidden by default) -->
+          <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+               viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+               style="display:none">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1"  x2="12" y2="3"/>
+            <line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22"   x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/>
+            <line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78"  x2="5.64" y2="18.36"/>
+            <line x1="18.36" y1="5.64"  x2="19.78" y2="4.22"/>
+          </svg>
+        </button>
+
+        <a href="#" class="btn btn-secondary btn-sm">Sign In</a>
+        <a href="#pricing" class="btn btn-primary btn-sm">Get Started</a>
+
+        <!-- Hamburger -->
+        <button id="hamburger" class="hamburger" aria-label="Toggle mobile menu"
+                aria-expanded="false" aria-controls="nav-menu" type="button">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+
+  <main>
+
+    <!-- ══════════════════════════════════════════════════════
+         HERO
+    ═══════════════════════════════════════════════════════ -->
+    <section class="hero" id="hero" aria-labelledby="hero-heading">
+      <div class="hero-grid-bg" aria-hidden="true"></div>
+      <div class="container">
+
+        <!-- Badge -->
+        <div class="hero-badge" role="note">
+          <span class="hero-badge-dot" aria-hidden="true"></span>
+          New — Launch your SaaS faster
+        </div>
+
+        <!-- Heading -->
+        <h1 id="hero-heading" class="hero-title">
+          Build Your SaaS Product<br />
+          <span class="gradient-text">Faster Than Ever</span>
+        </h1>
+
+        <!-- Subtext -->
+        <p class="hero-subtitle">
+          LaunchKit gives you every tool you need — from authentication and
+          billing to analytics and deployment — so you can focus on what matters:
+          your product.
+        </p>
+
+        <!-- CTAs -->
+        <div class="hero-actions">
+          <a href="#pricing" class="btn btn-primary btn-lg">
+            Start for Free
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                 viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                 aria-hidden="true">
+              <line x1="5" y1="12" x2="19" y2="12"/>
+              <polyline points="12 5 19 12 12 19"/>
+            </svg>
+          </a>
+          <a href="#features" class="btn btn-secondary btn-lg">See How It Works</a>
+        </div>
+
+        <!-- Social Proof -->
+        <div class="hero-social-proof" aria-label="Social proof">
+          <div class="hero-avatars" aria-hidden="true">
+            <div class="hero-avatar">JL</div>
+            <div class="hero-avatar">MK</div>
+            <div class="hero-avatar">SA</div>
+            <div class="hero-avatar">TR</div>
+          </div>
+          <span>Trusted by <strong>50,000+</strong> founders and developers</span>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ══════════════════════════════════════════════════════
+         LOGO BAR
+    ═══════════════════════════════════════════════════════ -->
+    <section class="logo-bar reveal" aria-label="Trusted companies">
+      <div class="container">
+        <p class="logo-bar-label">Trusted by teams at</p>
+        <div class="logo-bar-logos">
+          <span class="logo-item">Streamline</span>
+          <span class="logo-item">NovaCorp</span>
+          <span class="logo-item">Axiom</span>
+          <span class="logo-item">Veridian</span>
+          <span class="logo-item">PulseHQ</span>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ══════════════════════════════════════════════════════
+         FEATURES
+    ═══════════════════════════════════════════════════════ -->
+    <section class="features section reveal" id="features" aria-labelledby="features-heading">
+      <div class="container">
+
+        <div class="text-center">
+          <span class="section-label">Features</span>
+          <h2 id="features-heading" class="section-title">Everything You Need to Ship Fast</h2>
+          <p class="section-subtitle">
+            Stop reinventing the wheel. LaunchKit provides production-ready
+            building blocks so your team ships in days, not months.
+          </p>
+        </div>
+
+        <div class="features-grid" role="list">
+
+          <article class="feature-card" role="listitem">
+            <span class="feature-icon" aria-hidden="true">⚡</span>
+            <h3 class="feature-title">Lightning Fast Setup</h3>
+            <p class="feature-desc">
+              Get a full-stack SaaS scaffold with authentication, database, and
+              deployment configured in under five minutes. No boilerplate required.
+            </p>
+          </article>
+
+          <article class="feature-card" role="listitem">
+            <span class="feature-icon" aria-hidden="true">🔐</span>
+            <h3 class="feature-title">Auth &amp; Security</h3>
+            <p class="feature-desc">
+              Email, OAuth, magic links, and MFA out of the box. Role-based access
+              control and audit logs keep your users and data safe.
+            </p>
+          </article>
+
+          <article class="feature-card" role="listitem">
+            <span class="feature-icon" aria-hidden="true">💳</span>
+            <h3 class="feature-title">Billing &amp; Subscriptions</h3>
+            <p class="feature-desc">
+              Stripe integration with plans, trials, usage metering, and dunning
+              flows already wired up. Start charging customers on day one.
+            </p>
+          </article>
+
+          <article class="feature-card" role="listitem">
+            <span class="feature-icon" aria-hidden="true">📊</span>
+            <h3 class="feature-title">Built-in Analytics</h3>
+            <p class="feature-desc">
+              Track signups, revenue, churn, and feature usage from a single
+              dashboard. Segment users and create funnel reports without extra tools.
+            </p>
+          </article>
+
+          <article class="feature-card" role="listitem">
+            <span class="feature-icon" aria-hidden="true">🚀</span>
+            <h3 class="feature-title">One-Click Deploy</h3>
+            <p class="feature-desc">
+              Push to production with a single command. CI/CD pipelines, preview
+              environments, and rollback support come standard for every project.
+            </p>
+          </article>
+
+          <article class="feature-card" role="listitem">
+            <span class="feature-icon" aria-hidden="true">🔗</span>
+            <h3 class="feature-title">Integrations &amp; API</h3>
+            <p class="feature-desc">
+              Connect Slack, Intercom, SendGrid, and 100+ more with pre-built
+              integrations. A fully documented REST and GraphQL API for custom needs.
+            </p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ══════════════════════════════════════════════════════
+         STATS BAR
+    ═══════════════════════════════════════════════════════ -->
+    <section class="stats-bar reveal" aria-label="Key metrics">
+      <div class="container">
+        <dl class="stats-grid">
+          <div class="stat">
+            <dt class="stat-label">Customers</dt>
+            <dd class="stat-value">50K+</dd>
+          </div>
+          <div class="stat">
+            <dt class="stat-label">Uptime SLA</dt>
+            <dd class="stat-value">99.9%</dd>
+          </div>
+          <div class="stat">
+            <dt class="stat-label">Features Shipped</dt>
+            <dd class="stat-value">150+</dd>
+          </div>
+          <div class="stat">
+            <dt class="stat-label">Avg. Rating</dt>
+            <dd class="stat-value">4.9/5</dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+
+
+    <!-- ══════════════════════════════════════════════════════
+         PRICING
+    ═══════════════════════════════════════════════════════ -->
+    <section class="pricing section reveal" id="pricing" aria-labelledby="pricing-heading">
+      <div class="container">
+
+        <div class="text-center">
+          <span class="section-label">Pricing</span>
+          <h2 id="pricing-heading" class="section-title">Simple, Transparent Pricing</h2>
+          <p class="section-subtitle">
+            Start free and scale as you grow. No hidden fees, no surprises.
+            Upgrade or downgrade at any time.
+          </p>
+        </div>
+
+        <div class="pricing-grid" role="list">
+
+          <!-- Starter -->
+          <article class="pricing-card" role="listitem" aria-label="Starter plan">
+            <h3 class="pricing-name">Starter</h3>
+            <div class="pricing-price">
+              <span class="pricing-price-amount">$0</span>
+              <span class="pricing-price-period">/ month</span>
+            </div>
+            <p class="pricing-desc">Perfect for side projects and early-stage validation.</p>
+            <ul class="pricing-features" aria-label="Starter plan features">
+              <li class="pricing-feature">Up to 3 projects</li>
+              <li class="pricing-feature">1,000 monthly active users</li>
+              <li class="pricing-feature">Community support</li>
+              <li class="pricing-feature">Core authentication</li>
+              <li class="pricing-feature">Basic analytics</li>
+            </ul>
+            <a href="#" class="btn btn-secondary">Get Started Free</a>
+          </article>
+
+          <!-- Pro (featured) -->
+          <article class="pricing-card featured" role="listitem" aria-label="Pro plan, most popular">
+            <span class="pricing-badge" aria-label="Most popular">Most Popular</span>
+            <h3 class="pricing-name">Pro</h3>
+            <div class="pricing-price">
+              <span class="pricing-price-amount">$29</span>
+              <span class="pricing-price-period">/ month</span>
+            </div>
+            <p class="pricing-desc">For growing teams ready to ship to real customers.</p>
+            <ul class="pricing-features" aria-label="Pro plan features">
+              <li class="pricing-feature">Unlimited projects</li>
+              <li class="pricing-feature">50,000 monthly active users</li>
+              <li class="pricing-feature">Priority email support</li>
+              <li class="pricing-feature">Full auth suite + MFA</li>
+              <li class="pricing-feature">Advanced analytics &amp; funnels</li>
+              <li class="pricing-feature">Stripe billing included</li>
+              <li class="pricing-feature">Custom domains</li>
+            </ul>
+            <a href="#" class="btn btn-primary">Start Pro Trial</a>
+          </article>
+
+          <!-- Enterprise -->
+          <article class="pricing-card" role="listitem" aria-label="Enterprise plan">
+            <h3 class="pricing-name">Enterprise</h3>
+            <div class="pricing-price">
+              <span class="pricing-price-amount">Custom</span>
+            </div>
+            <p class="pricing-desc">Tailored solutions for large-scale, compliance-first teams.</p>
+            <ul class="pricing-features" aria-label="Enterprise plan features">
+              <li class="pricing-feature">Everything in Pro</li>
+              <li class="pricing-feature">Unlimited MAU</li>
+              <li class="pricing-feature">Dedicated Slack channel</li>
+              <li class="pricing-feature">SSO / SAML support</li>
+              <li class="pricing-feature">SLA guarantee</li>
+              <li class="pricing-feature">Custom contracts &amp; invoicing</li>
+              <li class="pricing-feature">On-premise option</li>
+            </ul>
+            <a href="mailto:sales@launchkit.io" class="btn btn-secondary">Contact Sales</a>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ══════════════════════════════════════════════════════
+         TESTIMONIALS
+    ═══════════════════════════════════════════════════════ -->
+    <section class="testimonials section reveal" id="testimonials" aria-labelledby="testimonials-heading">
+      <div class="container">
+
+        <div class="text-center">
+          <span class="section-label">Testimonials</span>
+          <h2 id="testimonials-heading" class="section-title">Loved by Builders Worldwide</h2>
+          <p class="section-subtitle">
+            Thousands of founders and developers trust LaunchKit to power their products.
+            Here is what a few of them have to say.
+          </p>
+        </div>
+
+        <div class="testimonials-grid" role="list">
+
+          <article class="testimonial-card" role="listitem">
+            <div class="testimonial-stars" aria-label="5 out of 5 stars">★★★★★</div>
+            <blockquote class="testimonial-quote">
+              "LaunchKit cut our time-to-market in half. We went from idea to paying
+              customers in just three weeks. The billing integration alone saved us
+              two full sprints of work."
+            </blockquote>
+            <footer class="testimonial-author">
+              <div class="testimonial-avatar" aria-hidden="true">JL</div>
+              <div>
+                <div class="testimonial-name">Jordan Lee</div>
+                <div class="testimonial-role">Founder, Streamline</div>
+              </div>
+            </footer>
+          </article>
+
+          <article class="testimonial-card" role="listitem">
+            <div class="testimonial-stars" aria-label="5 out of 5 stars">★★★★★</div>
+            <blockquote class="testimonial-quote">
+              "I have used six different SaaS starters over the years. LaunchKit is
+              the first one that actually feels like a complete product rather than
+              a collection of tutorials stitched together."
+            </blockquote>
+            <footer class="testimonial-author">
+              <div class="testimonial-avatar" aria-hidden="true">MK</div>
+              <div>
+                <div class="testimonial-name">Maya Kapoor</div>
+                <div class="testimonial-role">CTO, NovaCorp</div>
+              </div>
+            </footer>
+          </article>
+
+          <article class="testimonial-card" role="listitem">
+            <div class="testimonial-stars" aria-label="5 out of 5 stars">★★★★★</div>
+            <blockquote class="testimonial-quote">
+              "The analytics dashboard and built-in A/B testing helped us identify
+              our biggest conversion drop-off within the first week. Revenue increased
+              38% the following month."
+            </blockquote>
+            <footer class="testimonial-author">
+              <div class="testimonial-avatar" aria-hidden="true">SA</div>
+              <div>
+                <div class="testimonial-name">Sam Adeyemi</div>
+                <div class="testimonial-role">Growth Lead, PulseHQ</div>
+              </div>
+            </footer>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ══════════════════════════════════════════════════════
+         FAQ
+    ═══════════════════════════════════════════════════════ -->
+    <section class="faq section reveal" id="faq" aria-labelledby="faq-heading">
+      <div class="container">
+
+        <div class="text-center">
+          <span class="section-label">FAQ</span>
+          <h2 id="faq-heading" class="section-title">Frequently Asked Questions</h2>
+          <p class="section-subtitle">
+            Have a question that is not answered here? Reach out to our team at
+            <a href="mailto:support@launchkit.io" style="color:var(--color-primary)">support@launchkit.io</a>.
+          </p>
+        </div>
+
+        <div class="faq-list" role="list">
+
+          <div class="faq-item" role="listitem">
+            <button class="faq-question" aria-expanded="false"
+                    aria-controls="faq-answer-1" id="faq-btn-1" type="button">
+              What is LaunchKit and who is it for?
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer" id="faq-answer-1"
+                 role="region" aria-labelledby="faq-btn-1" aria-hidden="true">
+              <div class="faq-answer-inner">
+                LaunchKit is a full-stack SaaS starter kit designed for indie hackers,
+                startup founders, and product teams who want to build and ship a SaaS
+                product without spending weeks on infrastructure. It comes with authentication,
+                billing, analytics, and deployment pre-configured so you can focus entirely
+                on your core product features.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item" role="listitem">
+            <button class="faq-question" aria-expanded="false"
+                    aria-controls="faq-answer-2" id="faq-btn-2" type="button">
+              Do I need a credit card to start the free plan?
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer" id="faq-answer-2"
+                 role="region" aria-labelledby="faq-btn-2" aria-hidden="true">
+              <div class="faq-answer-inner">
+                No credit card is required for the Starter plan. You can sign up with
+                just your email address and start building immediately. We only ask for
+                payment details when you decide to upgrade to a paid plan.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item" role="listitem">
+            <button class="faq-question" aria-expanded="false"
+                    aria-controls="faq-answer-3" id="faq-btn-3" type="button">
+              Can I switch plans or cancel at any time?
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer" id="faq-answer-3"
+                 role="region" aria-labelledby="faq-btn-3" aria-hidden="true">
+              <div class="faq-answer-inner">
+                Absolutely. You can upgrade, downgrade, or cancel your subscription at
+                any time from your account settings. If you cancel, you retain access
+                to your plan until the end of the billing period. We do not charge
+                cancellation fees.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item" role="listitem">
+            <button class="faq-question" aria-expanded="false"
+                    aria-controls="faq-answer-4" id="faq-btn-4" type="button">
+              What tech stack does LaunchKit use?
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer" id="faq-answer-4"
+                 role="region" aria-labelledby="faq-btn-4" aria-hidden="true">
+              <div class="faq-answer-inner">
+                The default stack is Next.js (App Router), TypeScript, Tailwind CSS,
+                Prisma with PostgreSQL, NextAuth.js, and Stripe. However, LaunchKit is
+                modular — you can swap individual components for your preferred libraries.
+                We also offer a Vue/Nuxt variant and a plain REST API backend for teams
+                using a separate frontend framework.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item" role="listitem">
+            <button class="faq-question" aria-expanded="false"
+                    aria-controls="faq-answer-5" id="faq-btn-5" type="button">
+              Is there a white-label or reseller option?
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer" id="faq-answer-5"
+                 role="region" aria-labelledby="faq-btn-5" aria-hidden="true">
+              <div class="faq-answer-inner">
+                Yes. Enterprise customers can purchase a white-label license that removes
+                all LaunchKit branding, grants access to the full source code, and allows
+                distribution as part of a commercial product. Contact our sales team at
+                sales@launchkit.io for licensing details and custom pricing.
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ══════════════════════════════════════════════════════
+         CTA SECTION
+    ═══════════════════════════════════════════════════════ -->
+    <section class="cta-section reveal" aria-labelledby="cta-heading">
+      <div class="container">
+        <h2 id="cta-heading" class="cta-title">Ready to Launch Your SaaS?</h2>
+        <p class="cta-subtitle">
+          Join over 50,000 builders who are shipping faster with LaunchKit.
+          Your first project is always free.
+        </p>
+        <div class="cta-actions">
+          <a href="#pricing" class="btn btn-lg" style="background:#fff;color:var(--color-primary);font-weight:700;">
+            Get Started Free
+          </a>
+          <a href="#" class="btn btn-ghost btn-lg">View Documentation</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+
+  <!-- ══════════════════════════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════════════════════════ -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+
+      <div class="footer-main">
+
+        <!-- Brand Column -->
+        <div class="footer-brand">
+          <div class="footer-brand-logo">Launch<span>Kit</span></div>
+          <p class="footer-brand-desc">
+            The all-in-one platform to build, launch, and scale your
+            SaaS product. From zero to revenue, faster than ever.
+          </p>
+        </div>
+
+        <!-- Product -->
+        <nav aria-label="Product links">
+          <h3 class="footer-col-title">Product</h3>
+          <ul class="footer-links">
+            <li><a href="#features"     class="footer-link">Features</a></li>
+            <li><a href="#pricing"      class="footer-link">Pricing</a></li>
+            <li><a href="#"             class="footer-link">Changelog</a></li>
+            <li><a href="#"             class="footer-link">Roadmap</a></li>
+            <li><a href="#"             class="footer-link">Status</a></li>
+          </ul>
+        </nav>
+
+        <!-- Resources -->
+        <nav aria-label="Resource links">
+          <h3 class="footer-col-title">Resources</h3>
+          <ul class="footer-links">
+            <li><a href="#" class="footer-link">Documentation</a></li>
+            <li><a href="#" class="footer-link">API Reference</a></li>
+            <li><a href="#" class="footer-link">Blog</a></li>
+            <li><a href="#" class="footer-link">Tutorials</a></li>
+            <li><a href="#" class="footer-link">Community</a></li>
+          </ul>
+        </nav>
+
+        <!-- Company + Legal -->
+        <nav aria-label="Company and legal links">
+          <h3 class="footer-col-title">Company</h3>
+          <ul class="footer-links">
+            <li><a href="#" class="footer-link">About</a></li>
+            <li><a href="#" class="footer-link">Careers</a></li>
+            <li><a href="#" class="footer-link">Press</a></li>
+            <li><a href="#" class="footer-link">Privacy Policy</a></li>
+            <li><a href="#" class="footer-link">Terms of Service</a></li>
+          </ul>
+        </nav>
+
+      </div>
+
+      <!-- Footer Bottom Bar -->
+      <div class="footer-bottom">
+        <p>&copy; 2026 LaunchKit, Inc. All rights reserved.</p>
+        <div class="footer-legal">
+          <a href="#" class="footer-link">Privacy</a>
+          <a href="#" class="footer-link">Terms</a>
+          <a href="#" class="footer-link">Cookies</a>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+
+</body>
+</html>

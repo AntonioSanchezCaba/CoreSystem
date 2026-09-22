@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>CoreSystem — Visual Layout Workspace</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════════════════
+     App Shell — 3-column + toolbar grid
+     ════════════════════════════════════════════════════════════ -->
+<div id="app-shell">
+
+  <!-- ── Toolbar (top) ─────────────────────────────────────── -->
+  <header id="app-toolbar" aria-label="Main toolbar"></header>
+
+  <!-- ── Left Column (Toolbox + Layers) ───────────────────── -->
+  <div id="app-left">
+    <!-- Toolbox: predefined component types -->
+    <div id="app-toolbox" aria-label="Component toolbox"></div>
+    <!-- Layers: z-ordered element list -->
+    <div id="app-layers" aria-label="Layers"></div>
+  </div>
+
+  <!-- ── Canvas Area ───────────────────────────────────────── -->
+  <div id="canvas-area" class="grid-visible">
+    <!-- Grid overlay (controlled by canvasEngine CSS vars) -->
+    <div id="canvas-grid" aria-hidden="true"></div>
+
+    <!-- Scroll/pan viewport -->
+    <div id="canvas-viewport" aria-label="Drawing canvas">
+      <!-- Transform target (zoom + pan) -->
+      <div id="canvas-content">
+        <!-- Elements rendered here dynamically by Workspace -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Right Properties Panel ───────────────────────────── -->
+  <aside id="app-props" aria-label="Properties panel"></aside>
+
+</div><!-- /#app-shell -->
+
+
+<!-- ════════════════════════════════════════════════════════════
+     Context Menu
+     ════════════════════════════════════════════════════════════ -->
+<nav id="ctx-menu" aria-label="Context menu">
+  <div class="ctx-item" data-ctx="dup">⊕ Duplicate</div>
+  <div class="ctx-sep"></div>
+  <div class="ctx-item" data-ctx="front">⬆ Bring to Front</div>
+  <div class="ctx-item" data-ctx="fwd">↑ Bring Forward</div>
+  <div class="ctx-item" data-ctx="bwd">↓ Send Backward</div>
+  <div class="ctx-item" data-ctx="back">⬇ Send to Back</div>
+  <div class="ctx-sep"></div>
+  <div class="ctx-item" data-ctx="lock">🔒 Lock / Unlock</div>
+  <div class="ctx-item" data-ctx="hide">👁 Hide / Show</div>
+  <div class="ctx-sep"></div>
+  <div class="ctx-item" data-ctx="analyze">⚙ Analyze Layout</div>
+  <div class="ctx-item" data-ctx="select-all">⊞ Select All</div>
+  <div class="ctx-sep"></div>
+  <div class="ctx-item ctx-item--danger" data-ctx="delete">✕ Delete</div>
+</nav>
+
+
+<!-- ════════════════════════════════════════════════════════════
+     Code Modal
+     ════════════════════════════════════════════════════════════ -->
+<div id="modal-code" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Generated code">
+  <div class="modal-box">
+    <div class="modal-header">
+      <span class="modal-title">⟨/⟩ Generated Code</span>
+      <div style="display:flex;gap:8px;align-items:center">
+        <button class="tb-btn tb-btn--success" onclick="CodeGen.downloadZip('my-layout')">⬇ Download ZIP</button>
+        <button class="modal-close" data-close>✕</button>
+      </div>
+    </div>
+
+    <!-- Tab bar -->
+    <div class="modal-tabs">
+      <button class="code-tab is-active" data-tab="html">index.html</button>
+      <button class="code-tab" data-tab="css">styles.css</button>
+      <button class="code-tab" data-tab="js">script.js</button>
+      <div class="modal-tab-actions">
+        <button class="tb-btn tb-btn--sm" data-copy>⎘ Copy</button>
+        <button class="tb-btn tb-btn--sm" data-download="html">⬇ File</button>
+      </div>
+    </div>
+
+    <!-- Panes -->
+    <div class="modal-body">
+      <div class="code-pane is-active" data-tab-pane="html">
+        <pre><code></code></pre>
+      </div>
+      <div class="code-pane" data-tab-pane="css">
+        <pre><code></code></pre>
+      </div>
+      <div class="code-pane" data-tab-pane="js">
+        <pre><code></code></pre>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════════════════════
+     Preview Modal
+     ════════════════════════════════════════════════════════════ -->
+<div id="modal-preview" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Layout preview">
+  <div class="modal-box modal-box--wide" style="max-height:96vh;height:96vh;">
+
+    <!-- Header -->
+    <div class="modal-header">
+      <span class="modal-title">▶ Layout Preview</span>
+      <div id="preview-zoom-badge" class="preview-zoom-badge">100%</div>
+      <div style="margin-left:auto;display:flex;gap:8px;align-items:center;">
+        <button class="tb-btn tb-btn--accent" onclick="CodeGen.downloadZip('my-layout')">⬇ Export ZIP</button>
+        <button class="modal-close" data-close>✕</button>
+      </div>
+    </div>
+
+    <!-- Device & viewport bar -->
+    <div class="preview-bar">
+      <div class="preview-devices">
+        <button class="preview-vp-btn" data-vp="375x812"  title="iPhone 14 Pro">
+          <span class="pvp-icon">📱</span><span class="pvp-label">Mobile</span><span class="pvp-size">375</span>
+        </button>
+        <button class="preview-vp-btn" data-vp="768x1024" title="iPad">
+          <span class="pvp-icon">📟</span><span class="pvp-label">Tablet</span><span class="pvp-size">768</span>
+        </button>
+        <button class="preview-vp-btn is-active" data-vp="1440x900" title="Desktop 1440">
+          <span class="pvp-icon">🖥</span><span class="pvp-label">Desktop</span><span class="pvp-size">1440</span>
+        </button>
+        <button class="preview-vp-btn" data-vp="1920x1080" title="Full HD">
+          <span class="pvp-icon">⬛</span><span class="pvp-label">Full HD</span><span class="pvp-size">1920</span>
+        </button>
+      </div>
+      <!-- Fake address bar -->
+      <div class="preview-addressbar">
+        <span class="preview-addressbar__lock">🔒</span>
+        <span class="preview-addressbar__url">preview.coresystem.local</span>
+      </div>
+    </div>
+
+    <!-- Canvas -->
+    <div class="preview-iframe-wrap">
+      <div class="preview-browser-chrome" id="preview-browser-chrome">
+        <div class="pbc-dots">
+          <span class="pbc-dot pbc-dot--red"></span>
+          <span class="pbc-dot pbc-dot--yellow"></span>
+          <span class="pbc-dot pbc-dot--green"></span>
+        </div>
+        <div class="pbc-title" id="pbc-title">Layout Preview</div>
+      </div>
+      <iframe id="preview-iframe"
+              title="Layout preview"
+              sandbox="allow-scripts allow-same-origin"
+              width="1440" height="900">
+      </iframe>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════════════════════
+     3D Room Modal
+     ════════════════════════════════════════════════════════════ -->
+<div id="modal-3d" class="modal-overlay" role="dialog" aria-modal="true" aria-label="3D room view">
+  <div class="modal-box modal-box--wide" style="max-height:96vh;height:96vh;">
+    <div class="modal-header">
+      <span class="modal-title">⬲ 3D Room View</span>
+      <div style="margin-left:auto;display:flex;gap:8px;align-items:center;">
+        <button class="tb-btn tb-btn--sm" id="r3d-top" title="Top-down view">⊡ Top</button>
+        <button class="tb-btn tb-btn--sm" id="r3d-reset" title="Reset camera">⟲ Reset view</button>
+        <button class="modal-close" data-close>✕</button>
+      </div>
+    </div>
+    <div class="r3d-wrap">
+      <div class="r3d-stage">
+        <canvas id="r3d-canvas"></canvas>
+        <div class="r3d-hud">Drag to orbit · scroll / pinch to zoom · two-finger (or right-drag) to pan</div>
+      </div>
+      <aside class="r3d-side">
+        <div class="r3d-ctrl">
+          <label>Scale <small>px / metre</small>
+            <input type="number" id="r3d-scale" value="100" min="1" step="1">
+          </label>
+          <label>Wall height <small>metres</small>
+            <input type="number" id="r3d-height" value="2.7" min="0.1" step="0.1">
+          </label>
+          <label class="r3d-check"><input type="checkbox" id="r3d-floor" checked> Show floor</label>
+          <label class="r3d-check"><input type="checkbox" id="r3d-labels" checked> Show dimensions</label>
+        </div>
+        <div class="r3d-measure" id="r3d-measure"></div>
+      </aside>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════════════════════
+     Script loading — dependency order
+     ════════════════════════════════════════════════════════════ -->
+
+<!-- Engine: foundation layer (no dependencies) -->
+<script src="engine/stateManager.js"></script>
+<script src="engine/historyManager.js"></script>
+<script src="engine/canvasEngine.js"></script>
+<script src="engine/snappingEngine.js"></script>
+<script src="engine/resizeEngine.js"></script>
+<script src="engine/dragEngine.js"></script>
+<script src="engine/layoutAnalyzer.js"></script>
+<script src="engine/responsiveEngine.js"></script>
+<script src="engine/codeGenerator.js"></script>
+<script src="engine/room3d.js"></script>
+
+<!-- UI: depends on engines -->
+<script src="ui/toolbar.js"></script>
+<script src="ui/toolbox.js"></script>
+<script src="ui/layersPanel.js"></script>
+<script src="ui/propertiesPanel.js"></script>
+<script src="ui/workspace.js"></script>
+
+<!-- Boot -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  Workspace.init();
+  console.log('%cCoreSystem Visual Workspace — ready', 'color:#58A6FF;font-weight:bold;font-size:14px');
+  console.log('%cKeyboard shortcuts:', 'color:#7D8590;font-size:12px');
+  console.log('%c  V = Select  R = Draw  H = Hand', 'color:#7D8590;font-size:11px');
+  console.log('%c  G = Grid  Del = Delete selected', 'color:#7D8590;font-size:11px');
+  console.log('%c  Ctrl+Z/Y = Undo/Redo  Ctrl+D = Duplicate', 'color:#7D8590;font-size:11px');
+  console.log('%c  Ctrl+A = Select all  Esc = Deselect', 'color:#7D8590;font-size:11px');
+  console.log('%c  Arrows = Nudge (Shift+Arrow = 10px)', 'color:#7D8590;font-size:11px');
+  console.log('%c  Space+Drag = Pan  Scroll = Zoom', 'color:#7D8590;font-size:11px');
+  console.log('%c  Double-click box = Rename  Alt+Drag = Duplicate', 'color:#7D8590;font-size:11px');
+});
+</script>
+
+</body>
+</html>

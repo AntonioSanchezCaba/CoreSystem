@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Design System — CoreSystem v2.0">
+    <title>Design System | CoreSystem</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        /* ── Page-specific layout styles ── */
+        .ds-layout { display: grid; grid-template-columns: 220px 1fr; min-height: 100vh; padding-top: var(--header-height); }
+        .ds-sidebar { background: var(--white); border-right: 1px solid var(--border); padding: var(--space-6); position: sticky; top: var(--header-height); height: calc(100vh - var(--header-height)); overflow-y: auto; }
+        .ds-sidebar-link { display: block; padding: var(--space-2) var(--space-3); border-radius: var(--radius-md); font-size: var(--text-sm); color: var(--text-secondary); font-weight: 500; transition: var(--transition); margin-bottom: var(--space-1); }
+        .ds-sidebar-link:hover, .ds-sidebar-link.active { background: var(--primary-ghost); color: var(--primary); }
+        .ds-section { padding: var(--space-12); border-bottom: 1px solid var(--border); }
+        .ds-section:last-child { border-bottom: none; }
+        .ds-section-title { font-size: var(--text-xs); font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); margin-bottom: var(--space-6); }
+        .swatch { width: 56px; height: 56px; border-radius: var(--radius-lg); border: 1px solid var(--border); }
+        .type-sample { padding: var(--space-3) 0; border-bottom: 1px solid var(--border); }
+        @media (max-width: 767px) { .ds-layout { grid-template-columns: 1fr; } .ds-sidebar { display: none; } }
+    </style>
+</head>
+<body>
+
+<!-- =============================================
+     NAVBAR
+     ============================================= -->
+<nav class="navbar">
+    <div class="container flex justify-between items-center">
+        <a href="../../index.html" class="nav-brand">Core<span class="text-primary">System</span></a>
+        <span class="badge badge-primary hide-mobile">Design System v2.0</span>
+        <div class="flex items-center gap-3">
+            <button class="btn btn-outline btn-sm" data-theme-toggle aria-label="Toggle dark mode">
+                <i class="ri-moon-line"></i> Tema
+            </button>
+            <a href="../../index.html" class="btn btn-ghost btn-sm">← Volver</a>
+        </div>
+    </div>
+</nav>
+
+<div class="ds-layout">
+
+    <!-- =============================================
+         SIDEBAR NAV
+         ============================================= -->
+    <aside class="ds-sidebar">
+        <p class="ds-section-title">Fundamentos</p>
+        <a href="#colors"     class="ds-sidebar-link">Colores</a>
+        <a href="#typography" class="ds-sidebar-link">Tipografía</a>
+        <a href="#spacing"    class="ds-sidebar-link">Spacing</a>
+        <a href="#shadows"    class="ds-sidebar-link">Sombras</a>
+        <a href="#grid"       class="ds-sidebar-link">Grid</a>
+
+        <p class="ds-section-title mt-6">Componentes</p>
+        <a href="#buttons"    class="ds-sidebar-link">Botones</a>
+        <a href="#cards"      class="ds-sidebar-link">Cards</a>
+        <a href="#forms"      class="ds-sidebar-link">Formularios</a>
+        <a href="#badges"     class="ds-sidebar-link">Badges</a>
+        <a href="#alerts"     class="ds-sidebar-link">Alertas</a>
+        <a href="#tabs"       class="ds-sidebar-link">Tabs</a>
+        <a href="#accordion"  class="ds-sidebar-link">Accordion</a>
+        <a href="#modals"     class="ds-sidebar-link">Modales</a>
+        <a href="#toasts"     class="ds-sidebar-link">Toasts</a>
+        <a href="#tooltips"   class="ds-sidebar-link">Tooltips</a>
+        <a href="#pagination" class="ds-sidebar-link">Paginación</a>
+        <a href="#skeleton"   class="ds-sidebar-link">Skeleton</a>
+        <a href="#progress"   class="ds-sidebar-link">Progress</a>
+        <a href="#avatars"    class="ds-sidebar-link">Avatars</a>
+    </aside>
+
+    <!-- =============================================
+         MAIN CONTENT
+         ============================================= -->
+    <main>
+
+        <!-- ── COLORS ── -->
+        <section id="colors" class="ds-section">
+            <p class="ds-section-title">Sistema de Colores</p>
+            <h2 class="heading-4 mb-6">Paleta de colores</h2>
+            <div class="grid gap-8">
+                <div>
+                    <p class="text-sm fw-semibold mb-3">Primarios</p>
+                    <div class="flex gap-3 flex-wrap">
+                        <div><div class="swatch bg-primary"></div><p class="text-xs mt-1">primary</p></div>
+                        <div><div class="swatch" style="background:var(--primary-dark);"></div><p class="text-xs mt-1">primary-dark</p></div>
+                        <div><div class="swatch" style="background:var(--primary-light);"></div><p class="text-xs mt-1">primary-light</p></div>
+                        <div><div class="swatch" style="background:var(--primary-ghost);"></div><p class="text-xs mt-1">primary-ghost</p></div>
+                    </div>
+                </div>
+                <div>
+                    <p class="text-sm fw-semibold mb-3">Estados</p>
+                    <div class="flex gap-3 flex-wrap">
+                        <div><div class="swatch bg-success"></div><p class="text-xs mt-1">success</p></div>
+                        <div><div class="swatch bg-warning"></div><p class="text-xs mt-1">warning</p></div>
+                        <div><div class="swatch bg-error"></div><p class="text-xs mt-1">error</p></div>
+                        <div><div class="swatch" style="background:var(--info);"></div><p class="text-xs mt-1">info</p></div>
+                    </div>
+                </div>
+                <div>
+                    <p class="text-sm fw-semibold mb-3">Neutrales</p>
+                    <div class="flex gap-2 flex-wrap">
+                        <div><div class="swatch" style="background:var(--gray-50);"></div><p class="text-xs mt-1">50</p></div>
+                        <div><div class="swatch" style="background:var(--gray-100);"></div><p class="text-xs mt-1">100</p></div>
+                        <div><div class="swatch" style="background:var(--gray-200);"></div><p class="text-xs mt-1">200</p></div>
+                        <div><div class="swatch" style="background:var(--gray-300);"></div><p class="text-xs mt-1">300</p></div>
+                        <div><div class="swatch" style="background:var(--gray-400);"></div><p class="text-xs mt-1">400</p></div>
+                        <div><div class="swatch" style="background:var(--gray-500);"></div><p class="text-xs mt-1">500</p></div>
+                        <div><div class="swatch" style="background:var(--gray-600);"></div><p class="text-xs mt-1">600</p></div>
+                        <div><div class="swatch" style="background:var(--gray-700);"></div><p class="text-xs mt-1">700</p></div>
+                        <div><div class="swatch" style="background:var(--gray-800);"></div><p class="text-xs mt-1">800</p></div>
+                        <div><div class="swatch" style="background:var(--gray-900);"></div><p class="text-xs mt-1">900</p></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── TYPOGRAPHY ── -->
+        <section id="typography" class="ds-section">
+            <p class="ds-section-title">Tipografía</p>
+            <h2 class="heading-4 mb-6">Escala tipográfica</h2>
+            <div class="type-sample"><span class="display-1">Display 1</span></div>
+            <div class="type-sample"><span class="display-2">Display 2</span></div>
+            <div class="type-sample"><span class="heading-1">Heading 1</span></div>
+            <div class="type-sample"><span class="heading-2">Heading 2</span></div>
+            <div class="type-sample"><span class="heading-3">Heading 3</span></div>
+            <div class="type-sample"><span class="heading-4">Heading 4</span></div>
+            <div class="type-sample"><span class="text-lead">Text Lead — Párrafo destacado con mayor tamaño y espacio</span></div>
+            <div class="type-sample"><span class="text-base">Text Base — Texto de cuerpo estándar (16px / 1.6 line-height)</span></div>
+            <div class="type-sample"><span class="text-sm">Text Small — Texto secundario y etiquetas (14px)</span></div>
+            <div class="type-sample"><span class="text-xs uppercase tracking-wide text-muted">Text XS / Label — 12px uppercase tracking</span></div>
+        </section>
+
+        <!-- ── BUTTONS ── -->
+        <section id="buttons" class="ds-section">
+            <p class="ds-section-title">Componentes</p>
+            <h2 class="heading-4 mb-6">Botones — 8 variantes + 5 tamaños</h2>
+            <div class="space-y-4">
+                <div class="flex flex-wrap gap-3 items-center">
+                    <button class="btn btn-primary">Primary</button>
+                    <button class="btn btn-secondary">Secondary</button>
+                    <button class="btn btn-outline">Outline</button>
+                    <button class="btn btn-ghost">Ghost</button>
+                    <button class="btn btn-danger">Danger</button>
+                    <button class="btn btn-success">Success</button>
+                    <button class="btn btn-warning">Warning</button>
+                    <button class="btn btn-link">Link →</button>
+                </div>
+                <div class="flex flex-wrap gap-3 items-center">
+                    <button class="btn btn-primary btn-xs">XSmall</button>
+                    <button class="btn btn-primary btn-sm">Small</button>
+                    <button class="btn btn-primary">Default</button>
+                    <button class="btn btn-primary btn-lg">Large</button>
+                    <button class="btn btn-primary btn-xl">XLarge</button>
+                </div>
+                <div class="flex flex-wrap gap-3 items-center">
+                    <button class="btn btn-primary btn-icon"><i class="ri-add-line"></i></button>
+                    <button class="btn btn-outline btn-icon"><i class="ri-search-line"></i></button>
+                    <button class="btn btn-primary"><i class="ri-download-line"></i> Con ícono</button>
+                    <button class="btn btn-outline" disabled>Deshabilitado</button>
+                    <div class="spinner spinner-sm"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── CARDS ── -->
+        <section id="cards" class="ds-section">
+            <h2 class="heading-4 mb-6">Cards — 5 estilos</h2>
+            <div class="grid grid-3 gap-4">
+                <div class="card">
+                    <div class="card-icon"><i class="ri-star-line"></i></div>
+                    <h4 class="heading-4 mb-1">Default Card</h4>
+                    <p class="text-sm text-secondary">Card con borde y hover shadow. La más versátil.</p>
+                </div>
+                <div class="card-elevated">
+                    <div class="card-icon" style="background:var(--success-light);color:var(--success);"><i class="ri-shield-check-line"></i></div>
+                    <h4 class="heading-4 mb-1">Elevated Card</h4>
+                    <p class="text-sm text-secondary">Card con sombra inicial y hover transform.</p>
+                </div>
+                <div class="card-flat">
+                    <div class="card-icon" style="background:var(--gray-200);color:var(--gray-600);"><i class="ri-layout-line"></i></div>
+                    <h4 class="heading-4 mb-1">Flat Card</h4>
+                    <p class="text-sm text-secondary">Card plana, fondo gris sutil. Mínima.</p>
+                </div>
+                <div class="card-primary">
+                    <div class="card-icon" style="background:rgba(255,255,255,0.2);color:white;"><i class="ri-rocket-line"></i></div>
+                    <h4 class="heading-4 text-white mb-1">Primary Card</h4>
+                    <p class="text-sm" style="color:rgba(255,255,255,0.8);">Card con fondo de color de marca.</p>
+                </div>
+                <div class="card-glass" style="background:linear-gradient(135deg,var(--primary),#7c3aed);padding:var(--space-2);">
+                    <div class="card-glass">
+                        <div class="card-icon" style="background:rgba(255,255,255,0.2);color:white;"><i class="ri-blur-off-line"></i></div>
+                        <h4 class="heading-4 text-white mb-1">Glass Card</h4>
+                        <p class="text-sm text-white" style="opacity:0.8;">Glassmorphism. Requiere fondo visible.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── FORMS ── -->
+        <section id="forms" class="ds-section">
+            <h2 class="heading-4 mb-6">Formularios & Inputs</h2>
+            <div class="grid grid-2 gap-8">
+                <div class="space-y-4">
+                    <div class="form-group">
+                        <label class="form-label">Input default</label>
+                        <input type="text" class="form-input" placeholder="Placeholder...">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Input con ícono izquierdo</label>
+                        <div class="input-wrapper input-icon-left">
+                            <i class="ri-search-line input-icon"></i>
+                            <input type="text" class="form-input" placeholder="Buscar...">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Estado: Error</label>
+                        <input type="text" class="form-input error" value="Valor inválido">
+                        <span class="form-error visible">Este campo es requerido</span>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Estado: Success</label>
+                        <input type="email" class="form-input success" value="correo@valido.com">
+                    </div>
+                </div>
+                <div class="space-y-4">
+                    <div class="form-group">
+                        <label class="form-label">Select</label>
+                        <select class="form-select">
+                            <option>Opción 1</option>
+                            <option>Opción 2</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Textarea</label>
+                        <textarea class="form-textarea" rows="3" placeholder="Escribe aquí..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Checkboxes</label>
+                        <div class="space-y-2">
+                            <label class="form-check"><input type="checkbox" class="form-check-input" checked> Opción A</label>
+                            <label class="form-check"><input type="checkbox" class="form-check-input"> Opción B</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── BADGES & ALERTS ── -->
+        <section id="badges" class="ds-section">
+            <h2 class="heading-4 mb-6">Badges</h2>
+            <div class="flex flex-wrap gap-2 mb-8">
+                <span class="badge badge-primary">Primary</span>
+                <span class="badge badge-secondary">Secondary</span>
+                <span class="badge badge-success">Success</span>
+                <span class="badge badge-warning">Warning</span>
+                <span class="badge badge-error">Error</span>
+                <span class="badge badge-primary badge-outline">Outline</span>
+                <span class="badge badge-success badge-dot">Live</span>
+                <span class="badge badge-primary"><i class="ri-rocket-line"></i> Con ícono</span>
+            </div>
+        </section>
+
+        <section id="alerts" class="ds-section">
+            <h2 class="heading-4 mb-6">Alertas</h2>
+            <div class="alert alert-info mb-4">
+                <i class="ri-information-line alert-icon"></i>
+                <div class="alert-content"><p class="alert-title">Información</p>Nueva versión disponible. Actualiza cuando puedas.</div>
+            </div>
+            <div class="alert alert-success mb-4">
+                <i class="ri-check-line alert-icon"></i>
+                <div class="alert-content"><p class="alert-title">Éxito</p>Los cambios fueron guardados correctamente.</div>
+            </div>
+            <div class="alert alert-warning mb-4">
+                <i class="ri-alert-line alert-icon"></i>
+                <div class="alert-content"><p class="alert-title">Atención</p>Tu sesión expirará en 5 minutos.</div>
+            </div>
+            <div class="alert alert-error">
+                <i class="ri-error-warning-line alert-icon"></i>
+                <div class="alert-content"><p class="alert-title">Error</p>No se pudo completar la operación. Intenta nuevamente.</div>
+            </div>
+        </section>
+
+        <!-- ── TABS ── -->
+        <section id="tabs" class="ds-section">
+            <h2 class="heading-4 mb-6">Tabs — 2 variantes</h2>
+            <p class="text-sm fw-semibold text-muted mb-3">Línea inferior (default)</p>
+            <div class="mb-8">
+                <div class="tabs-header">
+                    <button class="tab-btn active" data-tab-target="#ds-tab1">General</button>
+                    <button class="tab-btn" data-tab-target="#ds-tab2">Seguridad</button>
+                    <button class="tab-btn" data-tab-target="#ds-tab3">Notificaciones</button>
+                </div>
+                <div id="ds-tab1" class="tab-content active">
+                    <div class="card-flat rounded-xl p-4 mt-4">Contenido del tab General.</div>
+                </div>
+                <div id="ds-tab2" class="tab-content">
+                    <div class="card-flat rounded-xl p-4 mt-4">Contenido del tab Seguridad.</div>
+                </div>
+                <div id="ds-tab3" class="tab-content">
+                    <div class="card-flat rounded-xl p-4 mt-4">Contenido del tab Notificaciones.</div>
+                </div>
+            </div>
+            <p class="text-sm fw-semibold text-muted mb-3">Pill variant</p>
+            <div class="tabs-pills">
+                <div class="tabs-header">
+                    <button class="tab-btn active" data-tab-target="#ds-pill1">Día</button>
+                    <button class="tab-btn" data-tab-target="#ds-pill2">Semana</button>
+                    <button class="tab-btn" data-tab-target="#ds-pill3">Mes</button>
+                </div>
+            </div>
+            <div id="ds-pill1" class="tab-content active mt-4"><div class="card-flat rounded-xl p-4">Vista de día</div></div>
+            <div id="ds-pill2" class="tab-content mt-4"><div class="card-flat rounded-xl p-4">Vista de semana</div></div>
+            <div id="ds-pill3" class="tab-content mt-4"><div class="card-flat rounded-xl p-4">Vista de mes</div></div>
+        </section>
+
+        <!-- ── ACCORDION ── -->
+        <section id="accordion" class="ds-section">
+            <h2 class="heading-4 mb-6">Accordion</h2>
+            <div class="accordion">
+                <div class="accordion-item active">
+                    <button class="accordion-header">¿Qué es CoreSystem?<i class="ri-arrow-down-s-line accordion-icon"></i></button>
+                    <div class="accordion-body"><div class="accordion-body-inner"><p>CoreSystem es un sistema de estandarización web construido con HTML5, CSS3 y JavaScript Vanilla, sin frameworks externos.</p></div></div>
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-header">¿Puedo usarlo en producción?<i class="ri-arrow-down-s-line accordion-icon"></i></button>
+                    <div class="accordion-body"><div class="accordion-body-inner"><p>Sí. El código está optimizado para producción, con prácticas de accesibilidad y rendimiento incorporadas.</p></div></div>
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-header">¿Cómo extiendo los componentes?<i class="ri-arrow-down-s-line accordion-icon"></i></button>
+                    <div class="accordion-body"><div class="accordion-body-inner"><p>Cada módulo en <code>script.js</code> tiene comentarios de extensión. Para CSS, usa las variables CSS de <code>:root</code> como tokens de diseño.</p></div></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── MODALS ── -->
+        <section id="modals" class="ds-section">
+            <h2 class="heading-4 mb-6">Modales</h2>
+            <div class="flex gap-3 flex-wrap">
+                <button class="btn btn-primary" data-modal-open="ds-modal-sm">Modal pequeño</button>
+                <button class="btn btn-outline" data-modal-open="ds-modal-default">Modal default</button>
+                <button class="btn btn-secondary" data-modal-open="ds-modal-lg">Modal grande</button>
+            </div>
+        </section>
+
+        <!-- ── TOASTS ── -->
+        <section id="toasts" class="ds-section">
+            <h2 class="heading-4 mb-6">Toast Notifications</h2>
+            <div class="flex gap-3 flex-wrap">
+                <button class="btn btn-success btn-sm" onclick="CoreSystem.toast('¡Operación exitosa!', 'success')"><i class="ri-check-line"></i> Success</button>
+                <button class="btn btn-danger btn-sm" onclick="CoreSystem.toast('Ha ocurrido un error.', 'error')"><i class="ri-error-warning-line"></i> Error</button>
+                <button class="btn btn-warning btn-sm" onclick="CoreSystem.toast('Atención requerida.', 'warning')"><i class="ri-alert-line"></i> Warning</button>
+                <button class="btn btn-outline btn-sm" onclick="CoreSystem.toast('Nueva información disponible.', 'info')"><i class="ri-information-line"></i> Info</button>
+                <button class="btn btn-ghost btn-sm" onclick="CoreSystem.toast('Notificación genérica.')"><i class="ri-notification-line"></i> Default</button>
+            </div>
+        </section>
+
+        <!-- ── TOOLTIPS ── -->
+        <section id="tooltips" class="ds-section">
+            <h2 class="heading-4 mb-6">Tooltips (CSS-only)</h2>
+            <div class="flex gap-4 items-center flex-wrap">
+                <button class="btn btn-outline" data-tooltip="Este es un tooltip">Hover aquí</button>
+                <span class="badge badge-primary" data-tooltip="Tooltip sobre badge">Badge</span>
+                <button class="btn btn-primary btn-icon" data-tooltip="Añadir nuevo" aria-label="Añadir"><i class="ri-add-line"></i></button>
+            </div>
+        </section>
+
+        <!-- ── PAGINATION ── -->
+        <section id="pagination" class="ds-section">
+            <h2 class="heading-4 mb-6">Paginación</h2>
+            <nav class="pagination" aria-label="Paginación">
+                <button class="page-btn" disabled><i class="ri-arrow-left-s-line"></i></button>
+                <button class="page-btn active" aria-current="page">1</button>
+                <button class="page-btn">2</button>
+                <button class="page-btn">3</button>
+                <span class="page-btn" style="border:none;background:none;">...</span>
+                <button class="page-btn">10</button>
+                <button class="page-btn"><i class="ri-arrow-right-s-line"></i></button>
+            </nav>
+        </section>
+
+        <!-- ── SKELETON ── -->
+        <section id="skeleton" class="ds-section">
+            <h2 class="heading-4 mb-6">Skeleton Loading</h2>
+            <div class="grid grid-3 gap-4">
+                <div class="card">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="skeleton skeleton-avatar"></div>
+                        <div class="flex-1">
+                            <div class="skeleton skeleton-text" style="width:70%;"></div>
+                            <div class="skeleton skeleton-text" style="width:50%;"></div>
+                        </div>
+                    </div>
+                    <div class="skeleton skeleton-image rounded-lg"></div>
+                    <div class="mt-4">
+                        <div class="skeleton skeleton-title"></div>
+                        <div class="skeleton skeleton-text"></div>
+                        <div class="skeleton skeleton-text" style="width:80%;"></div>
+                        <div class="skeleton skeleton-btn mt-3"></div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="skeleton skeleton-title"></div>
+                    <div class="skeleton skeleton-text"></div>
+                    <div class="skeleton skeleton-text"></div>
+                    <div class="skeleton skeleton-text" style="width:60%;"></div>
+                    <div class="flex gap-2 mt-4">
+                        <div class="skeleton skeleton-btn"></div>
+                        <div class="skeleton skeleton-btn"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── PROGRESS ── -->
+        <section id="progress" class="ds-section">
+            <h2 class="heading-4 mb-6">Progress Bars</h2>
+            <div class="space-y-4">
+                <div>
+                    <div class="flex justify-between text-sm mb-1"><span>Progreso default</span><span class="text-primary fw-bold">75%</span></div>
+                    <div class="progress"><div class="progress-bar" style="width:75%"></div></div>
+                </div>
+                <div>
+                    <div class="flex justify-between text-sm mb-1"><span>Success</span><span class="text-success fw-bold">90%</span></div>
+                    <div class="progress"><div class="progress-bar success" style="width:90%"></div></div>
+                </div>
+                <div>
+                    <div class="flex justify-between text-sm mb-1"><span>Warning</span><span class="text-warning fw-bold">45%</span></div>
+                    <div class="progress"><div class="progress-bar warning" style="width:45%"></div></div>
+                </div>
+                <div>
+                    <div class="flex justify-between text-sm mb-1"><span>Striped (animado)</span><span class="text-primary fw-bold">60%</span></div>
+                    <div class="progress"><div class="progress-bar striped" style="width:60%"></div></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── AVATARS ── -->
+        <section id="avatars" class="ds-section">
+            <h2 class="heading-4 mb-6">Avatars</h2>
+            <div class="flex items-end gap-4 flex-wrap">
+                <div class="avatar avatar-sm" style="background:var(--primary);">JS</div>
+                <div class="avatar" style="background:var(--success);">MR</div>
+                <div class="avatar avatar-lg" style="background:var(--warning);color:white;">AG</div>
+                <div class="avatar avatar-xl" style="background:var(--gray-800);color:white;"><i class="ri-user-line"></i></div>
+                <!-- Group -->
+                <div class="avatar-group">
+                    <div class="avatar avatar-sm" style="background:var(--primary);">A</div>
+                    <div class="avatar avatar-sm" style="background:var(--success);">B</div>
+                    <div class="avatar avatar-sm" style="background:var(--warning);color:white;">C</div>
+                    <div class="avatar avatar-sm" style="background:var(--gray-200);color:var(--gray-600);">+5</div>
+                </div>
+            </div>
+        </section>
+
+    </main><!-- end main -->
+</div><!-- end ds-layout -->
+
+<!-- =============================================
+     MODALS para demostraciones
+     ============================================= -->
+<div class="modal-overlay modal-sm" id="ds-modal-sm">
+    <div class="modal-window">
+        <div class="modal-header">
+            <h4 class="heading-4">Modal pequeño</h4>
+            <button class="modal-close" data-modal-close><i class="ri-close-line"></i></button>
+        </div>
+        <p class="text-secondary">Este modal tiene max-width de 400px. Ideal para confirmaciones simples.</p>
+        <div class="modal-footer">
+            <button class="btn btn-ghost" data-modal-close>Cancelar</button>
+            <button class="btn btn-danger" data-modal-close onclick="CoreSystem.toast('Acción confirmada', 'success')">Confirmar</button>
+        </div>
+    </div>
+</div>
+
+<div class="modal-overlay" id="ds-modal-default">
+    <div class="modal-window">
+        <div class="modal-header">
+            <h4 class="heading-4">Modal default</h4>
+            <button class="modal-close" data-modal-close><i class="ri-close-line"></i></button>
+        </div>
+        <p class="text-secondary mb-4">Modal estándar de 520px. Perfecto para formularios y contenido mediano.</p>
+        <div class="form-group">
+            <label class="form-label">Ejemplo de input en modal</label>
+            <input type="text" class="form-input" placeholder="Escribe algo...">
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-outline" data-modal-close>Cancelar</button>
+            <button class="btn btn-primary" data-modal-close onclick="CoreSystem.toast('Guardado ✓', 'success')">Guardar cambios</button>
+        </div>
+    </div>
+</div>
+
+<div class="modal-overlay modal-lg" id="ds-modal-lg">
+    <div class="modal-window">
+        <div class="modal-header">
+            <h4 class="heading-4">Modal grande</h4>
+            <button class="modal-close" data-modal-close><i class="ri-close-line"></i></button>
+        </div>
+        <p class="text-secondary mb-6">Modal de 760px. Ideal para galerías, formularios extensos o detalles de producto.</p>
+        <div class="grid grid-2 gap-4">
+            <div class="card-flat rounded-xl" style="min-height:160px;display:flex;align-items:center;justify-content:center;"><i class="ri-image-line" style="font-size:3rem;color:var(--text-muted);"></i></div>
+            <div class="card-flat rounded-xl" style="min-height:160px;display:flex;align-items:center;justify-content:center;"><i class="ri-image-line" style="font-size:3rem;color:var(--text-muted);"></i></div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-outline" data-modal-close>Cerrar</button>
+        </div>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

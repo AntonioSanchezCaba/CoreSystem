@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TiendaCore — Catálogo de Productos</title>
+  <meta name="description" content="Descubre nuestra colección de productos premium. Electrónica, ropa, libros y más con los mejores precios." />
+  <meta property="og:title" content="TiendaCore — Catálogo de Productos" />
+  <meta property="og:description" content="Descubre nuestra colección de productos premium con los mejores precios." />
+  <meta property="og:type" content="website" />
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header class="navbar" role="banner">
+    <div class="nav-container">
+      <a href="#" class="nav-logo" aria-label="TiendaCore inicio">
+        <i class="ri-store-2-line" aria-hidden="true"></i>
+        <span>TiendaCore</span>
+      </a>
+      <form class="nav-search" role="search" aria-label="Buscar productos">
+        <i class="ri-search-line" aria-hidden="true"></i>
+        <input type="search" placeholder="Buscar productos..." aria-label="Buscar productos" id="searchInput" />
+      </form>
+      <nav class="nav-actions" aria-label="Acciones de usuario">
+        <button class="nav-action-btn" id="wishlistBtn" aria-label="Lista de deseos">
+          <i class="ri-heart-line" aria-hidden="true"></i>
+        </button>
+        <button class="nav-action-btn cart-btn" id="cartBtn" aria-label="Carrito de compras" aria-expanded="false">
+          <i class="ri-shopping-cart-line" aria-hidden="true"></i>
+          <span class="cart-badge" id="cartBadge" aria-live="polite">0</span>
+        </button>
+        <button class="nav-action-btn" aria-label="Perfil de usuario">
+          <i class="ri-user-line" aria-hidden="true"></i>
+        </button>
+        <button class="nav-mobile-toggle" id="mobileMenuBtn" aria-label="Menú" aria-expanded="false">
+          <i class="ri-menu-line" aria-hidden="true"></i>
+        </button>
+      </nav>
+    </div>
+    <nav class="nav-mobile-menu" id="mobileMenu" aria-hidden="true">
+      <a href="#">Inicio</a>
+      <a href="#">Ofertas</a>
+      <a href="#">Marcas</a>
+      <a href="#">Contacto</a>
+    </nav>
+  </header>
+
+  <!-- HERO BANNER -->
+  <section class="hero-banner" aria-label="Banner principal">
+    <div class="hero-content">
+      <span class="hero-eyebrow">Colección 2025</span>
+      <h1 class="hero-headline">Descubre nuestra colección</h1>
+      <p class="hero-subtitle">Encuentra los mejores productos con precios increíbles. Calidad garantizada en cada compra.</p>
+      <a href="#products" class="btn btn-primary btn-lg">Explorar ahora <i class="ri-arrow-right-line" aria-hidden="true"></i></a>
+    </div>
+    <div class="hero-badge-row">
+      <span class="hero-badge"><i class="ri-truck-line" aria-hidden="true"></i> Envío gratis +50€</span>
+      <span class="hero-badge"><i class="ri-refresh-line" aria-hidden="true"></i> Devoluciones 30 días</span>
+      <span class="hero-badge"><i class="ri-shield-check-line" aria-hidden="true"></i> Pago seguro</span>
+    </div>
+  </section>
+
+  <!-- FILTER BAR -->
+  <section class="filter-section" id="products" aria-label="Filtros de productos">
+    <div class="container">
+      <div class="filter-bar">
+        <div class="category-pills" role="group" aria-label="Filtrar por categoría">
+          <button class="category-pill active" data-category="all" aria-pressed="true">Todo</button>
+          <button class="category-pill" data-category="electronics" aria-pressed="false">
+            <i class="ri-cpu-line" aria-hidden="true"></i> Electrónica
+          </button>
+          <button class="category-pill" data-category="clothing" aria-pressed="false">
+            <i class="ri-t-shirt-line" aria-hidden="true"></i> Ropa
+          </button>
+          <button class="category-pill" data-category="books" aria-pressed="false">
+            <i class="ri-book-line" aria-hidden="true"></i> Libros
+          </button>
+          <button class="category-pill" data-category="home" aria-pressed="false">
+            <i class="ri-home-line" aria-hidden="true"></i> Hogar
+          </button>
+        </div>
+        <div class="filter-controls">
+          <span class="product-count" id="productCount" aria-live="polite">12 productos</span>
+          <select class="sort-select" id="sortSelect" aria-label="Ordenar productos">
+            <option value="newest">Más nuevos</option>
+            <option value="price-asc">Precio: menor a mayor</option>
+            <option value="price-desc">Precio: mayor a menor</option>
+            <option value="popular">Más populares</option>
+          </select>
+          <div class="view-toggle" role="group" aria-label="Vista">
+            <button class="view-btn active" id="gridViewBtn" data-view="grid" aria-label="Vista en cuadrícula" aria-pressed="true">
+              <i class="ri-grid-line" aria-hidden="true"></i>
+            </button>
+            <button class="view-btn" id="listViewBtn" data-view="list" aria-label="Vista en lista" aria-pressed="false">
+              <i class="ri-list-check" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCT GRID -->
+  <main class="container" id="main-content">
+    <div class="product-grid" id="productGrid" role="list" aria-label="Lista de productos">
+
+      <!-- Product 1 -->
+      <article class="product-card" data-category="electronics" data-price="299.99" data-popular="95" data-id="1" role="listitem">
+        <div class="product-img" style="background:linear-gradient(135deg,#dbeafe,#bfdbfe);">
+          <i class="ri-headphone-line" aria-hidden="true" style="font-size:3rem;color:#2563EB;"></i>
+        </div>
+        <span class="product-badge badge-new">Nuevo</span>
+        <button class="btn-wishlist" aria-label="Añadir a lista de deseos: Auriculares Pro X" data-id="1">
+          <i class="ri-heart-line" aria-hidden="true"></i>
+        </button>
+        <div class="product-body">
+          <h3 class="product-name">Auriculares Pro X</h3>
+          <p class="product-desc">Sonido envolvente 360° con cancelación activa de ruido.</p>
+          <div class="product-rating" aria-label="4.8 de 5 estrellas">
+            <i class="ri-star-fill" aria-hidden="true"></i><i class="ri-star-fill" aria-hidden="true"></i>
+            <i class="ri-star-fill" aria-hidden="true"></i><i class="ri-star-fill" aria-hidden="true"></i>
+            <i class="ri-star-half-line" aria-hidden="true"></i>
+            <span class="rating-count">(248)</span>
+          </div>
+          <div class="product-price">
+            <span class="price-original">€349.99</span>
+            <span class="price-current">€299.99</span>
+          </div>
+          <button class="btn-cart" data-id="1" data-name="Auriculares Pro X" data-price="299.99">
+            <i class="ri-shopping-cart-add-line" aria-hidden="true"></i> Añadir al carrito
+          </button>
+        </div>
+      </article>
+
+      <!-- Product 2 -->
+      <article class="product-card" data-category="clothing" data-price="59.99" data-popular="80" data-id="2" role="listitem">
+        <div class="product-img" style="background:linear-gradient(135deg,#ede9fe,#ddd6fe);">
+          <i class="ri-t-shirt-line" aria-hidden="true" style="font-size:3rem;color:#7c3aed;"></i>
+        </div>
+        <span class="product-badge badge-sale">-20%</span>
+        <button class="btn-wishlist" aria-label="Añadir a lista de deseos: Sudadera Urbana" data-id="2">
+          <i class="ri-heart-line" aria-hidden="true"></i>
+        </button>
+        <div class="product-body">
+          <h3 class="product-name">Sudadera Urbana</h3>
+          <p class="product-desc">Algodón premium 100%, diseño minimalista y confortable.</p>
+          <div class="product-rating" aria-label="4.5 de 5 estrellas">
+            <i class="ri-star-fill" aria-hidden="true"></i><i class="ri-star-fill" aria-hidden="true"></i>
+            <i class="ri-star-fill" aria-hidden="true"></i><i class="ri-star-fill" aria-hidden="true"></i>
+            <i class="ri-star-half-line" aria-hidden="true"></i>
+            <span class="rating-count">(127)</span>
+          </div>
+          <div class="product-price">
+            <span class="price-original">€74.99</span>
+            <span class="price-current">€59.99</span>
+          </div>
+          <button class="btn-cart" data-id="2" data-name="Sudadera Urbana" data-price="59.99">
+            <i class="ri-shopping-cart-add-line" aria-hidden="true"></i> Añadir al carrito
+          </button>
+        </div>
+      </article>
+
+      <!-- Product 3 -->
+      <article class="product-card" data-category="books" data-price="24.99" data-popular="70" data-id="3" role="listitem">
+        <div class="product-img" style="background:linear-gradient(135deg,#d1fae5,#a7f3d0);">
+          <i class="ri-book-open-line" aria-hidden="true" style="font-size:3rem;color:#10b981;"></i>
+        </div>
+        <span class="product-badge badge-new">Nuevo</span>
+        <button class="btn-wishlist" aria-label="Añadir a lista de deseos: El Arte del Código" data-id="3">
+          <i class="ri-heart-line" aria-hidden="true"></i>
+        </button>
+        <div class="product-body">
+          <h3 class="product-name">El Arte del Código</h3>
+          <p class="product-desc">Guía definitiva para dominar la programación moderna.</p>
+          <div class="product-rating" aria-label="4.9 de 5 estrellas">
+            <i class="ri-star-fill" aria-hidden="true"></i><i class="ri-star-fill" aria-hidden="true"></i>
+            <i class="ri-star-fill" aria-hidden="true"></i><i class="ri-star-fill" aria-hidden="true"></i>
+            <i class="ri-star-fill" aria-hidden="true"></i>
+            <span class="rating-count">(312)</span>
+          </div>
+          <div class="product-price">
+            <span class="price-original">€34.99</span>
+            <span class="price-current">€24.99</span>
+          </div>
+          <button class="btn-cart" data-id="3" data-name="El Arte del Código" data-price="24.99">
+            <i class="ri-shopping-cart-add-line" aria-hidden="true"></i> Añadir al carrito
+          </button>
+        </div>
+      </article>
+
+      <!-- Product 4 -->
+      <article class="product-card" data-category="home" data-price="149.99" data-popular="88" data-id="4" role="listitem">
+        <div class="product-img" style="background:linear-gradient(135deg,#fef3c7,#fde68a);">
+          <i class="ri-lightbulb-flash-line" aria-hidden="true" style="font-size:3rem;color:#f59e0b;"></i>
+        </div>
+        <span class="product-badge badge-popular">Popular</span>
+        <button class="btn-wishlist" aria-label="Añadir a lista de deseos: Lámpara Smart LED" data-id="4">
+          <i class="ri-heart-line" aria-hidden="true"></i>
+        </button>
+        <div class="product-body">
+          <h3 class="product-name">Lámpara Smart LED</h3>
+          <p class="product-desc">Control por voz y app, 16 millones de colores.</p>
+          <div class="product-rating" aria-label="4.7 de 5 estrellas">
+            <i class="ri-star-fill" aria-hidden="true"></i><i class="ri-star-fill" aria-hidden="true"></i>
+            <i class="ri-star-fill" aria-hidden="true"></i><i class="ri-star-fill" aria-hidden="true"></i>
+            <i class="ri-star-half-line" aria-hidden="true"></i>
+            <span class="rating-count">(89)</span>
+          </div>
+          <div class="product-price">
+            <span class="price-original">€179.99</span>
+            <span class="price-current">€149.99</span>
+          </div>
+          <button class="btn-cart" data-id="4" data-name="Lámpara Smart LED" data-price="149.99">
+            <i class="ri-shopping-cart-add-line" aria-hidden="true"></i> Añadir al carrito
+          </button>
+        </div>
+      </article>
+
+      <!-- Product 5 -->
+      <article class="product-card" data-category="electronics" data-price="899.99" data-popular="92" data-id="5" role="listitem">
+        <div class="product-img" style="background:linear-gradient(135deg,#e0f2fe,#bae6fd);">
+          <i class="ri-smartphone-line" aria-hidden="true" style="font-size:3rem;color:#0ea5e9;"></i>
+        </div>
+        <span class="product-badge badge-sale">-15%</span>
+        <button class="btn-wishlist" aria-label="Añadir a lista de deseos: Móvil UltraX 15" data-id="5">
+          <i class="ri-heart-line" aria-hidden="true"></i>
+        </button>
+        <div class="product-body">
+          <h3 class="product-name">Móvil UltraX 15</h3>
+          <p class="product-desc">Pantalla AMOLED 6.7", cámara 200MP, batería 5000mAh.</p>
+          <div class="product-rating" aria-label="4.6 de 5 estrellas">
+            <i class="ri-star-fill" aria-hidden="true"></i><i class="ri-star-fill" aria-hidden="true"></i>
+            <i class="ri-star-fill" aria-hidden="true"></i><i class="ri-star-fill" aria-hidden="true"></i>
+            <i class="ri-star-half-line" aria-hidden="true"></i>
+            <span class="rating-count">(521)</span>
+          </div>
+          <div class="product-price">
+            <span class="price-original">€1,059.99</span>
+            <span class="price-current">€899.99</span>
+          </div>
+          <button class="btn-cart" data-id="5" data-name="Móvil UltraX 15" data-price="899.99">
+            <i class="ri-shopping-cart-add-line" aria-hidden="true"></i> Añadir al carrito
+          </button>
+        </div>
+      </article>
+
+      <!-- Product 6 -->
+      <article class="product-card" data-category="clothing" data-price="89.99" data-popular="65" data-id="6" role="listitem">
+        <div class="product-img" style="background:linear-gradient(135deg,#fee2e2,#fecaca);">
+          <i class="ri-women-line" aria-hidden="true" style="font-size:3rem;color:#ef4444;"></i>
+        </div>
+        <span class="product-badge badge-new">Nuevo</span>
+        <button class="btn-wishlist" aria-label="Añadir a lista de deseos: Vestido Elegance" data-id="6">
+          <i class="ri-heart-line" aria-hidden="true"></i>
+        </button>
+        <div class="product-body">
+          <h3 class="product-name">Vestido Elegance</h3>
+          <p class="product-desc">Diseño exclusivo para ocasiones especiales, talla única.</p>
+          <div class="product-rating" aria-label="4.4 de 5 estrellas">
+            <i class="ri-star-fill" aria-hidden="true"></i><i class="ri-star-fill" aria-hidden="true"></i>
+            <i class="ri-star-fill" aria-hidden="true"></i><i class="ri-star-fill" aria-hidden="true"></i>
+            <i class="ri-star-line" aria-hidden="true"></i>
+            <span class="rating-count">(73)</span>
+          </div>
+          <div class="product-price">
+            <span class="price-current">€89.99</span>
+          </div>
+          <button class="btn-cart" data-id="6" data-name="Vestido Elegance" data-price="89.99">
+            <i class="ri-shopping-cart-add-line" aria-hidden="true"></i> Añadir al carrito
+          </button>
+        </div>
+      </article>
+
+      <!-- Product 7 -->
+      <article class="product-card" data-category="electronics" data-price="199.99" data-popular="78" data-id="7" role="listitem">
+        <div class="product-img" style="background:linear-gradient(135deg,#ede9fe,#c4b5fd);">
+          <i class="ri-keyboard-line" aria-hidden="true" style="font-size:3rem;color:#7c3aed;"></i>
+        </div>
+        <span class="product-badge badge-popular">Popular</span>
+        <button class="btn-wishlist" aria-label="Añadir a lista de deseos: Teclado Mecánico RGB" data-id="7">
+          <i class="ri-heart-line" aria-hidden="true"></i>
+        </button>
+        <div class="product-body">
+          <h3 class="product-name">Teclado Mecánico RGB</h3>
+          <p class="product-desc">Switches Cherry MX Blue, retroiluminación RGB personalizable.</p>
+          <div class="product-rating" aria-label="4.7 de 5 estrellas">
+            <i class="ri-star-fill" aria-hidden="true"></i><i class="ri-star-fill" aria-hidden="true"></i>
+            <i class="ri-star-fill" aria-hidden="true"></i><i class="ri-star-fill" aria-hidden="true"></i>
+            <i class="ri-star-half-line" aria-hidden="true"></i>
+            <span class="rating-count">(156)</span>
+          </div>
+          <div class="product-price">
+            <span class="price-original">€249.99</span>
+            <span class="price-current">€199.99</span>
+          </div>
+          <button class="btn-cart" data-id="7" data-name="Teclado Mecánico RGB" data-price="199.99">
+            <i class="ri-shopping-cart-add-line" aria-hidden="true"></i> Añadir al carrito
+          </button>
+        </div>
+      </article>
+
+      <!-- Product 8 -->
+      <article class="product-card" data-category="home" data-price="39.99" data-popular="60" data-id="8" role="listitem">
+        <div class="product-img" style="background:linear-gradient(135deg,#d1fae5,#6ee7b7);">
+          <i class="ri-plant-line" aria-hidden="true" style="font-size:3rem;color:#10b981;"></i>
+        </div>
+        <span class="product-badge badge-new">Nuevo</span>
+        <button class="btn-wishlist" aria-label="Añadir a lista de deseos: Maceta Inteligente" data-id="8">
+          <i class="ri-heart-line" aria-hidden="true"></i>
+        </button>
+        <div class="product-body">
+          <h3 class="product-name">Maceta Inteligente</h3>
+          <p class="product-desc">Monitoreo de humedad y luz, notificaciones en tu móvil.</p>
+          <div class="product-rating" aria-label="4.3 de 5 estrellas">
+            <i class="ri-star-fill" aria-hidden="true"></i><i class="ri-star-fill" aria-hidden="true"></i>
+            <i class="ri-star-fill" aria-hidden="true"></i><i class="ri-star-fill" aria-hidden="true"></i>
+            <i class="ri-star-line" aria-hidden="true"></i>
+            <span class="rating-count">(42)</span>
+          </div>
+          <div class="product-price">
+            <span class="price-current">€39.99</span>
+          </div>
+          <button class="btn-cart" data-id="8" data-name="Maceta Inteligente" data-price="39.99">
+            <i class="ri-shopping-cart-add-line" aria-hidden="true"></i> Añadir al carrito
+          </button>
+        </div>
+      </article>
+
+      <!-- Product 9 -->
+      <article class="product-card" data-category="books" data-price="18.99" data-popular="55" data-id="9" role="listitem">
+        <div class="product-img" style="background:linear-gradient(135deg,#fef3c7,#fbbf24);">
+          <i class="ri-quill-pen-line" aria-hidden="true" style="font-size:3rem;color:#d97706;"></i>
+        </div>
+        <span class="product-badge badge-sale">-30%</span>
+        <button class="btn-wishlist" aria-label="Añadir a lista de deseos: Diseño UX Avanzado" data-id="9">
+          <i class="ri-heart-line" aria-hidden="true"></i>
+        </button>
+        <div class="product-body">
+          <h3 class="product-name">Diseño UX Avanzado</h3>
+          <p class="product-desc">Principios y técnicas para crear experiencias excepcionales.</p>
+          <div class="product-rating" aria-label="4.6 de 5 estrellas">
+            <i class="ri-star-fill" aria-hidden="true"></i><i class="ri-star-fill" aria-hidden="true"></i>
+            <i class="ri-star-fill" aria-hidden="true"></i><i class="ri-star-fill" aria-hidden="true"></i>
+            <i class="ri-star-half-line" aria-hidden="true"></i>
+            <span class="rating-count">(98)</span>
+          </div>
+          <div class="product-price">
+            <span class="price-original">€26.99</span>
+            <span class="price-current">€18.99</span>
+          </div>
+          <button class="btn-cart" data-id="9" data-name="Diseño UX Avanzado" data-price="18.99">
+            <i class="ri-shopping-cart-add-line" aria-hidden="true"></i> Añadir al carrito
+          </button>
+        </div>
+      </article>
+
+      <!-- Product 10 -->
+      <article class="product-card" data-category="electronics" data-price="449.99" data-popular="85" data-id="10" role="listitem">
+        <div class="product-img" style="background:linear-gradient(135deg,#e0f2fe,#7dd3fc);">
+          <i class="ri-tablet-line" aria-hidden="true" style="font-size:3rem;color:#0284c7;"></i>
+        </div>
+        <span class="product-badge badge-popular">Popular</span>
+        <button class="btn-wishlist" aria-label="Añadir a lista de deseos: Tablet CorePad Pro" data-id="10">
+          <i class="ri-heart-line" aria-hidden="true"></i>
+        </button>
+        <div class="product-body">
+          <h3 class="product-name">Tablet CorePad Pro</h3>
+          <p class="product-desc">Pantalla 11" 120Hz, stylus incluido, 256GB almacenamiento.</p>
+          <div class="product-rating" aria-label="4.8 de 5 estrellas">
+            <i class="ri-star-fill" aria-hidden="true"></i><i class="ri-star-fill" aria-hidden="true"></i>
+            <i class="ri-star-fill" aria-hidden="true"></i><i class="ri-star-fill" aria-hidden="true"></i>
+            <i class="ri-star-fill" aria-hidden="true"></i>
+            <span class="rating-count">(203)</span>
+          </div>
+          <div class="product-price">
+            <span class="price-original">€549.99</span>
+            <span class="price-current">€449.99</span>
+          </div>
+          <button class="btn-cart" data-id="10" data-name="Tablet CorePad Pro" data-price="449.99">
+            <i class="ri-shopping-cart-add-line" aria-hidden="true"></i> Añadir al carrito
+          </button>
+        </div>
+      </article>
+
+      <!-- Product 11 -->
+      <article class="product-card" data-category="clothing" data-price="129.99" data-popular="72" data-id="11" role="listitem">
+        <div class="product-img" style="background:linear-gradient(135deg,#dbeafe,#93c5fd);">
+          <i class="ri-boot-line" aria-hidden="true" style="font-size:3rem;color:#2563EB;"></i>
+        </div>
+        <span class="product-badge badge-sale">-25%</span>
+        <button class="btn-wishlist" aria-label="Añadir a lista de deseos: Zapatillas Runner X" data-id="11">
+          <i class="ri-heart-line" aria-hidden="true"></i>
+        </button>
+        <div class="product-body">
+          <h3 class="product-name">Zapatillas Runner X</h3>
+          <p class="product-desc">Tecnología de amortiguación avanzada para máximo rendimiento.</p>
+          <div class="product-rating" aria-label="4.5 de 5 estrellas">
+            <i class="ri-star-fill" aria-hidden="true"></i><i class="ri-star-fill" aria-hidden="true"></i>
+            <i class="ri-star-fill" aria-hidden="true"></i><i class="ri-star-fill" aria-hidden="true"></i>
+            <i class="ri-star-half-line" aria-hidden="true"></i>
+            <span class="rating-count">(334)</span>
+          </div>
+          <div class="product-price">
+            <span class="price-original">€174.99</span>
+            <span class="price-current">€129.99</span>
+          </div>
+          <button class="btn-cart" data-id="11" data-name="Zapatillas Runner X" data-price="129.99">
+            <i class="ri-shopping-cart-add-line" aria-hidden="true"></i> Añadir al carrito
+          </button>
+        </div>
+      </article>
+
+      <!-- Product 12 -->
+      <article class="product-card" data-category="home" data-price="79.99" data-popular="68" data-id="12" role="listitem">
+        <div class="product-img" style="background:linear-gradient(135deg,#fce7f3,#fbcfe8);">
+          <i class="ri-cup-line" aria-hidden="true" style="font-size:3rem;color:#db2777;"></i>
+        </div>
+        <span class="product-badge badge-new">Nuevo</span>
+        <button class="btn-wishlist" aria-label="Añadir a lista de deseos: Cafetera Smart Brew" data-id="12">
+          <i class="ri-heart-line" aria-hidden="true"></i>
+        </button>
+        <div class="product-body">
+          <h3 class="product-name">Cafetera Smart Brew</h3>
+          <p class="product-desc">Programable desde el móvil, mantiene temperatura 4 horas.</p>
+          <div class="product-rating" aria-label="4.6 de 5 estrellas">
+            <i class="ri-star-fill" aria-hidden="true"></i><i class="ri-star-fill" aria-hidden="true"></i>
+            <i class="ri-star-fill" aria-hidden="true"></i><i class="ri-star-fill" aria-hidden="true"></i>
+            <i class="ri-star-half-line" aria-hidden="true"></i>
+            <span class="rating-count">(61)</span>
+          </div>
+          <div class="product-price">
+            <span class="price-current">€79.99</span>
+          </div>
+          <button class="btn-cart" data-id="12" data-name="Cafetera Smart Brew" data-price="79.99">
+            <i class="ri-shopping-cart-add-line" aria-hidden="true"></i> Añadir al carrito
+          </button>
+        </div>
+      </article>
+
+    </div><!-- end product-grid -->
+
+    <!-- PAGINATION -->
+    <nav class="pagination" aria-label="Paginación de productos">
+      <button class="pagination-btn" aria-label="Página anterior" disabled>
+        <i class="ri-arrow-left-s-line" aria-hidden="true"></i>
+      </button>
+      <button class="pagination-page active" aria-current="page" aria-label="Página 1">1</button>
+      <button class="pagination-page" aria-label="Página 2">2</button>
+      <button class="pagination-page" aria-label="Página 3">3</button>
+      <button class="pagination-btn" aria-label="Página siguiente">
+        <i class="ri-arrow-right-s-line" aria-hidden="true"></i>
+      </button>
+    </nav>
+
+  </main>
+
+  <!-- CART DRAWER -->
+  <div class="cart-overlay" id="cartOverlay" aria-hidden="true"></div>
+  <aside class="cart-drawer" id="cartDrawer" role="dialog" aria-modal="true" aria-label="Carrito de compras" aria-hidden="true">
+    <div class="cart-header">
+      <h2><i class="ri-shopping-cart-2-line" aria-hidden="true"></i> Carrito</h2>
+      <button class="cart-close" id="cartClose" aria-label="Cerrar carrito">
+        <i class="ri-close-line" aria-hidden="true"></i>
+      </button>
+    </div>
+    <div class="cart-items" id="cartItems">
+      <div class="cart-empty" id="cartEmpty">
+        <i class="ri-shopping-cart-line" aria-hidden="true"></i>
+        <p>Tu carrito está vacío</p>
+        <span>Añade productos para comenzar</span>
+      </div>
+    </div>
+    <div class="cart-footer" id="cartFooter" style="display:none;">
+      <div class="cart-subtotal">
+        <span>Subtotal:</span>
+        <strong id="cartSubtotal">€0.00</strong>
+      </div>
+      <p class="cart-note"><i class="ri-truck-line" aria-hidden="true"></i> Envío gratis en pedidos +€50</p>
+      <button class="btn btn-primary btn-full">
+        <i class="ri-secure-payment-line" aria-hidden="true"></i> Finalizar compra
+      </button>
+      <button class="btn btn-outline btn-full" id="continueShoppingBtn">Seguir comprando</button>
+    </div>
+  </aside>
+
+  <!-- TOAST CONTAINER -->
+  <div class="toast-container" id="toastContainer" aria-live="assertive" aria-atomic="true"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>

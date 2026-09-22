@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="The Dev Blog — architecture patterns, JavaScript, CSS, TypeScript, web performance, and more." />
+  <title>The Dev Blog — Modern Developer Articles</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ── Reading Progress Bar ──────────────────────────────── -->
+  <div id="reading-progress" role="progressbar" aria-label="Reading progress"></div>
+
+  <!-- ── Navbar ─────────────────────────────────────────────── -->
+  <nav class="navbar" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="#" class="nav-brand">The Dev Blog</a>
+
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#" class="active">Home</a></li>
+        <li><a href="#">Articles</a></li>
+        <li><a href="#">Tutorials</a></li>
+        <li><a href="#">About</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <button class="btn-icon" aria-label="Open search">&#9906;</button>
+        <button class="btn-icon" id="theme-toggle" aria-label="Switch to dark mode">&#9790;</button>
+        <button class="btn-subscribe">Subscribe</button>
+        <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ── Featured Post Hero ─────────────────────────────────── -->
+  <section class="blog-hero" aria-label="Featured article">
+    <div class="hero-inner">
+      <span class="hero-badge">Featured</span>
+      <h1>10 Architecture Patterns Every Senior Developer Should Know</h1>
+      <p class="hero-excerpt">
+        From microservices to event-driven systems, discover the architectural blueprints that
+        power the world's most scalable applications — with real-world examples and trade-off analysis.
+      </p>
+      <div class="hero-meta">
+        <div class="hero-avatar" aria-hidden="true">AR</div>
+        <div class="hero-meta-info">
+          <strong>Alex Rivera</strong> &nbsp;·&nbsp; Feb 15, 2026 &nbsp;·&nbsp; 8 min read
+        </div>
+      </div>
+      <a href="#" class="btn-read">Read Article &#8594;</a>
+    </div>
+  </section>
+
+  <!-- ── Main Page Wrapper ──────────────────────────────────── -->
+  <div class="page-wrapper">
+    <div class="blog-layout">
+
+      <!-- ── Left: Post Feed ─────────────────────────────── -->
+      <main aria-label="Article feed">
+        <h2 class="section-title">Latest Articles</h2>
+        <div class="post-feed">
+
+          <!-- Card 1 -->
+          <article class="post-card">
+            <div class="card-image js" aria-hidden="true"></div>
+            <div class="card-body">
+              <span class="category-badge">JavaScript</span>
+              <h2><a href="#">Building a Reactive State Manager with Vanilla JS</a></h2>
+              <p class="post-excerpt">
+                Learn how to implement a Redux-inspired reactive state manager from scratch using
+                only vanilla JavaScript — no frameworks, no dependencies, just pure ingenuity.
+              </p>
+              <div class="card-meta">
+                <div class="card-author">
+                  <div class="author-avatar" aria-hidden="true">SR</div>
+                  <span class="author-name">Sam Reid</span>
+                </div>
+                <div class="card-info">
+                  <span>Jan 28, 2026</span>
+                  <span>&#8226; 6 min read</span>
+                </div>
+              </div>
+              <a href="#" class="read-more">Read More &#8594;</a>
+            </div>
+          </article>
+
+          <!-- Card 2 -->
+          <article class="post-card">
+            <div class="card-image css" aria-hidden="true"></div>
+            <div class="card-body">
+              <span class="category-badge">CSS</span>
+              <h2><a href="#">CSS Grid Mastery: From Basics to Advanced Layouts</a></h2>
+              <p class="post-excerpt">
+                A comprehensive walkthrough of CSS Grid — from defining your first row and column
+                tracks to building fully responsive magazine-style layouts with named areas.
+              </p>
+              <div class="card-meta">
+                <div class="card-author">
+                  <div class="author-avatar" aria-hidden="true">JK</div>
+                  <span class="author-name">Jess Kim</span>
+                </div>
+                <div class="card-info">
+                  <span>Jan 22, 2026</span>
+                  <span>&#8226; 9 min read</span>
+                </div>
+              </div>
+              <a href="#" class="read-more">Read More &#8594;</a>
+            </div>
+          </article>
+
+          <!-- Card 3 -->
+          <article class="post-card">
+            <div class="card-image ts" aria-hidden="true"></div>
+            <div class="card-body">
+              <span class="category-badge">TypeScript</span>
+              <h2><a href="#">TypeScript Generics Deep Dive</a></h2>
+              <p class="post-excerpt">
+                Unlock the true power of TypeScript with an in-depth exploration of generics —
+                constraints, conditional types, mapped types, and template literal types with
+                practical utility examples.
+              </p>
+              <div class="card-meta">
+                <div class="card-author">
+                  <div class="author-avatar" aria-hidden="true">MP</div>
+                  <span class="author-name">Maya Patel</span>
+                </div>
+                <div class="card-info">
+                  <span>Jan 15, 2026</span>
+                  <span>&#8226; 11 min read</span>
+                </div>
+              </div>
+              <a href="#" class="read-more">Read More &#8594;</a>
+            </div>
+          </article>
+
+          <!-- Card 4 -->
+          <article class="post-card">
+            <div class="card-image perf" aria-hidden="true"></div>
+            <div class="card-body">
+              <span class="category-badge">Performance</span>
+              <h2><a href="#">Web Performance Optimization: The Complete Guide</a></h2>
+              <p class="post-excerpt">
+                Everything you need to achieve a perfect Lighthouse score — Core Web Vitals
+                explained, critical rendering path, lazy loading strategies, bundle splitting,
+                and caching techniques.
+              </p>
+              <div class="card-meta">
+                <div class="card-author">
+                  <div class="author-avatar" aria-hidden="true">TC</div>
+                  <span class="author-name">Tom Chen</span>
+                </div>
+                <div class="card-info">
+                  <span>Jan 8, 2026</span>
+                  <span>&#8226; 14 min read</span>
+                </div>
+              </div>
+              <a href="#" class="read-more">Read More &#8594;</a>
+            </div>
+          </article>
+
+          <!-- Card 5 -->
+          <article class="post-card">
+            <div class="card-image design" aria-hidden="true"></div>
+            <div class="card-body">
+              <span class="category-badge">Design</span>
+              <h2><a href="#">Design Systems: Building Your Own Component Library</a></h2>
+              <p class="post-excerpt">
+                Step-by-step guide to creating a scalable, accessible component library — design
+                tokens, Storybook integration, versioning strategy, and getting team-wide adoption.
+              </p>
+              <div class="card-meta">
+                <div class="card-author">
+                  <div class="author-avatar" aria-hidden="true">LN</div>
+                  <span class="author-name">Lila Nguyen</span>
+                </div>
+                <div class="card-info">
+                  <span>Dec 30, 2025</span>
+                  <span>&#8226; 10 min read</span>
+                </div>
+              </div>
+              <a href="#" class="read-more">Read More &#8594;</a>
+            </div>
+          </article>
+
+          <!-- Card 6 -->
+          <article class="post-card">
+            <div class="card-image node" aria-hidden="true"></div>
+            <div class="card-body">
+              <span class="category-badge">Node.js</span>
+              <h2><a href="#">Node.js Streams: Processing Large Datasets Efficiently</a></h2>
+              <p class="post-excerpt">
+                Understand readable, writable, duplex, and transform streams in Node.js — with
+                hands-on examples for parsing CSV files, compressing data, and building ETL
+                pipelines without blowing your memory budget.
+              </p>
+              <div class="card-meta">
+                <div class="card-author">
+                  <div class="author-avatar" aria-hidden="true">AR</div>
+                  <span class="author-name">Alex Rivera</span>
+                </div>
+                <div class="card-info">
+                  <span>Dec 22, 2025</span>
+                  <span>&#8226; 7 min read</span>
+                </div>
+              </div>
+              <a href="#" class="read-more">Read More &#8594;</a>
+            </div>
+          </article>
+
+        </div><!-- /.post-feed -->
+
+        <!-- ── Pagination ──────────────────────────────────── -->
+        <nav class="pagination" aria-label="Page navigation">
+          <a href="#" aria-label="Previous page">&laquo; Previous</a>
+          <a href="#" class="active" aria-current="page">1</a>
+          <a href="#">2</a>
+          <a href="#">3</a>
+          <span class="dots">&hellip;</span>
+          <a href="#" aria-label="Next page">Next &raquo;</a>
+        </nav>
+
+      </main><!-- /main -->
+
+      <!-- ── Right: Sidebar ──────────────────────────────── -->
+      <aside class="sidebar" aria-label="Sidebar">
+
+        <!-- Search Widget -->
+        <div class="sidebar-widget">
+          <h3 class="widget-title">Search</h3>
+          <div class="search-box" role="search">
+            <input
+              type="search"
+              class="search-input"
+              placeholder="Search articles..."
+              aria-label="Search articles"
+            />
+            <button class="btn-search" aria-label="Submit search">&#9906;</button>
+          </div>
+        </div>
+
+        <!-- Categories Widget -->
+        <div class="sidebar-widget">
+          <h3 class="widget-title">Categories</h3>
+          <ul class="category-list">
+            <li><a href="#">JavaScript</a><span class="cat-count">24</span></li>
+            <li><a href="#">TypeScript</a><span class="cat-count">18</span></li>
+            <li><a href="#">CSS</a><span class="cat-count">15</span></li>
+            <li><a href="#">Node.js</a><span class="cat-count">12</span></li>
+            <li><a href="#">Performance</a><span class="cat-count">9</span></li>
+            <li><a href="#">Design</a><span class="cat-count">7</span></li>
+            <li><a href="#">DevOps</a><span class="cat-count">5</span></li>
+          </ul>
+        </div>
+
+        <!-- Popular Posts Widget -->
+        <div class="sidebar-widget">
+          <h3 class="widget-title">Popular Posts</h3>
+          <ul class="popular-list">
+            <li class="popular-item">
+              <span class="popular-num">01</span>
+              <div>
+                <h4><a href="#">The JavaScript Event Loop: A Visual Guide</a></h4>
+                <span>42,190 views</span>
+              </div>
+            </li>
+            <li class="popular-item">
+              <span class="popular-num">02</span>
+              <div>
+                <h4><a href="#">CSS Flexbox vs Grid: When to Use Each</a></h4>
+                <span>38,470 views</span>
+              </div>
+            </li>
+            <li class="popular-item">
+              <span class="popular-num">03</span>
+              <div>
+                <h4><a href="#">REST vs GraphQL vs tRPC in 2026</a></h4>
+                <span>29,810 views</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Tags Cloud Widget -->
+        <div class="sidebar-widget">
+          <h3 class="widget-title">Tags</h3>
+          <div class="tags-cloud">
+            <a href="#" class="tag">JavaScript</a>
+            <a href="#" class="tag">React</a>
+            <a href="#" class="tag">CSS</a>
+            <a href="#" class="tag">Node.js</a>
+            <a href="#" class="tag">TypeScript</a>
+            <a href="#" class="tag">API</a>
+            <a href="#" class="tag">Performance</a>
+            <a href="#" class="tag">Accessibility</a>
+            <a href="#" class="tag">Testing</a>
+            <a href="#" class="tag">DevOps</a>
+          </div>
+        </div>
+
+        <!-- Newsletter Widget -->
+        <div class="sidebar-widget">
+          <h3 class="widget-title">Newsletter</h3>
+          <form class="newsletter-form" novalidate>
+            <p>Subscribe to our newsletter and get the best dev articles delivered to your inbox every week.</p>
+            <input
+              type="email"
+              class="newsletter-input"
+              placeholder="your@email.com"
+              aria-label="Email address"
+              required
+            />
+            <button type="submit" class="btn-newsletter">Subscribe</button>
+            <div class="success-msg" role="status">
+              You're subscribed! Thanks for joining.
+            </div>
+          </form>
+        </div>
+
+      </aside><!-- /aside -->
+
+    </div><!-- /.blog-layout -->
+  </div><!-- /.page-wrapper -->
+
+  <!-- ── Footer ─────────────────────────────────────────────── -->
+  <footer class="footer" aria-label="Site footer">
+    <div class="footer-inner">
+
+      <!-- About Column -->
+      <div class="footer-about">
+        <div class="footer-brand">The Dev Blog</div>
+        <p>
+          A publication for developers who love their craft. We cover JavaScript,
+          TypeScript, CSS, Node.js, performance, and modern web architecture
+          with depth and clarity.
+        </p>
+      </div>
+
+      <!-- Quick Links Column -->
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Articles</a></li>
+          <li><a href="#">Tutorials</a></li>
+          <li><a href="#">Newsletter</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+
+      <!-- Connect Column -->
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <ul>
+          <li><a href="#">GitHub</a></li>
+          <li><a href="#">Twitter / X</a></li>
+          <li><a href="#">LinkedIn</a></li>
+          <li><a href="#">RSS Feed</a></li>
+          <li><a href="#">Dev.to</a></li>
+        </ul>
+      </div>
+
+    </div><!-- /.footer-inner -->
+
+    <div class="footer-bottom">
+      <span>&copy; 2026 The Dev Blog. All rights reserved.</span>
+      <span>Built with HTML, CSS &amp; vanilla JS</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
